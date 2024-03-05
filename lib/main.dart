@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/authentication/login.dart';
 import 'package:frontend/pages/landing_page.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +20,10 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       initialRoute: "/landingPage",
-      getPages: [GetPage(name: '/landingPage', page: () => LandingPage())],
+      getPages: [
+        GetPage(name: '/landingPage', page: () => LandingPage()),
+        GetPage(name: '/signIn', page: () => SignIn())
+      ],
     );
   }
 }

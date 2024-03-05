@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:frontend/constant.dart';
 import 'package:flutter/gestures.dart';
+import 'package:frontend/constants.dart';
+import 'package:frontend/widgets/layout.dart';
+import 'package:frontend/widgets/buttons.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -17,7 +20,7 @@ class LandingPage extends StatelessWidget {
           Text(
             'LOGO',
             style: TextStyle(
-                fontWeight: FontWeight.bold, color: goldenColor, fontSize: 23),
+                fontWeight: FontWeight.bold, color: primaryColor, fontSize: 23),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
@@ -32,20 +35,26 @@ class LandingPage extends StatelessWidget {
           ),
           DefaultButton('Browse Prize'),
           VerticalSpace(28),
-          Container(
-            height: 49,
-            width: 342,
-            decoration: BoxDecoration(
-                border: Border.all(color: goldenColor),
-                borderRadius: BorderRadius.circular(5)),
-            child: Center(
-                child: Text(
-              'Sign in',
-              style: TextStyle(
-                  color: goldenColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
-            )),
+          GestureDetector(
+            onTap: () {
+              // Get.toNamed('/signIn');
+              Get.toNamed('/signIn');
+            },
+            child: Container(
+              height: 49,
+              width: 342,
+              decoration: BoxDecoration(
+                  border: Border.all(color: primaryColor),
+                  borderRadius: BorderRadius.circular(5)),
+              child: Center(
+                  child: Text(
+                'Sign in',
+                style: TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              )),
+            ),
           ),
           VerticalSpace(30),
           Row(
@@ -72,7 +81,7 @@ class LandingPage extends StatelessWidget {
               HorizontalSpace(5),
               Text(
                 'Sign up',
-                style: TextStyle(color: goldenColor),
+                style: TextStyle(color: primaryColor),
               ),
             ],
           ),
@@ -93,7 +102,7 @@ class LandingPage extends StatelessWidget {
                         recognizer: TapGestureRecognizer()..onTap = () {},
                         text: 'Terms',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: goldenColor)),
+                            fontWeight: FontWeight.bold, color: primaryColor)),
                     TextSpan(
                         text: ' and  ',
                         style: TextStyle(
@@ -103,7 +112,7 @@ class LandingPage extends StatelessWidget {
                         text: ' Policy notice ',
                         recognizer: TapGestureRecognizer()..onTap = () {},
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: goldenColor))
+                            fontWeight: FontWeight.bold, color: primaryColor))
                   ],
                 ),
               ),
