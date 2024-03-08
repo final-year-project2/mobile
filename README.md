@@ -1,16 +1,34 @@
-# frontend
+# Project Name
 
-A new Flutter project.
+![Project Logo](path_to_logo_image)
 
-## Getting Started
+## Introduction
 
-This project is a starting point for a Flutter application.
+This project is built using Flutter and follows the GetX state management solution for efficient and scalable application development. The folder structure is inspired by the GetX folder structure, ensuring a clean and organized codebase.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **GetX Folder Structure**: we use getx folder structure. For more details, refer to the [GetX documentation](https://pub.dev/packages/get).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Reusable Widgets**: A dedicated `widgets` folder has been added to the project. This folder contains all reusable widgets, promoting code reusability and maintainability.
+
+- **Naming Conventions**: The project follows standard Flutter naming conventions for clarity and consistency. This includes using lowercase letters for route names, e.g., `/signin`.
+
+- **Assets Organization**: The `assets` folder is organized by categories such as `car`, `home`, `gadgets`, etc., to facilitate easy access and management of UI testing images.
+
+## Folder Structure
+lib/
+├── binder/
+├── controller/
+├── models/
+├── pages/
+│   ├── authentication/
+│   └── seller/
+├── service/
+└── widget/
+    └── container/
+        ├── custom_form.dart
+        └── button.dart
+
+
+
