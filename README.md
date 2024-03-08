@@ -15,10 +15,10 @@ This project is  using Flutter and GetX for statemanagement
 
 - **Assets Organization**: The `assets` folder is organized by categories such as `car`, `home`, `gadgets`, etc., to facilitate easy access and management of UI testing images.
 
--**Procedure**: After cloning run `flutter pub get` to update the dependency 
+- **Procedures**: After cloning run `flutter pub get` to update the dependency 
 
--**Versions**: The project uses Dart SDK version: 3.3.0 (stable)  and  Flutter 3.19.2 • channel stable  so avoid using Dart 3 incompatible packages
-🙂🙂🙂
+- **Versions**: The project uses Dart SDK version: 3.3.0 (stable)  and  Flutter 3.19.2 • channel stable  so avoid using Dart 3 incompatible packages
 
-- **Naming Conventions**: 
+
+
 
