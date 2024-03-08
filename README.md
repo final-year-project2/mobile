@@ -20,5 +20,5 @@ This project is  using Flutter and GetX for statemanagement
 -**Versions**: The project uses Dart SDK version: 3.3.0 (stable)  and  Flutter 3.19.2 • channel stable  so avoid using Dart 3 incompatible packages
 🙂🙂🙂
 
-
+- **Naming Conventions**: 
 
