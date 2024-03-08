@@ -4,8 +4,7 @@
 
 ## Introduction
 
-This project is built using Flutter and follows the GetX state management solution for efficient and scalable application development. The folder structure is inspired by the GetX folder structure, ensuring a clean and organized codebase.
-
+This project is  using Flutter and follows the GetX state management solution
 ## Features
 
 - **GetX Folder Structure**: we use getx folder structure. For more details, refer to the [GetX documentation](https://pub.dev/packages/get).
