@@ -18,13 +18,13 @@ This project is built using Flutter and follows the GetX state management soluti
 
 ## Folder Structure
 lib/
-├── binder/
+├── binder/)
 │   └── Description: Contains classes for binding data to the UI.
-├── controller/
+├── controller/)
 │   ├── login_controller.dart
 │   └── product_image_controller.dart
 │       └── Description: Contains business logic for handling user inputs and managing state.
-├── models/
+├── models/)
 │   └── Description: Holds the data models of your application.
 ├── pages/
 │   ├── authentication/
