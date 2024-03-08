@@ -1,6 +1,6 @@
-# Project Name
 
-![Project Logo](path_to_logo_image)
+
+
 
 ## Introduction
 
@@ -19,16 +19,25 @@ This project is built using Flutter and follows the GetX state management soluti
 ## Folder Structure
 lib/
 ├── binder/
+│   └── Description: Contains classes for binding data to the UI.
 ├── controller/
+│   ├── login_controller.dart
+│   └── product_image_controller.dart
+│       └── Description: Contains business logic for handling user inputs and managing state.
 ├── models/
+│   └── Description: Holds the data models of your application.
 ├── pages/
 │   ├── authentication/
 │   └── seller/
+│       └── Description: Organized into subfolders for different features or sections of your app.
 ├── service/
+│   └── Description: Contains services for fetching data from external sources.
 └── widget/
     └── container/
         ├── custom_form.dart
         └── button.dart
+            └── Description: Holds reusable widgets, specifically for UI layout and styling.
+
 
 
 
