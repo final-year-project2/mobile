@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/widgets/layout.dart';
+import 'package:get/get.dart';
 
 class Category extends StatelessWidget {
   Category({super.key});
 
-  var categories = [
+  final List<String> categories = [
     'Electronics',
     'House',
     'Holiday',
@@ -15,6 +16,12 @@ class Category extends StatelessWidget {
     'Electronics',
     'House',
     'Holiday',
+    'Additional',
+    'Random',
+    'Creative',
+    'car',
+    'home gadgets',
+    'Creative',
   ];
 
   @override
@@ -51,19 +58,24 @@ class Category extends StatelessWidget {
                 ),
               ),
               VerticalSpace(40),
-              Wrap(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: primaryColor)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
-                      child: Text('s'),
-                    ),
-                  )
-                ],
+              GestureDetector(
+                onTap: () {},
+                child: Wrap(
+                  spacing: 15,
+                  runSpacing: 20,
+                  children: categories
+                      .map((category) => Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: primaryColor)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Text(category),
+                            ),
+                          ))
+                      .toList(),
+                ),
               )
             ],
           ),

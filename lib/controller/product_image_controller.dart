@@ -8,10 +8,10 @@ class ProductImageController extends GetxController {
   final picker = ImagePicker();
   final _images = RxList<XFile>([]); // Use RxList for reactive updates
 
-  Future<void> pickImage() async {
+  Future<void> pickImage(int index) async {
     final result = await picker.pickImage(source: ImageSource.gallery);
     if (result != null) {
-      _images.add(result);
+      _images.insert(index, result); // Insert at specific index
     }
   }
 
