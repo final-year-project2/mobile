@@ -1,16 +1,24 @@
-# frontend
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Introduction
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+This project is  using Flutter and GetX for statemanagement  
+## Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **GetX Folder Structure**:  The project uses getx folder structure. For more details, refer to the [GetX documentation](https://pub.dev/packages/get).
+
+- **Reusable Widgets**: A dedicated `widgets` folder has been added to the project. This folder contains all reusable widgets, promoting code reusability and maintainability.
+
+- **Naming Conventions**: The project follows standard Flutter naming conventions for clarity and consistency. This includes using lowercase letters for route names, e.g., `/signin`.
+
+- **Assets Organization**: The `assets` folder is organized by categories such as `car`, `home`, `gadgets`, etc., to facilitate easy access and management of UI testing images.
+
+- **Procedures**: After cloning run `flutter pub get` to update the dependency 
+
+- **Versions**: The project uses Dart SDK version: 3.3.0 (stable)  and  Flutter 3.19.2 • channel stable  so avoid using Dart 3 incompatible packages
+
+
+
+
