@@ -44,23 +44,64 @@ class SignUp extends StatelessWidget {
               VerticalSpace(20),
 
               CustomForm(
-                isPassword: false,
+                isPassword: true,
                 // labelText: 'Pssword',
+
                 hintText: 'confirm password ',
               ),
               VerticalSpace(20),
               CustomForm(
                 isPassword: false,
                 // labelText: 'Pssword',
-                hintText: 'Phone number ',
+                hintText: 'eg.913377471',
               ),
 
               VerticalSpace(50),
               GestureDetector(
                   onTap: () {
-                    Get.toNamed('/category');
+                    Get.toNamed('/otp');
                   },
                   child: DefaultButton('Sign up')),
+              VerticalSpace(20),
+
+              // Row(
+              //   children: [
+              //     Padding(
+              //       padding: const EdgeInsets.symmetric(horizontal: 45.0),
+              //       child: HorizontalLine(height: 1, width: 120),
+              //     ),
+              //     Padding(
+              //       padding: const EdgeInsets.only(right: 10.0),
+              //       child: Text('or'),
+              //     ),
+              //     Padding(
+              //       padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              //       child: HorizontalLine(height: 1, width: 120),
+              //     ),
+              //   ],
+              // ),
+              VerticalSpace(20),
+              Container(
+                height: 49,
+                width: 342,
+                decoration: BoxDecoration(
+                    border: Border.all(color: primaryColor),
+                    borderRadius: BorderRadius.circular(5)),
+                child: Row(
+                  children: [
+                    Image.asset(width: 50, height: 50, 'assets/googlelogo.jpg'),
+                    HorizontalSpace(50),
+                    Center(
+                        child: Text(
+                      'Continue with Google',
+                      style: TextStyle(
+                          // color: primaryColor,
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    )),
+                  ],
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.all(38.0),
                 child: Center(

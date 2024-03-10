@@ -87,7 +87,9 @@ class ProducImages extends StatelessWidget {
                                 ),
                                 VerticalSpace(10),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.pickImage(0);
+                                  },
                                   icon: Icon(controller.images.length > 0
                                       ? null
                                       : Icons.add),

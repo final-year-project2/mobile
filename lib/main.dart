@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/binders/binders.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:frontend/pages/authentication/login.dart';
+import 'package:frontend/pages/authentication/otp.dart';
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
 import 'package:frontend/pages/seller/product_description.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
           page: () => ProductDetail(),
         ),
         GetPage(name: '/producimages', page: () => ProducImages()),
+        GetPage(name: '/otp', page: () => OTP()),
       ],
     );
   }

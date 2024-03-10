@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/categories_controller.dart';
+import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +25,7 @@ class Category extends StatelessWidget {
     'home gadgets',
     'Creative',
   ];
+  final controller = Get.find<CategoryController>();
 
   @override
   Widget build(BuildContext context) {
@@ -58,24 +61,38 @@ class Category extends StatelessWidget {
                 ),
               ),
               VerticalSpace(40),
-              GestureDetector(
-                onTap: () {},
-                child: Wrap(
-                  spacing: 15,
-                  runSpacing: 20,
-                  children: categories
-                      .map((category) => Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: primaryColor)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: Text(category),
-                            ),
-                          ))
-                      .toList(),
-                ),
+              Wrap(
+                spacing: 15,
+                runSpacing: 20,
+                children: categories
+                    .map((
+                      category,
+                    ) =>
+                        Obx(() => GestureDetector(
+                              onTap: () =>
+                                  controller.toggleCategories(category),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    //If the name is found in the list of selctedcategroy change the color else not
+                                    color: controller.selectedCategories
+                                            .contains(category)
+                                        ? colorForContrast
+                                        : null,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(color: primaryColor)),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  child: Text(category),
+                                ),
+                              ),
+                            )))
+                    .toList(),
+              ),
+              VerticalSpace(50),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 100),
+                child: DefaultButton('Continue'),
               )
             ],
           ),

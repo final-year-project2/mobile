@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/widgets/buttons.dart';
@@ -52,9 +53,19 @@ class ProductDetail extends StatelessWidget {
                     fontWeight: FontWeight.w500),
               ),
               CustomForm(
+                ontap: () {
+                  Get.toNamed('/category');
+                },
                 isPassword: false,
+                readonly: true,
                 hintText: 'Click here',
               ),
+              // CustomForm(
+
+              //   readonly: true,
+              //   isPassword: false,
+              //   hintText: 'Click here',
+              // ),
               VerticalSpace(450),
               GestureDetector(
                 onTap: () => Get.toNamed('/producimages'),

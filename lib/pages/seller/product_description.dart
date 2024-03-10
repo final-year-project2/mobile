@@ -57,6 +57,13 @@ class ProductDesciption extends StatelessWidget {
               child: Container(
                 width: 350,
                 height: 170,
+                child: TextFormField(
+                  maxLines: null,
+                  style: TextStyle(decoration: TextDecoration.none),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none),
+                ),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: fotterTextColor)),

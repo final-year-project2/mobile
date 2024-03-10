@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/categories_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -9,8 +10,6 @@ import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +37,18 @@ class SignIn extends StatelessWidget {
                   // labelText: 'Password',
                   hintText: ' Password',
                   isPassword: true,
+                ),
+                Row(
+                  children: [
+                    Expanded(child: Container()),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 30, 0),
+                      child: Text(
+                        'Forgot password?',
+                        style: TextStyle(fontSize: 11, color: fotterTextColor),
+                      ),
+                    )
+                  ],
                 ),
                 VerticalSpace(40),
                 GestureDetector(
