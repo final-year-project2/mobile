@@ -15,17 +15,21 @@ class ProductDesciption extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 50, 0, 0),
+          child: ProgressBox(1),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            //   child: ProgressBox(1),
+            // ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: ProgressBox(1),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 30, 0, 10),
+              padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 10),
               child: Text(
                 'Describe about your product',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),

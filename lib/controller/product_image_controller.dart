@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart'; // If using GetX (optional)
 
 class ProductImageController extends GetxController {
-  final picker = ImagePicker();
+ final picker = ImagePicker();
   final _images = RxList<XFile>([]); // Use RxList for reactive updates
 
   Future<void> pickImage(int index) async {
@@ -16,4 +16,6 @@ class ProductImageController extends GetxController {
   }
 
   List<XFile> get images => _images;
+
+
 }

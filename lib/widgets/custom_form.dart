@@ -31,6 +31,7 @@ class CustomForm extends StatelessWidget {
             Container(
               width: 350,
               child: TextFormField(
+                style: TextStyle(decoration: TextDecoration.none),
                 enableIMEPersonalizedLearning: true,
                 onChanged: onchanged,
                 obscureText: isPassword == true

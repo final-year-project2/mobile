@@ -14,6 +14,10 @@ class ProductDetail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 50, 0, 0),
+          child: ProgressBox(2),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -21,8 +25,8 @@ class ProductDetail extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProgressBox(2),
-              VerticalSpace(30),
+              // ProgressBox(2),
+              // VerticalSpace(30),
               Text(
                 'Prize Details',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),

@@ -7,19 +7,19 @@ Widget ProgressBox(int page) {
     children: [
       Container(
         width: 120,
-        height: 6,
+        height: 11,
         color: primaryColor,
       ),
       HorizontalSpace(10),
       Container(
         width: 120,
-        height: 6,
+        height: 11,
         color: page >= 2 ? primaryColor : darklight,
       ),
       HorizontalSpace(10),
       Container(
         width: 120,
-        height: 6,
+        height: 11,
         color: page >= 3 ? primaryColor : darklight,
       )
     ],

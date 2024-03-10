@@ -18,16 +18,19 @@ class ProducImages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-        ),
+            automaticallyImplyLeading: false,
+            flexibleSpace: Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 50, 0, 0),
+              child: ProgressBox(3),
+            )),
         body: Obx(() => SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ProgressBox(3),
-                    VerticalSpace(30),
+                    // ProgressBox(3),
+                    // VerticalSpace(30),
                     SizedBox(
                       width: 350,
                       child: Text(
@@ -36,13 +39,14 @@ class ProducImages extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 23),
                       ),
                     ),
-                    VerticalSpace(30),
+                    VerticalSpace(15),
                     Padding(
-                      padding: const EdgeInsets.only(left: 4.0),
+                      padding: const EdgeInsets.only(right: 10.0),
                       child: Text(
-                        // textAlign: TextA
+                        textAlign: TextAlign.center,
                         'Add cover image that will be displayed as Title photo',
                         style: TextStyle(
+                            letterSpacing: 1.5,
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
                             fontWeight: FontWeight.w500),
@@ -58,14 +62,14 @@ class ProducImages extends StatelessWidget {
                         },
                         child: Center(
                           child: Container(
-                            width: 340,
-                            height: 180,
+                            width: 300,
+                            height: 250,
                             decoration: BoxDecoration(
                               image: controller.images.length > 0
                                   ? DecorationImage(
                                       image: FileImage(
                                           File(controller.images[0].path)),
-                                      fit: BoxFit.scaleDown,
+                                      fit: BoxFit.cover,
                                     )
                                   : null,
                               borderRadius: BorderRadius.circular(10),
@@ -94,7 +98,7 @@ class ProducImages extends StatelessWidget {
                         ),
                       ),
                     ),
-                    VerticalSpace(40),
+                    VerticalSpace(15),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
@@ -106,7 +110,7 @@ class ProducImages extends StatelessWidget {
                             fontWeight: FontWeight.w500),
                       ),
                     ),
-                    VerticalSpace(25),
+                    VerticalSpace(15),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
                       child: Container(
@@ -137,33 +141,43 @@ class ProducImages extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(color: fotterTextColor),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        controller.images.length > index + 1
-                                            ? ''
-                                            : 'Add additional photo',
-                                        style: TextStyle(),
-                                      ),
-                                      VerticalSpace(10),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                            controller.images.length > index + 1
-                                                ? null
-                                                : Icons.add),
-                                      ),
-                                    ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          controller.images.length > index + 1
+                                              ? ''
+                                              : '',
+                                          style: TextStyle(),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 20.0),
+                                          child: IconButton(
+                                            onPressed: () {
+                                              controller.pickImage(index + 1);
+                                            },
+                                            icon: Icon(
+                                                controller.images.length >
+                                                        index + 1
+                                                    ? null
+                                                    : Icons.add),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
                             }),
                       ),
                     ),
-                    VerticalSpace(10),
+                    // VerticalSpace(10),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
@@ -171,14 +185,14 @@ class ProducImages extends StatelessWidget {
                         style: TextStyle(),
                       ),
                     ),
-                    VerticalSpace(10),
+                    VerticalSpace(5),
                     Text(
                       'Supported formats are .*jpg and .*png ',
                       style: TextStyle(color: Color.fromARGB(255, 7, 165, 34)),
                     ),
-                    VerticalSpace(20),
+                    // VerticalSpace(20),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(30.0, 10, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(30.0, 10, 0, 40),
                       child: DefaultButton('Continue'),
                     )
                   ],
