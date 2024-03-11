@@ -17,13 +17,14 @@ class CustomForm extends StatelessWidget {
   //dependency injection
   final controller = Get.find<LoginController>();
 
-  CustomForm(
-      {this.labelText,
-      this.hintText,
-      this.isPassword,
-      this.onchanged,
-      this.ontap,
-      this.readonly});
+  CustomForm({
+    this.labelText,
+    this.hintText,
+    this.isPassword,
+    this.onchanged,
+    this.ontap,
+    this.readonly,
+  });
 
   @override
   Widget build(BuildContext context) {

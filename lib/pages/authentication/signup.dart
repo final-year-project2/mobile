@@ -30,6 +30,7 @@ class SignUp extends StatelessWidget {
                 // labelText: 'User name',
                 hintText: 'User name',
               ),
+
               VerticalSpace(20),
               CustomForm(
                 isPassword: false,
