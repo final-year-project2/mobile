@@ -31,25 +31,25 @@ class ProductDesciption extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 10),
               child: Text(
-                'Describe about your product',
+                'PRODUCT'.tr,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-              child: Text('Give your product a title',
+              child: Text('TITLE'.tr,
                   style: TextStyle(fontStyle: FontStyle.normal, fontSize: 15)),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 0, 50),
               child: CustomForm(
                 isPassword: false,
-                hintText: 'laptop xkp',
+                hintText: 'Samsung A11',
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 15),
-              child: Text('Describe  your product in detail',
+              child: Text('DESCRIPTION'.tr,
                   style: TextStyle(fontStyle: FontStyle.normal, fontSize: 15)),
             ),
             Padding(
@@ -75,7 +75,7 @@ class ProductDesciption extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(25.0, 300, 0, 0),
-                child: DefaultButton('Continue'),
+                child: DefaultButton('CONTINUE'.tr),
               ),
             ),
             //
