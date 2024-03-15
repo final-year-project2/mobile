@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/binders/binders.dart';
+import 'package:frontend/languages.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:frontend/pages/authentication/login.dart';
 import 'package:frontend/pages/authentication/otp.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: Languages(),
+      locale: Locale('am', 'Et'),
+      fallbackLocale: Locale('en', 'Us'),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),

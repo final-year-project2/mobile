@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:frontend/controller/language_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/gestures.dart';
@@ -8,8 +10,9 @@ import 'package:frontend/widgets/layout.dart';
 import 'package:frontend/widgets/buttons.dart';
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({super.key});
+  // const LandingPage({super.key});
 
+  final controller = Get.find<LanguageController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,7 @@ class LandingPage extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
               child: Text(
-                'Unlock the Unseen, Win the Prize',
+                'AD'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 29,
@@ -38,7 +41,7 @@ class LandingPage extends StatelessWidget {
                 ),
               ),
             ),
-            DefaultButton('Browse Prize'),
+            DefaultButton('BROWSEPRIZE'.tr),
             VerticalSpace(28),
             GestureDetector(
               onTap: () {
@@ -53,7 +56,7 @@ class LandingPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5)),
                 child: Center(
                     child: Text(
-                  'Sign in',
+                  'SIGNIN'.tr,
                   style: TextStyle(
                       color: primaryColor,
                       fontWeight: FontWeight.bold,
@@ -70,7 +73,7 @@ class LandingPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 10.0),
-                  child: Text('or'),
+                  child: Text('OR'.tr),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -82,14 +85,14 @@ class LandingPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Don\'t have an account?'),
+                Text('NOACCOUNT'.tr),
                 HorizontalSpace(5),
                 GestureDetector(
                   onTap: () {
                     Get.toNamed('/signup');
                   },
                   child: Text(
-                    'Sign up',
+                    'SIGNUP'.tr,
                     style: TextStyle(color: primaryColor),
                   ),
                 ),
@@ -104,31 +107,42 @@ class LandingPage extends StatelessWidget {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                          text: ' By continuing you are agree with the xxxxx  ',
+                          text: 'PRIVACY'.tr,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: fotterTextColor)),
                       TextSpan(
                           recognizer: TapGestureRecognizer()..onTap = () {},
-                          text: 'Terms',
+                          text: 'TERM'.tr,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: primaryColor)),
                       TextSpan(
-                          text: ' and  ',
+                          text: 'AND'.tr,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: fotterTextColor)),
                       TextSpan(
-                          text: ' Policy notice ',
+                          text: 'POLICY'.tr,
                           recognizer: TapGestureRecognizer()..onTap = () {},
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: primaryColor))
+                              fontWeight: FontWeight.bold,
+                              color: primaryColor)),
+                      TextSpan(
+                          text: 'AGREED'.tr,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: fotterTextColor))
                     ],
                   ),
                 ),
               ),
-            )
+            ),
+            GestureDetector(
+                onTap: () {
+                  controller.toggleLanguage();
+                },
+                child: Text('CHANGE LANGAUGE'))
           ],
         ),
       ),
