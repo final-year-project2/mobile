@@ -81,6 +81,7 @@ class SignIn extends StatelessWidget {
                     HorizontalSpace(5),
                     GestureDetector(
                       onTap: () => {
+                        // print('oncorse${controller.isLightTheme.value}'),
                         Get.toNamed('/signup'),
                       },
                       child: Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/binders/binders.dart';
+import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/languages.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:frontend/pages/authentication/login.dart';
@@ -13,29 +14,35 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  //
+  // ;
+  // ThemeControllers themeControllers = ThemeControllers();
+  // MyApp({super.key});
 
   // This widget is the root of your application.
+  // final themeController = Get.find<ThemeControllers>();
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: Binders(),
+      // darkTheme: themeController.darkTheme,
+      // themeMode: ThemeMode.dark,
       translations: Languages(),
-      locale: Locale('am', 'Et'),
+      locale: Locale('en', 'Us'),
       fallbackLocale: Locale('en', 'Us'),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(),
-      ),
+      // theme: themeController.lightTheme,
       initialRoute: "/landingpage",
       getPages: [
         GetPage(
-            name: '/landingpage',
-            page: () => LandingPage(),
-            binding: Binders()),
+          name: '/landingpage',
+          page: () => LandingPage(),
+        ),
         GetPage(name: '/signin', page: () => SignIn()),
         GetPage(name: '/signup', page: () => SignUp()),
         GetPage(name: '/category', page: () => Category()),

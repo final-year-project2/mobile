@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
+  // var screensize  = MediaQuery.of(context)
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class SignUp extends StatelessWidget {
               //     ),
               //   ],
               // ),
-              VerticalSpace(20),
+              VerticalSpace(10),
               // Container(
               //   height: 49,
               //   width: 342,
