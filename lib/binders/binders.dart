@@ -10,12 +10,12 @@ class Binders extends Bindings {
   @override
   void dependencies() {
     // Get.put(ThemeControllers());
-    Get.put(ThemeControllers());
+    Get.lazyPut(() => ThemeControllers());
 
     Get.put(LoginController());
-    Get.put(ProductImageController());
+    Get.lazyPut(() => ProductImageController());
 
-    Get.put(CategoryController());
-    Get.put(LanguageController());
+    Get.lazyPut(() => CategoryController());
+    Get.lazyPut(() => LanguageController());
   }
 }

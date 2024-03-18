@@ -5,6 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeControllers extends GetxController {
+  ThemeData darkTheme = ThemeData(
+    primaryColor: primaryColor,
+    brightness: Brightness.dark,
+    textTheme: GoogleFonts.poppinsTextTheme(),
+  );
+  ThemeData lightTheme = ThemeData(
+    primaryColor: primaryColor,
+    brightness: Brightness.light,
+    textTheme: GoogleFonts.poppinsTextTheme(),
+  );
   RxBool isLightTheme = true.obs;
 
   void toggleTheme() {
@@ -24,15 +34,15 @@ class ThemeControllers extends GetxController {
   }
 }
 
-class ThemeFile {
-  ThemeData darkTheme = ThemeData(
-    primaryColor: primaryColor,
-    brightness: Brightness.dark,
-    textTheme: GoogleFonts.poppinsTextTheme(),
-  );
-  ThemeData lightTheme = ThemeData(
-    primaryColor: primaryColor,
-    brightness: Brightness.light,
-    textTheme: GoogleFonts.poppinsTextTheme(),
-  );
-}
+// class ThemeFile {
+//   ThemeData darkTheme = ThemeData(
+//     primaryColor: primaryColor,
+//     brightness: Brightness.dark,
+//     textTheme: GoogleFonts.poppinsTextTheme(),
+//   );
+//   ThemeData lightTheme = ThemeData(
+//     primaryColor: primaryColor,
+//     brightness: Brightness.light,
+//     textTheme: GoogleFonts.poppinsTextTheme(),
+//   );
+// }

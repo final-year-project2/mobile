@@ -24,7 +24,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   //hemeC
   // ;p
-  ThemeFile themeFile = ThemeFile();
+  // ThemeFile themeFile = ThemeFile();
 
   // MyApp({super.key});
 
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     final themeController = Get.find<ThemeControllers>();
     return Obx(() => GetMaterialApp(
           initialBinding: Binders(),
-          darkTheme: themeFile.darkTheme,
+          darkTheme: themeController.darkTheme,
           themeMode: themeController.isLightTheme.value
               ? ThemeMode.light
               : ThemeMode.dark,
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           locale: Locale('en', 'Us'),
           fallbackLocale: Locale('en', 'Us'),
           debugShowCheckedModeBanner: false,
-          theme: themeFile.lightTheme,
+          theme: themeController.lightTheme,
           initialRoute: "/landingpage",
           getPages: [
             GetPage(
