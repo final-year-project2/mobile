@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/controller/language_controller.dart';
+import 'package:frontend/controller/theme_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/gestures.dart';
@@ -13,6 +14,7 @@ class LandingPage extends StatelessWidget {
   // const LandingPage({super.key});
 
   final controller = Get.find<LanguageController>();
+  final themecontroller = Get.find<ThemeControllers>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +144,15 @@ class LandingPage extends StatelessWidget {
                 onTap: () {
                   controller.toggleLanguage();
                 },
-                child: Text('CHANGE LANGAUGE'))
+                child: Text('CHANGE LANGAUGE')),
+            GestureDetector(
+                onTap: () {
+                  print(
+                      '=========================================================================');
+                  themecontroller.toggleTheme();
+                },
+                child:
+                    Container(color: Colors.red, child: Text('CHANGE THEM'))),
           ],
         ),
       ),

@@ -11,8 +11,10 @@ class Binders extends Bindings {
   void dependencies() {
     // Get.put(ThemeControllers());
     Get.put(ThemeControllers());
+
     Get.put(LoginController());
     Get.put(ProductImageController());
+
     Get.put(CategoryController());
     Get.put(LanguageController());
   }

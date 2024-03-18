@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/categories_controller.dart';
+import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 
 class SignIn extends StatelessWidget {
+  final themeControllers = Get.find<ThemeControllers>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +57,8 @@ class SignIn extends StatelessWidget {
                 GestureDetector(
                     onTap: () {
                       Get.toNamed('/productdesciption');
+                      print(
+                          '==================================${themeControllers.isLightTheme}');
                     },
                     child: DefaultButton('SIGNIN'.tr)),
                 VerticalSpace(30),

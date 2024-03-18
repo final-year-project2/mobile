@@ -12,15 +12,20 @@ import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/product_image.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeController = Get.put(ThemeControllers());
+  await themeController.loadThemePreference();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  //
-  // ;
-  // ThemeControllers themeControllers = ThemeControllers();
+  //hemeC
+  // ;p
+  ThemeFile themeFile = ThemeFile();
+
   // MyApp({super.key});
 
   // This widget is the root of your application.
@@ -28,35 +33,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      initialBinding: Binders(),
-      // darkTheme: themeController.darkTheme,
-      // themeMode: ThemeMode.dark,
-      translations: Languages(),
-      locale: Locale('en', 'Us'),
-      fallbackLocale: Locale('en', 'Us'),
-      debugShowCheckedModeBanner: false,
-      // theme: themeController.lightTheme,
-      initialRoute: "/landingpage",
-      getPages: [
-        GetPage(
-          name: '/landingpage',
-          page: () => LandingPage(),
-        ),
-        GetPage(name: '/signin', page: () => SignIn()),
-        GetPage(name: '/signup', page: () => SignUp()),
-        GetPage(name: '/category', page: () => Category()),
-        GetPage(
-          name: '/productdesciption',
-          page: () => ProductDesciption(),
-        ),
-        GetPage(
-          name: '/productdetail',
-          page: () => ProductDetail(),
-        ),
-        GetPage(name: '/producimages', page: () => ProducImages()),
-        GetPage(name: '/otp', page: () => OTP()),
-      ],
-    );
+    final themeController = Get.find<ThemeControllers>();
+    return Obx(() => GetMaterialApp(
+          initialBinding: Binders(),
+          darkTheme: themeFile.darkTheme,
+          themeMode: themeController.isLightTheme.value
+              ? ThemeMode.light
+              : ThemeMode.dark,
+          translations: Languages(),
+          locale: Locale('en', 'Us'),
+          fallbackLocale: Locale('en', 'Us'),
+          debugShowCheckedModeBanner: false,
+          theme: themeFile.lightTheme,
+          initialRoute: "/landingpage",
+          getPages: [
+            GetPage(
+              name: '/landingpage',
+              page: () => LandingPage(),
+            ),
+            GetPage(name: '/signin', page: () => SignIn()),
+            GetPage(name: '/signup', page: () => SignUp()),
+            GetPage(name: '/category', page: () => Category()),
+            GetPage(
+              name: '/productdesciption',
+              page: () => ProductDesciption(),
+            ),
+            GetPage(
+              name: '/productdetail',
+              page: () => ProductDetail(),
+            ),
+            GetPage(name: '/producimages', page: () => ProducImages()),
+            GetPage(name: '/otp', page: () => OTP()),
+          ],
+        ));
   }
 }
