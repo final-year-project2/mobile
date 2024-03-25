@@ -11,8 +11,6 @@ const darklight = Color.fromRGBO(223, 223, 223, 1);
 
 
 
- 
-
 Widget Logo() {
   return Text(
     'LOGO',
