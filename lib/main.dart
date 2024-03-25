@@ -5,6 +5,7 @@ import 'package:frontend/pages/authentication/login.dart';
 import 'package:frontend/pages/authentication/otp.dart';
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
+import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/product_image.dart';
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      initialRoute: "/landingpage",
+      initialRoute: "/onboarding",
       getPages: [
+        GetPage(name: '/onboarding', page:()=> onboarding_page()),
         GetPage(
             name: '/landingpage',
             page: () => LandingPage(),
