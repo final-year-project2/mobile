@@ -29,12 +29,12 @@ class ProductDetail extends StatelessWidget {
               // ProgressBox(2),
               // VerticalSpace(30),
               Text(
-                'Prize Details',
+                'DETAIL'.tr,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
               ),
               VerticalSpace(10),
               Text(
-                'How many tickets want to be sold',
+                'NUBER_OF_TICKETS'.tr,
                 style: TextStyle(
                     fontStyle: FontStyle.normal,
                     fontSize: 15,
@@ -46,7 +46,7 @@ class ProductDetail extends StatelessWidget {
               ),
               VerticalSpace(30),
               Text(
-                'Enter Prize category',
+                'CATEGORY'.tr,
                 style: TextStyle(
                     fontStyle: FontStyle.normal,
                     fontSize: 15,
@@ -58,7 +58,7 @@ class ProductDetail extends StatelessWidget {
                 },
                 isPassword: false,
                 readonly: true,
-                hintText: 'Click here',
+                hintText: 'CLICK_HERE'.tr,
               ),
               // CustomForm(
 
@@ -71,7 +71,7 @@ class ProductDetail extends StatelessWidget {
                 onTap: () => Get.toNamed('/producimages'),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 25.0),
-                  child: DefaultButton('Continue'),
+                  child: DefaultButton('CONTINUE'.tr),
                 ),
               )
             ],

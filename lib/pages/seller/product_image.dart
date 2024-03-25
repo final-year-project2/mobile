@@ -34,7 +34,7 @@ class ProducImages extends StatelessWidget {
                     SizedBox(
                       width: 350,
                       child: Text(
-                        'Nearly finished Add Images for your product',
+                        'NEARLY_FINISHED'.tr,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 23),
                       ),
@@ -44,7 +44,7 @@ class ProducImages extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10.0),
                       child: Text(
                         textAlign: TextAlign.center,
-                        'Add cover image that will be displayed as Title photo',
+                        'COVER_IMAGE'.tr,
                         style: TextStyle(
                             letterSpacing: 1.5,
                             fontStyle: FontStyle.normal,
@@ -82,7 +82,7 @@ class ProducImages extends StatelessWidget {
                                 Text(
                                   controller.images.length > 0
                                       ? ''
-                                      : 'Add title photo',
+                                      : 'TITLE_PHOTO'.tr,
                                   style: TextStyle(),
                                 ),
                                 VerticalSpace(10),
@@ -105,7 +105,7 @@ class ProducImages extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
                         textAlign: TextAlign.center,
-                        'Add two iamge to describe the product more(Optional)',
+                        'ADDITIONAL_PHOTO'.tr,
                         style: TextStyle(
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
@@ -183,19 +183,19 @@ class ProducImages extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
-                        'Image size must not greater than 9mb ',
+                        'IMAGE_SIZE'.tr,
                         style: TextStyle(),
                       ),
                     ),
                     VerticalSpace(5),
                     Text(
-                      'Supported formats are .*jpg and .*png ',
+                      'SUPPORTED_FORMATS'.tr,
                       style: TextStyle(color: Color.fromARGB(255, 7, 165, 34)),
                     ),
                     // VerticalSpace(20),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(30.0, 10, 0, 40),
-                      child: DefaultButton('Continue'),
+                      child: DefaultButton('CONTINUE'.tr),
                     )
                   ],
                 ),

@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
+  // var screensize  = MediaQuery.of(context)
 
   @override
   Widget build(BuildContext context) {
@@ -81,28 +82,28 @@ class SignUp extends StatelessWidget {
               //     ),
               //   ],
               // ),
-              VerticalSpace(20),
-              Container(
-                height: 49,
-                width: 342,
-                decoration: BoxDecoration(
-                    border: Border.all(color: primaryColor),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Row(
-                  children: [
-                    Image.asset(width: 50, height: 50, 'assets/googlelogo.jpg'),
-                    HorizontalSpace(50),
-                    Center(
-                        child: Text(
-                      'Continue with Google',
-                      style: TextStyle(
-                          // color: primaryColor,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 15),
-                    )),
-                  ],
-                ),
-              ),
+              VerticalSpace(10),
+              // Container(
+              //   height: 49,
+              //   width: 342,
+              //   decoration: BoxDecoration(
+              //       border: Border.all(color: primaryColor),
+              //       borderRadius: BorderRadius.circular(5)),
+              //   child: Row(
+              //     children: [
+              //       Image.asset(width: 50, height: 50, 'assets/googlelogo.jpg'),
+              //       HorizontalSpace(50),
+              //       Center(
+              //           child: Text(
+              //         'Continue with Google',
+              //         style: TextStyle(
+              //             // color: primaryColor,
+              //             // fontWeight: FontWeight.bold,
+              //             fontSize: 15),
+              //       )),
+              //     ],
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.all(38.0),
                 child: Center(

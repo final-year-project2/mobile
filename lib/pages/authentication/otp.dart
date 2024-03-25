@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTP extends StatelessWidget {
@@ -24,13 +25,13 @@ class OTP extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Verify',
+                'VERIFY'.tr,
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(top: 5.0),
                 child: Text(
-                  'Please enter the 4 digit code sent to you at +251 91337****',
+                  'ENTER_OTP'.tr,
                   style: TextStyle(
                     fontSize: 15,
                     color: Color.fromRGBO(139, 139, 139, 1),
@@ -59,7 +60,7 @@ class OTP extends StatelessWidget {
               VerticalSpace(spacing),
               Padding(
                   padding: EdgeInsets.only(left: 30),
-                  child: DefaultButton('Continue'))
+                  child: DefaultButton('CONTINUE'.tr))
             ],
           ),
         ),
