@@ -22,7 +22,7 @@ class _page1State extends State<page1> {
         
         SizedBox(
           height: 420,
-          child: Lottie.network('https://lottie.host/4b4cb390-9684-4155-bdd6-a036d2b334c2/mDRHB6VmBq.json',
+          child: Lottie.asset('assets/page1.json',
           animate: true,
           backgroundLoading: true,
           ),

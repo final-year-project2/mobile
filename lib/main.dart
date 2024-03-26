@@ -12,7 +12,6 @@ import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/product_image.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final themeController = Get.put(ThemeControllers());
@@ -47,11 +46,11 @@ class MyApp extends StatelessWidget {
           theme: themeController.lightTheme,
           initialRoute: "/onboarding",
           getPages: [
-            
+
             GetPage(name: '/onboarding', page:()=> onboarding_page()),
             GetPage(
               name: '/landingpage',
-              page: () => LandingPage(),
+              page: () => LandingPage(),binding: Binders()
             ),
             GetPage(name: '/signin', page: () => SignIn()),
             GetPage(name: '/signup', page: () => SignUp()),
