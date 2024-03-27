@@ -1,16 +1,26 @@
+import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/signup_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart' as dio;
 
 class SignUp extends StatelessWidget {
-  const SignUp({super.key});
   // var screensize  = MediaQuery.of(context)
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+
+  final controller = Get.find<SignUpController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,40 +38,63 @@ class SignUp extends StatelessWidget {
               Logo(),
               CustomForm(
                 isPassword: false,
-                // labelText: 'User name',
+                editingController: userNameController,
                 hintText: 'User name',
               ),
 
-              VerticalSpace(20),
-              CustomForm(
-                isPassword: false,
-                hintText: 'Email',
-              ),
+              // VerticalSpace(20),
+              // CustomForm(
+              //   editingController: emailController,
+              //   isPassword: false,
+              //   hintText: 'Email',
+              // ),
               VerticalSpace(20),
               CustomForm(
                 isPassword: true,
-                // labelText: 'Pssword',
+                editingController: passwordController,
                 hintText: 'password',
               ),
               VerticalSpace(20),
 
               CustomForm(
                 isPassword: true,
-                // labelText: 'Pssword',
-
+                editingController: passwordController,
                 hintText: 'confirm password ',
               ),
               VerticalSpace(20),
               CustomForm(
                 isPassword: false,
                 // labelText: 'Pssword',
+                editingController: phoneNumberController,
                 hintText: 'eg.913377471',
               ),
 
               VerticalSpace(50),
               GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/otp');
+                  onTap: () async {
+                    String name = userNameController.text;
+                    final response;
+                    String password = passwordController.text;
+                    String Phone_no = phoneNumberController.text;
+
+                    // print('email:$Email');
+                    // print('username:$name');
+                    // print('PhoneNumber :$Phone_no');
+                    // print('password :$password');
+                    try {
+                      response =
+                          await controller.signUp(name, Phone_no, password);
+                      print('response:$response');
+
+                      if (response == 201) {
+                        Get.toNamed('/otp');
+                      } else {
+                        print('statuscodeOnly${response.statusCode}');
+                        print('error');
+                      }
+                    } catch (e) {
+                      print('error calling signup: $e');
+                    }
                   },
                   child: DefaultButton('Sign up')),
               VerticalSpace(20),

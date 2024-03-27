@@ -11,6 +11,7 @@ class ThemeControllers extends GetxController {
     textTheme: GoogleFonts.poppinsTextTheme(),
   );
   ThemeData lightTheme = ThemeData(
+   
     primaryColor: primaryColor,
     brightness: Brightness.light,
     textTheme: GoogleFonts.poppinsTextTheme(),
