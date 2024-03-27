@@ -28,14 +28,14 @@ class page2 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                  Text('Create Acount ',style: TextStyle(
+                  Text('create_acount'.tr,style: TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold ,
                     fontSize: 20,
                     letterSpacing: 2
                   ),),
                   SizedBox(height: 6,),
-                  Text('To get started, create your personal account within the app. It is a quick and easy process that will enable you to access a wide variety of exciting lottery tikets, track your tickets, and manage your winnings all in one place. Your account information is securely protected, so you can play with confidence',
+                  Text('page2description'.tr,
                   style: TextStyle(
                     color: optionalgrayTextColor,
                     fontSize: 14,
@@ -47,7 +47,7 @@ class page2 extends StatelessWidget {
         ),
         GestureDetector(
           onTap: ()=>Get.toNamed('/landingpage'),
-          child: DefaultButton("Skip"))
+          child: DefaultButton("skip".tr))
         ],
       ),
     );
