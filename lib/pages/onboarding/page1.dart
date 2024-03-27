@@ -2,34 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/language_controller.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-class page1 extends StatefulWidget {
-  const page1({super.key});
-
-  @override
-  State<page1> createState() => _page1State();
-}
-
-class _page1State extends State<page1> {
+class page1 extends StatelessWidget {
+  page1({super.key});
     final languacontroler = Get.find<LanguageController>();
-    String? dropdownValue ;
 
-  @override
-  void initState() {
-    super.initState();
-    dropdownValue = languacontroler.isEnglish.value ? "English" : 'አማረኛ';
-  }
   @override
   Widget build(BuildContext context) {
     return Container(
       child:SingleChildScrollView(
         child: Column(
           children: [
-          SizedBox(height: 40,),
-          
+          SizedBox(height: 40,),  
           SizedBox(
             height: 420,
             child: Stack(
@@ -42,8 +28,9 @@ class _page1State extends State<page1> {
               Positioned(
                 top: -10,
                 right: 20,
-                child: DropdownButton(
-                  value: dropdownValue,
+                child: Obx(() => 
+                DropdownButton(
+                  value: languacontroler.dropdownValue.value,
                   style: TextStyle(color: primaryColor,fontSize: 18,fontWeight: FontWeight.bold),
                   icon: Icon(Icons.arrow_drop_down,color: primaryColor,), 
                   items: [
@@ -57,13 +44,11 @@ class _page1State extends State<page1> {
                       textAlign: TextAlign.center,))
                   ], 
                   onChanged: (String? newValue){
-                    setState(() {
-                      print('seted');
-                      dropdownValue = newValue;
-                      languacontroler.toggleLanguage(newValue!);
-                    });
+                      languacontroler.dropdownValue.value = newValue!;
+                      languacontroler.toggleLanguage(newValue);
                   }, 
                   ),
+                )
               )
               ],
             ),
@@ -100,7 +85,3 @@ class _page1State extends State<page1> {
     );
   }
 }
-
-  // Get.changeTheme(
-  //         Get.isDarkMode?ThemeData.light():ThemeData.dark()
-  //   );,

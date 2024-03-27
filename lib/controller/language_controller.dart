@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageController extends GetxController {
   RxBool isEnglish = true.obs;
+  RxString dropdownValue = ''.obs;
   void toggleLanguage(String languageType) {
     if (languageType == 'English') {
       isEnglish.value = true;
@@ -31,6 +33,7 @@ class LanguageController extends GetxController {
   void onInit() async{
     await loadLanguagePreference();
     toggleLanguage(isEnglish.value?'English':'አማረኛ');
+    dropdownValue.value = isEnglish.value ? "English" : "አማረኛ";
     super.onInit();
   }
 }
