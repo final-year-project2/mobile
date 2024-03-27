@@ -31,8 +31,8 @@ class page1 extends StatelessWidget {
                 child: Obx(() => 
                 DropdownButton(
                   value: languacontroler.dropdownValue.value,
-                  style: TextStyle(color: primaryColor,fontSize: 18,fontWeight: FontWeight.bold),
-                  icon: Icon(Icons.arrow_drop_down,color: primaryColor,), 
+                  style: TextStyle(color: thirdColor,fontSize: 18,fontWeight: FontWeight.bold),
+                  icon: Icon(Icons.arrow_drop_down,color: thirdColor,), 
                   items: [
                     DropdownMenuItem<String>(
                       value: "language1".tr,
