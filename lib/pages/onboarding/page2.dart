@@ -17,7 +17,7 @@ class page2 extends StatelessWidget {
         
         SizedBox(
           height: 420,
-          child: Lottie.network('https://lottie.host/7656e652-92af-466b-95cf-5715e7a37f2a/7otMjF5k5n.json',
+          child: Lottie.asset('assets/page2.json',
           animate: true,
           backgroundLoading: true
           ),

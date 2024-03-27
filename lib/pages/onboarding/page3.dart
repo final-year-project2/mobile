@@ -14,10 +14,9 @@ class page3 extends StatelessWidget {
         children: [
 
         SizedBox(height: 15,),
-        
         SizedBox(
           height: 420,
-          child: Lottie.network('https://lottie.host/fa1f887d-e23b-4d2f-8795-13c4cc583252/3vQIEduzEp.json',
+          child: Lottie.asset('assets/page3.json',
           animate: true,
           backgroundLoading: true
           ),
@@ -46,7 +45,7 @@ class page3 extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: ()=>Get.toNamed('/landingpage'),
+          onTap: ()=>Get.offAllNamed('/landingpage'),
           child: DefaultButton("Skip"))
         ],
       ));
