@@ -18,6 +18,6 @@ class Binders extends Bindings {
     Get.lazyPut(() => ProductImageController());
 
     Get.lazyPut(() => CategoryController());
-    Get.lazyPut(() => LanguageController());
+    Get.put(LanguageController());
   }
 }

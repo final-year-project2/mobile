@@ -14,10 +14,9 @@ class page3 extends StatelessWidget {
         children: [
 
         SizedBox(height: 15,),
-        
         SizedBox(
           height: 420,
-          child: Lottie.network('https://lottie.host/fa1f887d-e23b-4d2f-8795-13c4cc583252/3vQIEduzEp.json',
+          child: Lottie.asset('assets/page3.json',
           animate: true,
           backgroundLoading: true
           ),
@@ -28,14 +27,14 @@ class page3 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                  Text('FINALY ',style: TextStyle(
+                  Text('finaly'.tr,style: TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold ,
                     fontSize: 20,
                     letterSpacing: 2
                   ),),
                   SizedBox(height: 6,),
-                  Text('Get ready to immerse yourself in the world of lotteries with our App. Enjoy the convenience, excitement, and potential life-changing wins that await you. Our dedicated support team is available to assist you with any questions or concerns you may have',
+                  Text('page3description'.tr,
                   style: TextStyle(
                     color: optionalgrayTextColor,
                     fontSize: 14,
@@ -46,8 +45,8 @@ class page3 extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: ()=>Get.toNamed('/landingpage'),
-          child: DefaultButton("Skip"))
+          onTap: ()=>Get.offAllNamed('/landingpage'),
+          child: DefaultButton("skip".tr))
         ],
       ));
   }

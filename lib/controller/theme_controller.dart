@@ -11,11 +11,16 @@ class ThemeControllers extends GetxController {
     textTheme: GoogleFonts.poppinsTextTheme(),
   );
   ThemeData lightTheme = ThemeData(
+<<<<<<< HEAD
    
     primaryColor: primaryColor,
+=======
+    primaryColor:primaryColor,
+>>>>>>> 95562b665f17fae4a2ee44d75b04fdba13b7e161
     brightness: Brightness.light,
     textTheme: GoogleFonts.poppinsTextTheme(),
   );
+
   RxBool isLightTheme = true.obs;
 
   void toggleTheme() {
@@ -35,15 +40,3 @@ class ThemeControllers extends GetxController {
   }
 }
 
-// class ThemeFile {
-//   ThemeData darkTheme = ThemeData(
-//     primaryColor: primaryColor,
-//     brightness: Brightness.dark,
-//     textTheme: GoogleFonts.poppinsTextTheme(),
-//   );
-//   ThemeData lightTheme = ThemeData(
-//     primaryColor: primaryColor,
-//     brightness: Brightness.light,
-//     textTheme: GoogleFonts.poppinsTextTheme(),
-//   );
-// }
