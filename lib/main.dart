@@ -20,20 +20,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  //hemeC
-  // ;p
-  // ThemeFile themeFile = ThemeFile();
-
-  // MyApp({super.key});
-
-  // This widget is the root of your application.
-  // final themeController = Get.find<ThemeControllers>();
 
   @override
   Widget build(BuildContext context) {
 
     final themeController = Get.find<ThemeControllers>();
     return Obx(() => GetMaterialApp(
+          
           initialBinding: Binders(),
           darkTheme: themeController.darkTheme,
           themeMode: themeController.isLightTheme.value

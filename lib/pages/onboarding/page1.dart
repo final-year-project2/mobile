@@ -58,3 +58,7 @@ class _page1State extends State<page1> {
     );
   }
 }
+
+  // Get.changeTheme(
+  //         Get.isDarkMode?ThemeData.light():ThemeData.dark()
+  //   );,
