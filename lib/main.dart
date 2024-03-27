@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/binders/binders.dart';
+import 'package:frontend/controller/language_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/languages.dart';
 import 'package:frontend/pages/authentication/categories.dart';

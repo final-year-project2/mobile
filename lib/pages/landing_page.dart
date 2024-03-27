@@ -142,11 +142,6 @@ class LandingPage extends StatelessWidget {
             ),
             GestureDetector(
                 onTap: () {
-                  controller.toggleLanguage();
-                },
-                child: Text('CHANGE LANGAUGE')),
-            GestureDetector(
-                onTap: () {
                   print(
                       '=========================================================================');
                   themecontroller.toggleTheme();

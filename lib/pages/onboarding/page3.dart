@@ -27,14 +27,14 @@ class page3 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                  Text('FINALY ',style: TextStyle(
+                  Text('finaly'.tr,style: TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold ,
                     fontSize: 20,
                     letterSpacing: 2
                   ),),
                   SizedBox(height: 6,),
-                  Text('Get ready to immerse yourself in the world of lotteries with our App. Enjoy the convenience, excitement, and potential life-changing wins that await you. Our dedicated support team is available to assist you with any questions or concerns you may have',
+                  Text('page3description'.tr,
                   style: TextStyle(
                     color: optionalgrayTextColor,
                     fontSize: 14,
@@ -46,7 +46,7 @@ class page3 extends StatelessWidget {
         ),
         GestureDetector(
           onTap: ()=>Get.offAllNamed('/landingpage'),
-          child: DefaultButton("Skip"))
+          child: DefaultButton("skip".tr))
         ],
       ));
   }
