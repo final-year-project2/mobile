@@ -195,7 +195,7 @@ class ProducImages extends StatelessWidget {
                     // VerticalSpace(20),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(30.0, 10, 0, 40),
-                      child: DefaultButton('CONTINUE'.tr),
+                      child: DefaultButton('CONTINUE'.tr, false.obs),
                     )
                   ],
                 ),

@@ -75,7 +75,7 @@ class ProductDesciption extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(25.0, 300, 0, 0),
-                child: DefaultButton('CONTINUE'.tr),
+                child: DefaultButton('CONTINUE'.tr, false.obs),
               ),
             ),
             //

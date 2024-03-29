@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/otp_controller.dart';
 import 'package:frontend/controller/signup_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
@@ -21,6 +22,7 @@ class SignUp extends StatelessWidget {
   TextEditingController phoneNumberController = TextEditingController();
 
   final controller = Get.find<SignUpController>();
+  final otpController = Get.find<OTPController>();
 
   @override
   Widget build(BuildContext context) {
@@ -73,30 +75,39 @@ class SignUp extends StatelessWidget {
               GestureDetector(
                   onTap: () async {
                     String name = userNameController.text;
-                    final response;
+                    // final response;
                     String password = passwordController.text;
                     String Phone_no = phoneNumberController.text;
+                    // Get.toNamed('/otp');
 
                     // print('email:$Email');
                     // print('username:$name');
                     // print('PhoneNumber :$Phone_no');
                     // print('password :$password');
                     try {
-                      response =
+                      final response =
                           await controller.signUp(name, Phone_no, password);
-                      print('response:$response');
+                      // controller.isLoading = true.obs;
+                      controller.isLoading;
+                      print('seelof${response.statusCode}');
+                      print('responsex:$response');
 
-                      if (response == 201) {
+                      if (response.statusCode == 201) {
+                        controller.id = response.data['id'];
+                        print('idd${controller.id}');
+
+                        controller.phoneNumber = response.data['Phone_no'];
                         Get.toNamed('/otp');
                       } else {
-                        print('statuscodeOnly${response.statusCode}');
+                        print('statuscodeSignup${response.statusCode}');
                         print('error');
                       }
                     } catch (e) {
                       print('error calling signup: $e');
                     }
                   },
-                  child: DefaultButton('Sign up')),
+                  child: Obx(
+                      () => DefaultButton('Sign up', controller.isLoading))),
               VerticalSpace(20),
 
               // Row(

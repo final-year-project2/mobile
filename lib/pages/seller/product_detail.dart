@@ -71,7 +71,7 @@ class ProductDetail extends StatelessWidget {
                 onTap: () => Get.toNamed('/producimages'),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 25.0),
-                  child: DefaultButton('CONTINUE'.tr),
+                  child: DefaultButton('CONTINUE'.tr, false.obs),
                 ),
               )
             ],

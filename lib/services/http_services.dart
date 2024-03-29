@@ -17,6 +17,28 @@ class HttpServices {
     }
   }
 
+  Future<Response> getRequest(String url, dynamic data) async {
+    final response;
+    try {
+      response = dio.get(url, data: data);
+      return response;
+    } on DioException catch (e) {
+      print('Error on get method$e');
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> patchRequest(String url, dynamic data) async {
+    final response;
+    try {
+      response = dio.patch(url, data: data);
+      return response;
+    } on DioException catch (e) {
+      print('Error on patch method$e');
+      throw Exception(e);
+    }
+  }
+
   void init() {
     dio = Dio(BaseOptions(
       baseUrl: BASE_URL,

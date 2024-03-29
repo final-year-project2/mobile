@@ -43,7 +43,7 @@ class LandingPage extends StatelessWidget {
                 ),
               ),
             ),
-            DefaultButton('BROWSEPRIZE'.tr),
+            DefaultButton('BROWSEPRIZE'.tr, false.obs),
             VerticalSpace(28),
             GestureDetector(
               onTap: () {
@@ -146,8 +146,11 @@ class LandingPage extends StatelessWidget {
                       '=========================================================================');
                   themecontroller.toggleTheme();
                 },
-                child:
-                    Container(color: Colors.red, child: Text('CHANGE THEM'))),
+                child: Container(
+                    color: Colors.red,
+                    child: Text(
+                      'CHANGE THEM',
+                    ))),
           ],
         ),
       ),

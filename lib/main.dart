@@ -14,6 +14,7 @@ import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/product_image.dart';
 import 'package:get/get.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final themeController = Get.put(ThemeControllers());
@@ -22,17 +23,11 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 95562b665f17fae4a2ee44d75b04fdba13b7e161
     final themeController = Get.find<ThemeControllers>();
 
     return Obx(() => GetMaterialApp(
-          
           initialBinding: Binders(),
           darkTheme: themeController.darkTheme,
           themeMode: themeController.isLightTheme.value
@@ -43,19 +38,13 @@ class MyApp extends StatelessWidget {
           fallbackLocale: Locale('en', 'Us'),
           debugShowCheckedModeBanner: false,
           theme: themeController.lightTheme,
-          initialRoute: "/onboarding",
+          initialRoute: "/landingpage",
           getPages: [
-<<<<<<< HEAD
-            GetPage(name: '/onboarding_page', page: () => onboarding_page()),
-=======
-
-            GetPage(name: '/onboarding', page:()=> onboarding_page()),
->>>>>>> 95562b665f17fae4a2ee44d75b04fdba13b7e161
             GetPage(
-              name: '/landingpage',
-              page: () => LandingPage(),binding: Binders()
-            ),
-            GetPage(name: '/signin', page: () => SignIn()),
+                name: '/landingpage',
+                page: () => LandingPage(),
+                binding: Binders()),
+            GetPage(name: '/signin', page: () => Login()),
             GetPage(name: '/signup', page: () => SignUp()),
             GetPage(name: '/category', page: () => Category()),
             GetPage(

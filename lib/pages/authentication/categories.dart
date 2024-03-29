@@ -92,7 +92,7 @@ class Category extends StatelessWidget {
               VerticalSpace(50),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 100),
-                child: DefaultButton('Continue'),
+                child: DefaultButton('Continue', false.obs),
               )
             ],
           ),

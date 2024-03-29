@@ -3,7 +3,9 @@ import 'package:frontend/services/http_services.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
-  RxBool startRequest = false.obs;
+  RxBool isLoading = false.obs;
+  var phoneNumber = '';
+  var id = 0;
 
   dio.Dio _dio = dio.Dio();
 
@@ -14,11 +16,13 @@ class SignUpController extends GetxController {
     httpServices?.init();
   }
 
-  Future signUp(String name, String password, String Phone_no) async {
+  Future<dio.Response> signUp(
+      String name, String Phone_no, String password) async {
     // print('function started');
+    isLoading.value = true;
     try {
       print('function started2');
-      startRequest = true.obs;
+
       final response = await httpServices?.postRequest('user/create/', {
         'name': name,
         'Phone_no': Phone_no,
@@ -28,11 +32,13 @@ class SignUpController extends GetxController {
         return throw Exception('response is null');
       }
 
-      return response.statusCode;
+      return response;
     } on dio.DioException catch (e) {
       print('error in signup$e');
 
       if (e.response?.statusCode == 400) {
+        isLoading.value = false;
+
         final errorMessage = e.response?.data['Email'] ?? 'unknown error';
         final errorMessage2 = e.response?.data['Phone_no'] ?? 'unknown error';
         print('errorON:$errorMessage');
@@ -40,6 +46,7 @@ class SignUpController extends GetxController {
         print(e.response?.statusCode);
         throw Exception('error occured:${e.message}');
       } else {
+        isLoading.value = false;
         throw Exception('error occured:${e.message}');
       }
     }

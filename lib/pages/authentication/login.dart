@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/categories_controller.dart';
+import 'package:frontend/controller/login_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
@@ -10,10 +11,12 @@ import 'package:frontend/widgets/layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 
-class SignIn extends StatelessWidget {
+class Login extends StatelessWidget {
   final themeControllers = Get.find<ThemeControllers>();
+  final loginController = Get.find<LoginController>();
+  TextEditingController phoneNumberControler = TextEditingController();
+  TextEditingController passwordControler = TextEditingController();
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -32,13 +35,16 @@ class SignIn extends StatelessWidget {
                 VerticalSpace(30),
                 CustomForm(
                   // labelText: 'Email',
-                  hintText: ' Email',
+                  editingController: phoneNumberControler,
+
+                  hintText: ' Phone number',
                   isPassword: false,
                 ),
                 VerticalSpace(30),
                 CustomForm(
                   // labelText: 'Password',
                   hintText: ' Password',
+                  editingController: passwordControler,
                   isPassword: true,
                 ),
                 Row(
@@ -55,12 +61,30 @@ class SignIn extends StatelessWidget {
                 ),
                 VerticalSpace(40),
                 GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/productdesciption');
-                      print(
-                          '==================================${themeControllers.isLightTheme}');
+                    onTap: () async {
+                      // print('PhoneNumbers:${phoneNumberControler.text }');
+                      // print('password:${passwordControler.text}');
+                      String Phone_no = phoneNumberControler.text;
+                      String password = passwordControler.text;
+                      print('Phoneno:$Phone_no');
+                      print('pass:$password');
+
+                      try {
+                        final loginResponse = await loginController
+                            .loginRequest(Phone_no, password);
+                        if (loginResponse.statusCode == 200) {
+                          String accessToken = loginResponse.data['access'];
+                          String refreshToken = loginResponse.data['refresh'];
+                          print('AcessToken${accessToken}');
+                          print('RefreshToken${refreshToken}');
+                          Get.toNamed('/productdesciption');
+                        } else {
+                          //popup,show incorrect combination
+                          print('loginStatuscode:${loginResponse.statusCode}');
+                        }
+                      } catch (e) {}
                     },
-                    child: DefaultButton('SIGNIN'.tr)),
+                    child: DefaultButton('SIGNIN'.tr, false.obs)),
                 VerticalSpace(30),
                 Row(
                   children: [
@@ -85,9 +109,8 @@ class SignIn extends StatelessWidget {
                     Text('NOACCOUNT'.tr),
                     HorizontalSpace(5),
                     GestureDetector(
-                      onTap: () => {
-                        // print('oncorse${controller.isLightTheme.value}'),
-                        Get.toNamed('/signup'),
+                      onTap: () {
+                        Get.toNamed('/signup');
                       },
                       child: Text(
                         'SIGNUP'.tr,

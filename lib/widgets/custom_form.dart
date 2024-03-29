@@ -41,6 +41,12 @@ class CustomForm extends StatelessWidget {
             Container(
               width: 350,
               child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
                 controller: editingController,
                 readOnly: readonly ?? false,
                 onTap: ontap,
@@ -51,7 +57,6 @@ class CustomForm extends StatelessWidget {
                     ? controller.isPasswordVissible.value
                     : controller.itIsNotPassword.value,
                 decoration: InputDecoration(
-                  // prefix: Text('+251'),
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   contentPadding: EdgeInsets.only(top: 20),
