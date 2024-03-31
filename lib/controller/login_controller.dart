@@ -32,4 +32,21 @@ class LoginController extends GetxController {
       throw Exception(e);
     }
   }
+
+  Future<dio.Response> postproduc(String Phone_no, String password) async {
+    try {
+      final response = await httpServices?.postRequest(
+          '/user/login/', {'Phone_no': Phone_no, 'password': password});
+
+      if (response == null) {
+        return throw Exception('login response is null');
+      }
+      return response;
+    } on dio.DioException catch (e) {
+      print('LoginError:$e');
+      print('LoginDetail${e.response?.data['detail']}');
+      print('LoginStatuscode:${e.response?.statusCode}');
+      throw Exception(e);
+    }
+  }
 }

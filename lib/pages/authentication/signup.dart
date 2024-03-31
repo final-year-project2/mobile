@@ -97,8 +97,11 @@ class SignUp extends StatelessWidget {
                         print('idd${controller.id}');
 
                         controller.phoneNumber = response.data['Phone_no'];
+                        controller.isLoading = false.obs;
                         Get.toNamed('/otp');
                       } else {
+                        controller.isLoading = false.obs;
+
                         print('statuscodeSignup${response.statusCode}');
                         print('error');
                       }

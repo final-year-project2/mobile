@@ -12,10 +12,11 @@ class OTPController extends GetxController {
     httpServices?.init();
   }
 
-  Future<dio.Response> verifOtp(int id, String Phone_no) async {
+  Future<dio.Response> verifOtp(int id, String otp) async {
     try {
-      final response = await httpServices
-          ?.patchRequest('/user/activate/$id/', {'Phone_no': Phone_no});
+      final response = await httpServices?.patchRequest('/user/activate/$id/', {
+        'otp': otp,
+      });
       if (response == null) {
         return throw Exception('response is null');
       }

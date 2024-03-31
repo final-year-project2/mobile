@@ -6,6 +6,9 @@ import 'package:frontend/languages.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:frontend/pages/authentication/login.dart';
 import 'package:frontend/pages/authentication/otp.dart';
+import 'package:frontend/pages/authentication/password_reset/ask_phone_number.dart';
+import 'package:frontend/pages/authentication/password_reset/newpassword.dart';
+import 'package:frontend/pages/authentication/password_reset/verify_otp_password_reset.dart';
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
@@ -57,6 +60,11 @@ class MyApp extends StatelessWidget {
             ),
             GetPage(name: '/producimages', page: () => ProducImages()),
             GetPage(name: '/otp', page: () => OTP()),
+            GetPage(
+                name: '/askphonenumber',
+                page: () => AskPhoneNumberForPasswordReset()),
+            GetPage(name: '/reciveotp', page: () => ReciveOTP()),
+            GetPage(name: '/newpassword', page: () => NewPassword()),
           ],
         ));
   }

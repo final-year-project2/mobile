@@ -57,6 +57,10 @@ class CustomForm extends StatelessWidget {
                     ? controller.isPasswordVissible.value
                     : controller.itIsNotPassword.value,
                 decoration: InputDecoration(
+                  // label: Text(
+                  //   labelText ?? '',
+                  //   style: TextStyle(fontSize: 15),
+                  // ),
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   contentPadding: EdgeInsets.only(top: 20),

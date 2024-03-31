@@ -34,9 +34,7 @@ class Login extends StatelessWidget {
                 ),
                 VerticalSpace(30),
                 CustomForm(
-                  // labelText: 'Email',
                   editingController: phoneNumberControler,
-
                   hintText: ' Phone number',
                   isPassword: false,
                 ),
@@ -52,9 +50,15 @@ class Login extends StatelessWidget {
                     Expanded(child: Container()),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 30, 0),
-                      child: Text(
-                        'Forgot password?',
-                        style: TextStyle(fontSize: 11, color: fotterTextColor),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed('/askphonenumber');
+                        },
+                        child: Text(
+                          'Forgot password?',
+                          style:
+                              TextStyle(fontSize: 15, color: fotterTextColor),
+                        ),
                       ),
                     )
                   ],

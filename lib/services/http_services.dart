@@ -17,7 +17,7 @@ class HttpServices {
     }
   }
 
-  Future<Response> getRequest(String url, dynamic data) async {
+  Future<Response> getRequest(String url, {dynamic data}) async {
     final response;
     try {
       response = dio.get(url, data: data);

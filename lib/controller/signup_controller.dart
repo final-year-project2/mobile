@@ -27,6 +27,7 @@ class SignUpController extends GetxController {
         'name': name,
         'Phone_no': Phone_no,
         'password': password,
+        'otp': ''
       });
       if (response == null) {
         return throw Exception('response is null');
@@ -39,7 +40,7 @@ class SignUpController extends GetxController {
       if (e.response?.statusCode == 400) {
         isLoading.value = false;
 
-        final errorMessage = e.response?.data['Email'] ?? 'unknown error';
+        final errorMessage = e.response?.data['detail'] ?? 'unknown error';
         final errorMessage2 = e.response?.data['Phone_no'] ?? 'unknown error';
         print('errorON:$errorMessage');
         print('errorON:$errorMessage2');
