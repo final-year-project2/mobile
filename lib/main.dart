@@ -11,16 +11,20 @@ import 'package:frontend/pages/authentication/password_reset/newpassword.dart';
 import 'package:frontend/pages/authentication/password_reset/verify_otp_password_reset.dart';
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
+import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/onboarding/page1.dart';
 import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/product_image.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final themeController = Get.put(ThemeControllers());
+  await GetStorage.init();
+
   await themeController.loadThemePreference();
   runApp(MyApp());
 }
@@ -58,6 +62,7 @@ class MyApp extends StatelessWidget {
               name: '/productdetail',
               page: () => ProductDetail(),
             ),
+            GetPage(name: '/homepage', page: () => HomePage()),
             GetPage(name: '/producimages', page: () => ProducImages()),
             GetPage(name: '/otp', page: () => OTP()),
             GetPage(

@@ -1,23 +1,39 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/categories_controller.dart';
 import 'package:frontend/controller/login_controller.dart';
+import 'package:frontend/controller/mega_product_controller.dart';
+import 'package:frontend/controller/signup_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Login extends StatelessWidget {
+  RxBool isErroccured = false.obs;
   final themeControllers = Get.find<ThemeControllers>();
   final loginController = Get.find<LoginController>();
+  final sigunUpController = Get.find<SignUpController>();
+
+  final productController = Get.find<MegaProductController>();
+
+  
+  final tokenBox = GetStorage();
   TextEditingController phoneNumberControler = TextEditingController();
   TextEditingController passwordControler = TextEditingController();
 
   Widget build(BuildContext context) {
+    Future.delayed(Duration(), () {
+      sigunUpController.isSucessfulSignup.value = false;
+    });
+
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -29,6 +45,37 @@ class Login extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Obx(
+                  () => sigunUpController.isSucessfulSignup.value
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(15.0, 0, 20, 10),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: Colors.greenAccent[400],
+                            ),
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                HorizontalSpace(5),
+                                Icon(
+                                  Icons.check_circle,
+                                  color: whiteColor,
+                                ),
+                                HorizontalSpace(10),
+                                Text(
+                                  'Signed in successfully ',
+                                  style: TextStyle(
+                                      color: whiteColor, fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : Text(''),
+                ),
+
                 Center(
                   child: Logo(),
                 ),
@@ -63,7 +110,9 @@ class Login extends StatelessWidget {
                     )
                   ],
                 ),
+
                 VerticalSpace(40),
+
                 GestureDetector(
                     onTap: () async {
                       // print('PhoneNumbers:${phoneNumberControler.text }');
@@ -72,24 +121,77 @@ class Login extends StatelessWidget {
                       String password = passwordControler.text;
                       print('Phoneno:$Phone_no');
                       print('pass:$password');
+                      loginController.isLoading.value = true;
+                      Get.toNamed('/productdesciption');
 
-                      try {
-                        final loginResponse = await loginController
-                            .loginRequest(Phone_no, password);
-                        if (loginResponse.statusCode == 200) {
-                          String accessToken = loginResponse.data['access'];
-                          String refreshToken = loginResponse.data['refresh'];
-                          print('AcessToken${accessToken}');
-                          print('RefreshToken${refreshToken}');
-                          Get.toNamed('/productdesciption');
-                        } else {
-                          //popup,show incorrect combination
-                          print('loginStatuscode:${loginResponse.statusCode}');
-                        }
-                      } catch (e) {}
+                      // try {
+                      //   loginController.isLoading.value = true;
+                      //   final loginResponse = await loginController
+                      //       .loginRequest(Phone_no, password);
+                      //   if (loginResponse.statusCode == 200) {
+                      //     String accessToken = loginResponse.data['access'];
+                      //     String refreshToken = loginResponse.data['refresh'];
+                      //     tokenBox.write('accessToken', accessToken);
+                      //     tokenBox.write('refreshToken', refreshToken);
+                      //     print('fromTokenBox:AcessToken${accessToken}');
+                      //     print('fromTokenBox:refreshToken${refreshToken}');
+                      //     Get.toNamed('/productdesciption');
+                      //   } else {
+                      //     //popup,show incorrect combination
+                      //     // loginController.isLoading = false.obs;
+                      //     loginController.isLoading.value = false;
+                      //     isErroccured.value = !isErroccured.value;
+                      //     Future.delayed(Duration(seconds: 10), () {
+                      //       isErroccured.value = false;
+                      //     });
+                      //     print('loginStatuscode:${loginResponse.statusCode}');
+                      //   }
+                      // } catch (e) {
+                      //   loginController.isLoading.value = false;
+                      //   isErroccured.value = !isErroccured.value;
+                      //   Future.delayed(Duration(seconds: 10), () {
+                      //     isErroccured.value = false;
+                      //   });
+                      // }
                     },
-                    child: DefaultButton('SIGNIN'.tr, false.obs)),
+                    child: Obx(() =>
+                        DefaultButton('SIGNIN'.tr, loginController.isLoading))),
                 VerticalSpace(30),
+
+                Obx(() => isErroccured.value
+                    ? Padding(
+                        padding: const EdgeInsets.fromLTRB(38.0, 0, 40, 18),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 255, 208, 205),
+                              border: Border.all(color: Colors.red),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.warning,
+                                    color: Colors.red,
+                                  ),
+                                  HorizontalSpace(10),
+                                  Expanded(
+                                    child: Text(
+                                      style: TextStyle(
+                                          letterSpacing: 2,
+                                          wordSpacing: 2,
+                                          color: Colors.red),
+                                      'Incorrect phonenumber or password,please try again ',
+                                      softWrap: true,
+                                      maxLines: 2,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )),
+                      )
+                    : Text('')),
+
                 Row(
                   children: [
                     Padding(
@@ -107,6 +209,7 @@ class Login extends StatelessWidget {
                   ],
                 ),
                 VerticalSpace(20),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

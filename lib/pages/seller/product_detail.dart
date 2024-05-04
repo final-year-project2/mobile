@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:frontend/controller/mega_product_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -8,8 +9,9 @@ import 'package:frontend/widgets/progress_indicator.dart';
 import 'package:get/get.dart';
 
 class ProductDetail extends StatelessWidget {
-  const ProductDetail({super.key});
-
+  // const ProductDetail({super.key});
+  final productDetailController = Get.find<MegaProductController>();
+  TextEditingController numbereditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +44,7 @@ class ProductDetail extends StatelessWidget {
               ),
               CustomForm(
                 isPassword: false,
+                editingController: numbereditingController,
                 hintText: 'e.g 100',
               ),
               VerticalSpace(30),
@@ -68,7 +71,12 @@ class ProductDetail extends StatelessWidget {
               // ),
               VerticalSpace(450),
               GestureDetector(
-                onTap: () => Get.toNamed('/producimages'),
+                
+                onTap: () {
+                  productDetailController.productDetail.value = numbereditingController.text;
+                  print('number${ productDetailController.productDetail.value}');
+                  Get.toNamed('/producimages');
+                },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 25.0),
                   child: DefaultButton('CONTINUE'.tr, false.obs),

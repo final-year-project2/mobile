@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/categories_controller.dart';
+import 'package:frontend/controller/mega_product_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 
 class Category extends StatelessWidget {
   Category({super.key});
+
+  final productController = Get.find<MegaProductController>();
 
   final List<String> categories = [
     'Electronics',
@@ -69,8 +72,12 @@ class Category extends StatelessWidget {
                       category,
                     ) =>
                         Obx(() => GestureDetector(
-                              onTap: () =>
-                                  controller.toggleCategories(category),
+                              onTap: () {
+                                controller.toggleCategories(category);
+                                productController.addToList(category);
+
+                                print(productController.selectedCategories);
+                              },
                               child: Container(
                                 decoration: BoxDecoration(
                                     //If the name is found in the list of selctedcategroy change the color else not
