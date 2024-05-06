@@ -15,7 +15,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  List tabBarList = ['All', 'Electronics', 'Car', 'Home', 'Others'];
+  List tabBarList = [
+    'All',
+    'Electronics',
+    'Car',
+    'Home',
+    'Others',
+  ];
   List campaign = [
     'First',
     'Second',
@@ -178,179 +184,163 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               scrollDirection: Axis.vertical,
               child: Container(
                 width: double.infinity,
-                height: 500,
+                height: 10,
                 child: TabBarView(
                     controller: tabController,
-                    children: tabBarList
-                        .map((e) => ListView.builder(
-                            itemCount: 3,
-                            itemBuilder: (context, index) => Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
-                                  child: Container(
-                                      width: 400,
-                                      height: 175,
-                                      decoration: BoxDecoration(
-                                          color: homePageContainerBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(),
-                                            width: 130,
-                                            height: 180,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                bottomRight: Radius.circular(0),
-                                                bottomLeft: Radius.circular(10),
-                                                topRight: Radius.circular(0),
-                                                topLeft: Radius.circular(10),
-                                              ),
-                                              child: Image.asset(
-                                                  fit: BoxFit.cover,
-                                                  // scale: 0.9,
-                                                  'assets/a.jpg'),
+                    children: tabBarList.asMap().entries.map(
+                      (e) {
+                        int tabbar = e.key;
+                        return ListView.builder(
+                          itemCount: 50,
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
+                            child: Container(
+                                width: 400,
+                                height: 175,
+                                decoration: BoxDecoration(
+                                    color: homePageContainerBackground,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(),
+                                      width: 130,
+                                      height: 180,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(0),
+                                          bottomLeft: Radius.circular(10),
+                                          topRight: Radius.circular(0),
+                                          topLeft: Radius.circular(10),
+                                        ),
+                                        child: Image.asset(
+                                            fit: BoxFit.cover,
+                                            // scale: 0.9,
+                                            'assets/a.jpg '),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 180,
+                                      width: 260,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10.0, 10, 10, 0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          // mainAxisAlignment:
+                                          // MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              maxLines: 3,
+                                              softWrap: true,
+                                              '$tabbar ',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14),
+                                              textAlign: TextAlign.center,
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: 180,
-                                            width: 260,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10.0, 10, 10, 0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                // mainAxisAlignment:
-                                                // MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    maxLines: 3,
-                                                    softWrap: true,
-                                                    'Samsung pro max  12cc right bright ',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 14),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  RichText(
-                                                      text: TextSpan(children: [
-                                                    TextSpan(
-                                                        text: "30",
-                                                        style: GoogleFonts.poppins(
-                                                            fontSize: 11,
-                                                            color:
-                                                                primaryColor)),
-                                                    TextSpan(
-                                                        text: " Tickets Left",
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                                fontSize: 11,
-                                                                color:
-                                                                    subTextColor))
-                                                  ])),
-                                                  VerticalSpace(7),
-                                                  LinearProgressIndicator(
-                                                    value: 0.3,
-                                                    minHeight: 7,
-                                                    backgroundColor:
-                                                        progressBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    color: progressColor,
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text('0',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                                  color:
-                                                                      subTextColor,
-                                                                  fontSize: 9)),
-                                                      Text(
-                                                        '200 Ticket ',
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                                color:
-                                                                    subTextColor,
-                                                                fontSize: 9),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  RichText(
-                                                      text: TextSpan(children: [
-                                                    TextSpan(
-                                                        text: "300",
-                                                        style: GoogleFonts.poppins(
-                                                            fontSize: 11,
-                                                            color:
-                                                                progressColor)),
-                                                    TextSpan(
-                                                        text:
-                                                            " People bought this  ticket",
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                                fontSize: 11,
-                                                                color:
-                                                                    blackColor))
-                                                  ])),
-                                                  VerticalSpace(10),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Row(
-                                                        children: List.generate(
-                                                            3,
-                                                            (index) => Icon(
-                                                                  Icons.star,
-                                                                  color:
-                                                                      primaryColor,
-                                                                  size: 17,
-                                                                )),
-                                                      ),
-                                                      HorizontalSpace(10),
-                                                      Text(
-                                                        '10 successful campagin',
-                                                        style: TextStyle(
-                                                            fontSize: 10),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  VerticalSpace(7),
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                          child: Container()),
-                                                      Icon(
-                                                          Icons.account_circle),
-                                                      Text(
-                                                        'Tadese Gelan',
-                                                        style: TextStyle(
-                                                            fontSize: 11,
-                                                            color: thirdColor),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
+                                            RichText(
+                                                text: TextSpan(children: [
+                                              TextSpan(
+                                                  text: "30",
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 11,
+                                                      color: primaryColor)),
+                                              TextSpan(
+                                                  text: " Tickets Left",
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 11,
+                                                      color: subTextColor))
+                                            ])),
+                                            VerticalSpace(7),
+                                            LinearProgressIndicator(
+                                              value: 0.3,
+                                              minHeight: 7,
+                                              backgroundColor:
+                                                  progressBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: progressColor,
                                             ),
-                                          )
-                                        ],
-                                      )),
-                                )))
-                        .toList()),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text('0',
+                                                    style: GoogleFonts.poppins(
+                                                        color: subTextColor,
+                                                        fontSize: 9)),
+                                                Text(
+                                                  '200 Ticket ',
+                                                  style: GoogleFonts.poppins(
+                                                      color: subTextColor,
+                                                      fontSize: 9),
+                                                ),
+                                              ],
+                                            ),
+                                            RichText(
+                                                text: TextSpan(children: [
+                                              TextSpan(
+                                                  text: "300",
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 11,
+                                                      color: progressColor)),
+                                              TextSpan(
+                                                  text:
+                                                      " People bought this  ticket",
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 11,
+                                                      color: blackColor))
+                                            ])),
+                                            VerticalSpace(10),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: List.generate(
+                                                      3,
+                                                      (index) => const Icon(
+                                                            Icons.star,
+                                                            color: primaryColor,
+                                                            size: 17,
+                                                          )),
+                                                ),
+                                                HorizontalSpace(10),
+                                                Text(
+                                                  '10 successful campagin',
+                                                  style:
+                                                      TextStyle(fontSize: 10),
+                                                )
+                                              ],
+                                            ),
+                                            VerticalSpace(7),
+                                            Row(
+                                              children: [
+                                                Expanded(child: Container()),
+                                                Icon(Icons.account_circle),
+                                                Text(
+                                                  'Tadese Gelan',
+                                                  style: TextStyle(
+                                                      fontSize: 11,
+                                                      color: thirdColor),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        );
+                      },
+                    ).toList()),
               ),
             ),
           )
