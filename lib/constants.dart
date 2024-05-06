@@ -11,6 +11,13 @@ const fotterTextColor = Color.fromRGBO(173, 171, 171, 1);
 const darklight = Color.fromRGBO(223, 223, 223, 1);
 const homePageBannerColor = Color.fromRGBO(43, 43, 43, 1);
 const homePageBannerColor2 = Color.fromRGBO(92, 83, 70, 1);
+const homePageContainerBackground = Color.fromRGBO(240, 240, 240, 1);
+const progressBackground = Color.fromRGBO(193, 233, 204, 1);
+const progressColor = Color.fromRGBO(88, 188, 115, 1);
+const subTextColor = Color.fromRGBO(108, 104, 104, 1);
+
+// const subColor
+// 72 160 96
 
 Widget Logo() {
   return Text(
