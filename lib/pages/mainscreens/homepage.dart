@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/widgets/layout.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -179,10 +180,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 height: 500,
                 child: TabBarView(
                     controller: tabController,
-                    children: campaign
+                    children: tabBarList
                         .map((e) => ListView.builder(
-                            itemBuilder: (context, index) => Container(
-                                  color: Colors.black12,
+                            itemCount: 3,
+                            itemBuilder: (context, index) => Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
+                                  child: Container(
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                            fit: BoxFit.contain, 'assets/a.jpg')
+                                      ],
+                                    ),
+                                    width: 400,
+                                    height: 220,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
                                 )))
                         .toList()),
               ),
@@ -193,3 +210,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 }
+// campaign
+//                       .map((e) => ListView.builder(
+//                           itemBuilder: ((context, index) => Container(
+//                                 decoration: BoxDecoration(color: Colors.red),
+//                               ))))
