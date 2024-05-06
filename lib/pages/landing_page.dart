@@ -45,7 +45,7 @@ class LandingPage extends StatelessWidget {
             ),
             GestureDetector(
                 onTap: () {
-                  Get.toNamed('homepage');
+                  Get.toNamed('mainpage');
                 },
                 child: DefaultButton('BROWSEPRIZE'.tr, false.obs)),
             VerticalSpace(28),

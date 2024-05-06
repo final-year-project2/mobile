@@ -27,8 +27,8 @@ class _MainPageState extends State<MainPage> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: "Post"),
           BottomNavigationBarItem(icon: Icon(Icons.info), label: "Info"),
-          BottomNavigationBarItem(icon: Icon(Icons.info), label: "Post"),
         ],
       ),
     );

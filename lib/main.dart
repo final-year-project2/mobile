@@ -12,6 +12,7 @@ import 'package:frontend/pages/authentication/password_reset/verify_otp_password
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
+import 'package:frontend/pages/mainscreens/main_page.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/onboarding/page1.dart';
 import 'package:frontend/pages/seller/product_description.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
           theme: themeController.lightTheme,
           initialRoute: "/landingpage",
           getPages: [
+            GetPage(name: '/mainpage', page: () => const MainPage()),
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),
@@ -74,6 +76,12 @@ class MyApp extends StatelessWidget {
         ));
   }
 }
+
+
+
+
+
+
 // GetMaterialApp(
 //       debugShowCheckedModeBanner: false,
 //       theme: ThemeData(
