@@ -147,6 +147,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: DefaultTabController(
               length: tabBarList.length,
               child: TabBar(
+                  // unselectedLabelStyle: TextStyle(color: Colors.red),
                   padding: EdgeInsets.only(bottom: 10),
                   labelPadding: currentIndex == 0
                       ? EdgeInsets.fromLTRB(10, 0, 8, 0)
@@ -173,7 +174,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 tabBarList[index],
                                 style: TextStyle(
                                     color: currentIndex == index
-                                        ? Colors.white
+                                        ? Colors.black
                                         : Color.fromRGBO(130, 130, 130, 1)),
                               ),
                             )),

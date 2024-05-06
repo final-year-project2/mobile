@@ -12,7 +12,7 @@ Widget Ticket(
     String? sellerName}) {
   return Container(
       width: 400,
-      height: 175,
+      height: 165,
       decoration: BoxDecoration(
           color: homePageContainerBackground,
           borderRadius: BorderRadius.circular(10)),
@@ -23,7 +23,7 @@ Widget Ticket(
           Container(
             decoration: BoxDecoration(),
             width: 130,
-            height: 180,
+            height: 165,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(0),
@@ -38,7 +38,7 @@ Widget Ticket(
             ),
           ),
           SizedBox(
-            height: 180,
+            height: 165,
             width: 260,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 10, 10, 0),
@@ -65,7 +65,7 @@ Widget Ticket(
                         style: GoogleFonts.poppins(
                             fontSize: 11, color: subTextColor))
                   ])),
-                  VerticalSpace(7),
+                  VerticalSpace(20),
                   LinearProgressIndicator(
                     value: 0.3,
                     minHeight: 7,
@@ -79,10 +79,22 @@ Widget Ticket(
                       Text('0',
                           style: GoogleFonts.poppins(
                               color: subTextColor, fontSize: 9)),
-                      Text(
-                        totalTicket ?? '',
-                        style: GoogleFonts.poppins(
-                            color: subTextColor, fontSize: 9),
+                      Row(
+                        children: [
+                          Text(
+                            totalTicket ?? '',
+                            style: GoogleFonts.poppins(
+                                color: subTextColor, fontSize: 9),
+                          ),
+                          Text(
+                            ' Tickets',
+                            style: GoogleFonts.poppins(
+                              // fontWeight: FontWeight.bold,
+                              color: subTextColor,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -111,13 +123,22 @@ Widget Ticket(
                                 )),
                       ),
                       HorizontalSpace(10),
-                      Text(
-                        successfulCampaign ?? '',
-                        style: TextStyle(fontSize: 10),
+                      Row(
+                        children: [
+                          Text(
+                            successfulCampaign ?? '',
+                            style: TextStyle(fontSize: 10),
+                          ),
+                          HorizontalSpace(5),
+                          Text(
+                            'Successful campaign  ',
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ],
                       )
                     ],
                   ),
-                  VerticalSpace(7),
+                  VerticalSpace(10),
                   Row(
                     children: [
                       Expanded(child: Container()),
