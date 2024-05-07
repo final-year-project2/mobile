@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/pages/authentication/login.dart';
 import 'package:frontend/pages/landing_page.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
+import 'package:frontend/pages/mainscreens/profile.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -12,7 +13,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<Widget> pages = [const HomePage(), LandingPage(), Login()];
+  List<Widget> pages = [const HomePage(), LandingPage(), Profile()];
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {

@@ -24,7 +24,6 @@ class Login extends StatelessWidget {
 
   final productController = Get.find<MegaProductController>();
 
-  
   final tokenBox = GetStorage();
   TextEditingController phoneNumberControler = TextEditingController();
   TextEditingController passwordControler = TextEditingController();
@@ -124,35 +123,35 @@ class Login extends StatelessWidget {
                       loginController.isLoading.value = true;
                       Get.toNamed('/productdesciption');
 
-                      // try {
-                      //   loginController.isLoading.value = true;
-                      //   final loginResponse = await loginController
-                      //       .loginRequest(Phone_no, password);
-                      //   if (loginResponse.statusCode == 200) {
-                      //     String accessToken = loginResponse.data['access'];
-                      //     String refreshToken = loginResponse.data['refresh'];
-                      //     tokenBox.write('accessToken', accessToken);
-                      //     tokenBox.write('refreshToken', refreshToken);
-                      //     print('fromTokenBox:AcessToken${accessToken}');
-                      //     print('fromTokenBox:refreshToken${refreshToken}');
-                      //     Get.toNamed('/productdesciption');
-                      //   } else {
-                      //     //popup,show incorrect combination
-                      //     // loginController.isLoading = false.obs;
-                      //     loginController.isLoading.value = false;
-                      //     isErroccured.value = !isErroccured.value;
-                      //     Future.delayed(Duration(seconds: 10), () {
-                      //       isErroccured.value = false;
-                      //     });
-                      //     print('loginStatuscode:${loginResponse.statusCode}');
-                      //   }
-                      // } catch (e) {
-                      //   loginController.isLoading.value = false;
-                      //   isErroccured.value = !isErroccured.value;
-                      //   Future.delayed(Duration(seconds: 10), () {
-                      //     isErroccured.value = false;
-                      //   });
-                      // }
+                      try {
+                        loginController.isLoading.value = true;
+                        final loginResponse = await loginController
+                            .loginRequest(Phone_no, password);
+                        if (loginResponse.statusCode == 200) {
+                          String accessToken = loginResponse.data['access'];
+                          String refreshToken = loginResponse.data['refresh'];
+                          tokenBox.write('accessToken', accessToken);
+                          tokenBox.write('refreshToken', refreshToken);
+                          print('fromTokenBox:AcessToken${accessToken}');
+                          print('fromTokenBox:refreshToken${refreshToken}');
+                          Get.toNamed('/productdesciption');
+                        } else {
+                          //popup,show incorrect combination
+                          // loginController.isLoading = false.obs;
+                          loginController.isLoading.value = false;
+                          isErroccured.value = !isErroccured.value;
+                          Future.delayed(Duration(seconds: 10), () {
+                            isErroccured.value = false;
+                          });
+                          print('loginStatuscode:${loginResponse.statusCode}');
+                        }
+                      } catch (e) {
+                        loginController.isLoading.value = false;
+                        isErroccured.value = !isErroccured.value;
+                        Future.delayed(Duration(seconds: 10), () {
+                          isErroccured.value = false;
+                        });
+                      }
                     },
                     child: Obx(() =>
                         DefaultButton('SIGNIN'.tr, loginController.isLoading))),

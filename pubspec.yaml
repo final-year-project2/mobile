@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.2.2
   dio: ^5.4.2
   get_storage:
+  chapa_unofficial: ^0.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

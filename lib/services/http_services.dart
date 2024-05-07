@@ -44,6 +44,7 @@ class HttpServices {
       baseUrl: BASE_URL,
     ));
   }
+
   // Future<Response> getRequest(String url) async {
   //   final response;
   //   try {
@@ -59,7 +60,7 @@ class HttpServices {
 
   // final Dio dioAuthenticated = Dio();
 
-  //   void init() {
+  //   void initAuthenticated() {
   //   dio = Dio(BaseOptions(
   //       baseUrl: BASE_URL, headers: {"Authorization": "Bearer $API_KEY"}));
   // }

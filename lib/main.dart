@@ -13,6 +13,7 @@ import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/mainscreens/main_page.dart';
+import 'package:frontend/pages/mainscreens/profile.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/onboarding/page1.dart';
 import 'package:frontend/pages/seller/product_description.dart';
@@ -20,6 +21,7 @@ import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/product_image.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:chapa_unofficial/chapa_unofficial.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +29,8 @@ void main() async {
   await GetStorage.init();
 
   await themeController.loadThemePreference();
+
+  Chapa.configure(privateKey: " CHASECK_TEST-rxfy3hUQIwYjfUXl39TnOQEfCmpaSqsb");
   runApp(MyApp());
 }
 
@@ -49,6 +53,7 @@ class MyApp extends StatelessWidget {
           initialRoute: "/landingpage",
           getPages: [
             GetPage(name: '/mainpage', page: () => const MainPage()),
+            GetPage(name: '/profile', page: () => const Profile()),
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),
