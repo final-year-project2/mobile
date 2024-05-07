@@ -147,6 +147,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: DefaultTabController(
               length: tabBarList.length,
               child: TabBar(
+                  indicatorColor: Colors.amberAccent,
+                  onTap: (value) {},
                   // unselectedLabelStyle: TextStyle(color: Colors.red),
                   padding: EdgeInsets.only(bottom: 10),
                   labelPadding: currentIndex == 0
