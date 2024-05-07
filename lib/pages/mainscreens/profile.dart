@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
+import 'package:chapa_unofficial/chapa_unofficial.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

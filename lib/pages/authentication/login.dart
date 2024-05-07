@@ -121,7 +121,7 @@ class Login extends StatelessWidget {
                       print('Phoneno:$Phone_no');
                       print('pass:$password');
                       loginController.isLoading.value = true;
-                      Get.toNamed('/productdesciption');
+                      // Get.toNamed('/productdesciption');
 
                       try {
                         loginController.isLoading.value = true;
@@ -132,8 +132,10 @@ class Login extends StatelessWidget {
                           String refreshToken = loginResponse.data['refresh'];
                           tokenBox.write('accessToken', accessToken);
                           tokenBox.write('refreshToken', refreshToken);
+
                           print('fromTokenBox:AcessToken${accessToken}');
                           print('fromTokenBox:refreshToken${refreshToken}');
+                          loginController.isLoading.value = false;
                           Get.toNamed('/productdesciption');
                         } else {
                           //popup,show incorrect combination
