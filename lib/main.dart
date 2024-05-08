@@ -30,7 +30,7 @@ void main() async {
 
   await themeController.loadThemePreference();
 
-  Chapa.configure(privateKey: " CHASECK_TEST-rxfy3hUQIwYjfUXl39TnOQEfCmpaSqsb");
+  Chapa.configure(privateKey: "CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR");
   runApp(MyApp());
 }
 
@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
           theme: themeController.lightTheme,
           initialRoute: "/landingpage",
           getPages: [
-            GetPage(name: '/mainpage', page: () => const MainPage()),
-            GetPage(name: '/profile', page: () => const Profile()),
+            GetPage(name: '/mainpage', page: () => MainPage()),
+            GetPage(name: '/profile', page: () => Profile()),
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),

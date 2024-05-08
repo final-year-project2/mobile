@@ -136,7 +136,7 @@ class Login extends StatelessWidget {
                           print('fromTokenBox:AcessToken${accessToken}');
                           print('fromTokenBox:refreshToken${refreshToken}');
                           loginController.isLoading.value = false;
-                          Get.toNamed('/productdesciption');
+                          Get.toNamed('/mainpage');
                         } else {
                           //popup,show incorrect combination
                           // loginController.isLoading = false.obs;

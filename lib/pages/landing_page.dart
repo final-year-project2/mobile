@@ -151,9 +151,9 @@ class LandingPage extends StatelessWidget {
                   themecontroller.toggleTheme();
                 },
                 child: Container(
-                    color: const Color.fromARGB(255, 255, 255, 255),
+                    color: Color.fromARGB(255, 129, 30, 30),
                     child: Text(
-                      '',
+                      'Change theme',
                     ))),
           ],
         ),
