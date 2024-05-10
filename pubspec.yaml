@@ -36,13 +36,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.6.6
+  flash: ^3.1.0
   google_fonts: ^6.2.1
   image_picker: ^1.0.7
   pin_code_fields: ^8.0.1
   lottie: ^3.1.0
   smooth_page_indicator: ^1.1.0
   shared_preferences: ^2.2.2
-
+  dio: ^5.4.2
+  get_storage:
+  chapa_unofficial: ^0.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

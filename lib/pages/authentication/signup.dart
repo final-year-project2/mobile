@@ -1,16 +1,30 @@
+import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/otp_controller.dart';
+import 'package:frontend/controller/signup_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:flash/flash.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class SignUp extends StatelessWidget {
-  const SignUp({super.key});
   // var screensize  = MediaQuery.of(context)
+  // RxBool isSucessful = false.obs;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+
+  final controller = Get.find<SignUpController>();
+  final otpController = Get.find<OTPController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,42 +42,79 @@ class SignUp extends StatelessWidget {
               Logo(),
               CustomForm(
                 isPassword: false,
-                // labelText: 'User name',
+                editingController: userNameController,
                 hintText: 'User name',
               ),
 
-              VerticalSpace(20),
-              CustomForm(
-                isPassword: false,
-                hintText: 'Email',
-              ),
+              // VerticalSpace(20),
+              // CustomForm(
+              //   editingController: emailController,
+              //   isPassword: false,
+              //   hintText: 'Email',
+              // ),
               VerticalSpace(20),
               CustomForm(
                 isPassword: true,
-                // labelText: 'Pssword',
+                editingController: passwordController,
                 hintText: 'password',
               ),
               VerticalSpace(20),
 
               CustomForm(
                 isPassword: true,
-                // labelText: 'Pssword',
-
+                editingController: passwordController,
                 hintText: 'confirm password ',
               ),
               VerticalSpace(20),
               CustomForm(
                 isPassword: false,
                 // labelText: 'Pssword',
+                editingController: phoneNumberController,
                 hintText: 'eg.913377471',
               ),
 
               VerticalSpace(50),
               GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/otp');
+                  onTap: () async {
+                    String name = userNameController.text;
+                    // final response;
+                    String password = passwordController.text;
+                    String Phone_no = phoneNumberController.text;
+                    // Get.toNamed('/otp');
+
+                    // print('email:$Email');
+                    // print('username:$name');
+                    // print('PhoneNumber :$Phone_no');
+                    // print('password :$password');
+                    try {
+                      final response =
+                          await controller.signUp(name, Phone_no, password);
+                      // controller.isLoading = true.obs;
+                      controller.isLoading;
+                      print('seelof${response.statusCode}');
+                      print('responsex:$response');
+
+                      ;
+
+                      if (response.statusCode == 201) {
+                        controller.id = response.data['id'];
+                        print('idd${controller.id}');
+
+                        controller.phoneNumber = response.data['Phone_no'];
+                        controller.isLoading = false.obs;
+                        Get.toNamed('/otp');
+                      } else {
+                        controller.isLoading = false.obs;
+
+                        print('statuscodeSignup${response.statusCode}');
+                        print('error');
+                      }
+                    } catch (e) {
+                      print('error calling signup: $e');
+                    }
                   },
-                  child: DefaultButton('Sign up')),
+                  child: Obx(
+                      () => DefaultButton('Sign up', controller.isLoading))),
               VerticalSpace(20),
 
               // Row(
