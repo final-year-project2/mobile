@@ -28,7 +28,7 @@ class SignUpController extends GetxController {
         'name': name,
         'Phone_no': Phone_no,
         'password': password,
-        'otp': ''
+        'otp': '',
       });
       if (response == null) {
         return throw Exception('response is null');

@@ -1,3 +1,4 @@
+import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/controller/ask_phone_number_controller.dart';
 import 'package:frontend/controller/categories_controller.dart';
 import 'package:frontend/controller/language_controller.dart';
@@ -9,8 +10,12 @@ import 'package:frontend/controller/product_image_controller.dart';
 import 'package:frontend/controller/signup_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/controller/verify_otp_password_reset_controller.dart';
+
+import 'package:frontend/pages/seller/save_product.dart';
+=======
 import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
+
 // import 'package:frontend/controller/theme_controller.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +23,7 @@ class Binders extends Bindings {
   @override
   void dependencies() {
     // Get.put(ThemeControllers());
+    Get.put(ProductController());
     Get.put(ThemeControllers());
     Get.put(WalletController());
     Get.put(OTPController());
@@ -29,9 +35,14 @@ class Binders extends Bindings {
     Get.put(HomePage());
 
     Get.put(LoginController());
-    Get.lazyPut(() => ProductImageController());
+    Get.put(ProductImageController());
+
+
+    Get.put(CategoryController());
 
     // Get.put(CategoryController());
+
     Get.put(LanguageController());
+    Get.put(ProductService());
   }
 }

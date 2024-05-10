@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/progress_indicator.dart';
 import 'package:get/get.dart';
 
 class ProductDesciption extends StatelessWidget {
-  const ProductDesciption({super.key});
-
+  ProductDesciption({super.key});
+  final productController = Get.find<ProductController>();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +46,7 @@ class ProductDesciption extends StatelessWidget {
             Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 0, 50),
               child: CustomForm(
+                editingController: titleController,
                 isPassword: false,
                 hintText: 'Samsung A11',
               ),
@@ -58,6 +62,7 @@ class ProductDesciption extends StatelessWidget {
                 width: 350,
                 height: 170,
                 child: TextFormField(
+                  controller: descriptionController,
                   maxLines: null,
                   style: TextStyle(decoration: TextDecoration.none),
                   decoration: InputDecoration(
@@ -71,7 +76,21 @@ class ProductDesciption extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed('/productdetail');
+                if (titleController.text.isEmpty ||
+                    descriptionController.text.isEmpty) {
+                  // Show a dialog or a snackbar to inform the user that both fields are required
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Both title and description are required.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  productController.title.value = titleController.text;
+                  productController.description.value =
+                      descriptionController.text;
+                  Get.toNamed('/productdetail');
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(25.0, 300, 0, 0),
