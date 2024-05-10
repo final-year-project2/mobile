@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/controller/categories_controller.dart';
+
+
+
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -10,10 +14,16 @@ import 'package:frontend/widgets/progress_indicator.dart';
 import 'package:get/get.dart';
 
 class ProductDetail extends StatelessWidget {
-  ProductDetail({super.key});
+
+ 
   final productDetailController = Get.find<ProductController>();
   final selectedvalue = Get.find<CategoryController>();
   TextEditingController numberController = TextEditingController();
+
+  // const ProductDetail({super.key});
+  // final productDetailController = Get.find<MegaProductController>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +57,7 @@ class ProductDetail extends StatelessWidget {
               CustomForm(
                 editingController: numberController,
                 isPassword: false,
+                editingController: numbereditingController,
                 hintText: 'e.g 100',
               ),
               VerticalSpace(30),
@@ -74,6 +85,7 @@ class ProductDetail extends StatelessWidget {
               VerticalSpace(450),
               GestureDetector(
                 onTap: () {
+
                   if (numberController.text.isEmpty) {
                     // Show an error message using a SnackBar
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -121,7 +133,9 @@ class ProductDetail extends StatelessWidget {
                   }
                   productDetailController.number_of_tickets.value =
                       int.parse(numberController.text);
-                  Get.toNamed('/producimages');
+
+
+                  
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 25.0),

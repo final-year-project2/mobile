@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   HttpServices? httpServices;
+  RxBool isLoading = false.obs;
   LoginController() {
     httpServices = HttpServices();
     httpServices?.init();
@@ -17,6 +18,7 @@ class LoginController extends GetxController {
   }
 
   Future<dio.Response> loginRequest(String Phone_no, String password) async {
+    isLoading.value = true;
     try {
       final response = await httpServices?.postRequest(
           '/user/login/', {'Phone_no': Phone_no, 'password': password});

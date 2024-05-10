@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTP extends StatelessWidget {
+  RxBool isSucessful = false.obs;
   final otpController = Get.find<OTPController>();
   final sigunupController = Get.find<SignUpController>();
   TextEditingController editingController = TextEditingController();
@@ -79,7 +80,10 @@ class OTP extends StatelessWidget {
                             await otpController.verifOtp(id, Phone_no);
 
                         if (otpResponse.statusCode == 200) {
+                          sigunupController.isSucessfulSignup.value = true;
+
                           //popup message with
+
                           Get.toNamed('/signin');
                         } else {
                           //popup
