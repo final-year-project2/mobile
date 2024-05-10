@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 class ProductDetail extends StatelessWidget {
   // const ProductDetail({super.key});
   // final productDetailController = Get.find<MegaProductController>();
-  TextEditingController numbereditingController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +44,7 @@ class ProductDetail extends StatelessWidget {
               ),
               CustomForm(
                 isPassword: false,
-                editingController: numbereditingController,
+                editingController: numberController,
                 hintText: 'e.g 100',
               ),
               VerticalSpace(30),
