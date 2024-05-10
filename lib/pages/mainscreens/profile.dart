@@ -19,15 +19,15 @@ class Profile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Balance'),
-          Text('0'),
+          Obx(() => Text('${walletController.walletAmount}')),
           VerticalSpace(10),
           Container(
               width: 150,
               height: 42,
               child: GestureDetector(
                   onTap: () async {
-                    walletController.addMoneyToWallet(context);
-                    walletController.verify();
+                    await walletController.addMoneyToWallet(context);
+                    // walletController.verify();
                   },
                   child: DefaultButton('add Money', false.obs)))
         ],

@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 class ProductDetail extends StatelessWidget {
   // const ProductDetail({super.key});
-  final productDetailController = Get.find<MegaProductController>();
+  // final productDetailController = Get.find<MegaProductController>();
   TextEditingController numbereditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -71,10 +71,7 @@ class ProductDetail extends StatelessWidget {
               // ),
               VerticalSpace(450),
               GestureDetector(
-                
                 onTap: () {
-                  productDetailController.productDetail.value = numbereditingController.text;
-                  print('number${ productDetailController.productDetail.value}');
                   Get.toNamed('/producimages');
                 },
                 child: Padding(
