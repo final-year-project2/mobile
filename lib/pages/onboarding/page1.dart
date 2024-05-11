@@ -8,7 +8,6 @@ import 'package:lottie/lottie.dart';
 class page1 extends StatelessWidget {
   page1({super.key});
     final languacontroler = Get.find<LanguageController>();
-
   @override
   Widget build(BuildContext context) {
     return Container(
