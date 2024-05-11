@@ -12,6 +12,7 @@ import 'package:frontend/pages/authentication/password_reset/verify_otp_password
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
+import 'package:frontend/pages/mainscreens/detail.dart';
 import 'package:frontend/pages/mainscreens/main_page.dart';
 import 'package:frontend/pages/mainscreens/profile.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
               page: () => ProductDetail(),
             ),
             GetPage(name: '/homepage', page: () => HomePage()),
+            GetPage(name: '/detailpage', page: ()=> DetailPage()),
             GetPage(name: '/producimages', page: () => ProducImages()),
             GetPage(name: '/otp', page: () => OTP()),
             GetPage(
