@@ -10,44 +10,45 @@ class page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:Column(
+      child: Column(
         children: [
-
-        SizedBox(height: 15,),
-        
-        SizedBox(
-          height: 420,
-          child: Lottie.asset('assets/page2.json',
-          animate: true,
-          backgroundLoading: true
+          SizedBox(
+            height: 15,
           ),
-        ),
-
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-                  Text('create_acount'.tr,style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold ,
-                    fontSize: 20,
-                    letterSpacing: 2
-                  ),),
-                  SizedBox(height: 6,),
-                  Text('page2description'.tr,
+          SizedBox(
+            height: 420,
+            child: Lottie.asset('assets/page2.json',
+                animate: true, backgroundLoading: true),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'create_acount'.tr,
                   style: TextStyle(
-                    color: optionalgrayTextColor,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold
-                  ),
-                  )
-            ],
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      letterSpacing: 2),
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                Text(
+                  'page2description'.tr,
+                  style: TextStyle(
+                      color: optionalgrayTextColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
           ),
-        ),
-        GestureDetector(
-          onTap: ()=>Get.toNamed('/landingpage'),
-          child: DefaultButton("skip".tr))
+          GestureDetector(
+              onTap: () => Get.toNamed('/landingpage'),
+              child: DefaultButton("skip".tr, false.obs))
         ],
       ),
     );

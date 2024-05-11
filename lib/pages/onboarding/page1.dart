@@ -8,6 +8,7 @@ import 'package:lottie/lottie.dart';
 class page1 extends StatelessWidget {
   page1({super.key});
     final languacontroler = Get.find<LanguageController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,7 +78,8 @@ class page1 extends StatelessWidget {
           ),
           GestureDetector(
             onTap: ()=>Get.toNamed('/landingpage'),
-            child: DefaultButton("skip".tr))
+            child: Text('Skip'))
+            // DefaultButton("skip".tr)
           ],
         ),
       ),

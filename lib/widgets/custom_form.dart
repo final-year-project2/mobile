@@ -1,10 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/login_controller.dart';
 import 'package:frontend/widgets/layout.dart';
-import 'package:get/get.dart';
 
 class CustomForm extends StatelessWidget {
   final String? labelText;
@@ -13,18 +15,21 @@ class CustomForm extends StatelessWidget {
   final bool? readonly;
   Function(String)? onchanged;
   Function()? ontap;
+  TextEditingController? editingController;
 
   //dependency injection
   final controller = Get.find<LoginController>();
 
   CustomForm({
+    Key? key,
     this.labelText,
     this.hintText,
     this.isPassword,
+    this.readonly,
     this.onchanged,
     this.ontap,
-    this.readonly,
-  });
+    this.editingController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +41,13 @@ class CustomForm extends StatelessWidget {
             Container(
               width: 350,
               child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                controller: editingController,
                 readOnly: readonly ?? false,
                 onTap: ontap,
                 style: TextStyle(decoration: TextDecoration.none),
@@ -45,7 +57,10 @@ class CustomForm extends StatelessWidget {
                     ? controller.isPasswordVissible.value
                     : controller.itIsNotPassword.value,
                 decoration: InputDecoration(
-                  // prefix: Text('+251'),
+                  // label: Text(
+                  //   labelText ?? '',
+                  //   style: TextStyle(fontSize: 15),
+                  // ),
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   contentPadding: EdgeInsets.only(top: 20),

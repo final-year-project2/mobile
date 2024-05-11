@@ -6,28 +6,40 @@ import 'package:frontend/languages.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:frontend/pages/authentication/login.dart';
 import 'package:frontend/pages/authentication/otp.dart';
+import 'package:frontend/pages/authentication/password_reset/ask_phone_number.dart';
+import 'package:frontend/pages/authentication/password_reset/newpassword.dart';
+import 'package:frontend/pages/authentication/password_reset/verify_otp_password_reset.dart';
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
+import 'package:frontend/pages/mainscreens/homepage.dart';
+import 'package:frontend/pages/mainscreens/main_page.dart';
+import 'package:frontend/pages/mainscreens/profile.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
+import 'package:frontend/pages/onboarding/page1.dart';
 import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/product_image.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:chapa_unofficial/chapa_unofficial.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final themeController = Get.put(ThemeControllers());
+  await GetStorage.init();
+
   await themeController.loadThemePreference();
+
+  Chapa.configure(privateKey: "CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR");
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     final themeController = Get.find<ThemeControllers>();
+
     return Obx(() => GetMaterialApp(
-          
           initialBinding: Binders(),
           darkTheme: themeController.darkTheme,
           themeMode: themeController.isLightTheme.value
@@ -38,15 +50,15 @@ class MyApp extends StatelessWidget {
           fallbackLocale: Locale('en', 'Us'),
           debugShowCheckedModeBanner: false,
           theme: themeController.lightTheme,
-          initialRoute: "/onboarding",
+          initialRoute: "/landingpage",
           getPages: [
-
-            GetPage(name: '/onboarding', page:()=> onboarding_page()),
+            GetPage(name: '/mainpage', page: () => MainPage()),
+            GetPage(name: '/profile', page: () => Profile()),
             GetPage(
-              name: '/landingpage',
-              page: () => LandingPage(),binding: Binders()
-            ),
-            GetPage(name: '/signin', page: () => SignIn()),
+                name: '/landingpage',
+                page: () => LandingPage(),
+                binding: Binders()),
+            GetPage(name: '/signin', page: () => Login()),
             GetPage(name: '/signup', page: () => SignUp()),
             GetPage(name: '/category', page: () => Category()),
             GetPage(
@@ -57,12 +69,24 @@ class MyApp extends StatelessWidget {
               name: '/productdetail',
               page: () => ProductDetail(),
             ),
+            GetPage(name: '/homepage', page: () => HomePage()),
             GetPage(name: '/producimages', page: () => ProducImages()),
             GetPage(name: '/otp', page: () => OTP()),
+            GetPage(
+                name: '/askphonenumber',
+                page: () => AskPhoneNumberForPasswordReset()),
+            GetPage(name: '/reciveotp', page: () => ReciveOTP()),
+            GetPage(name: '/newpassword', page: () => NewPassword()),
           ],
         ));
   }
 }
+
+
+
+
+
+
 // GetMaterialApp(
 //       debugShowCheckedModeBanner: false,
 //       theme: ThemeData(
