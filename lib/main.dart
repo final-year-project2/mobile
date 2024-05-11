@@ -53,15 +53,29 @@ class MyApp extends StatelessWidget {
           theme: themeController.lightTheme,
           initialRoute: "/landingpage",
           getPages: [
-            GetPage(name: '/mainpage', page: () => MainPage()),
-            GetPage(name: '/profile', page: () => Profile()),
+            GetPage(
+              name: '/mainpage', 
+              page: () => MainPage()),
+
+            GetPage(
+              name: '/profile', 
+              page: () => Profile()),
+
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),
                 binding: Binders()),
-            GetPage(name: '/signin', page: () => Login()),
-            GetPage(name: '/signup', page: () => SignUp()),
-            GetPage(name: '/category', page: () => Category()),
+
+            GetPage(
+              name: '/signin',
+              page: () => Login()),
+            GetPage(
+              name: '/signup',
+              page: () => SignUp()),
+            GetPage(
+              name: '/category',
+              page: () => Category()),
+
             GetPage(
               name: '/productdesciption',
               page: () => ProductDesciption(),
@@ -70,15 +84,35 @@ class MyApp extends StatelessWidget {
               name: '/productdetail',
               page: () => ProductDetail(),
             ),
-            GetPage(name: '/homepage', page: () => HomePage()),
-            GetPage(name: '/detailpage', page: ()=> DetailPage()),
-            GetPage(name: '/producimages', page: () => ProducImages()),
-            GetPage(name: '/otp', page: () => OTP()),
+
+            GetPage(
+              name: '/homepage', 
+              page: () => HomePage()),
+
+            GetPage(
+              name: '/detailpage', 
+              page: ()=> DetailPage()),
+
+            GetPage(
+              name: '/producimages', 
+              page: () => ProducImages()),
+
+            GetPage(
+              name: '/otp', 
+              page: () => OTP()),
+
             GetPage(
                 name: '/askphonenumber',
                 page: () => AskPhoneNumberForPasswordReset()),
-            GetPage(name: '/reciveotp', page: () => ReciveOTP()),
-            GetPage(name: '/newpassword', page: () => NewPassword()),
+
+            GetPage(
+              name: '/reciveotp', 
+              page: () => ReciveOTP()),
+
+            GetPage(
+              name: '/newpassword', 
+              page: () => NewPassword()),
+              
           ],
         ));
   }
