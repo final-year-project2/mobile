@@ -143,6 +143,10 @@ class _DetailPageState extends State<DetailPage> {
                   Text('this is yihenew'),
                   Text('this is yihenew'),
                   Text('this is yihenew'),
+                  Text('this is yihenew'),
+                  Text('this is yihenew'),
+                  Text('this is yihenew'),
+                  Text('this is yihenew'),
 
                 ],
               ),
