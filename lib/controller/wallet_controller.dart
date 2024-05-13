@@ -1,6 +1,7 @@
 import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:frontend/models/wallet_model.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:frontend/services/http_services.dart';
 import 'package:get/get.dart';
@@ -10,10 +11,23 @@ import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 
 class WalletController extends GetxController {
-  HttpServices? httpServices;
+  @override
+  void onInit() async {
+    super.onInit();
+    final responseBalance = await getWalletInformations();
+    walletAmount.value = responseBalance.balance;
+  }
 
-  RxInt walletAmount = 0.obs;
+  HttpServices? httpServices;
+  RxBool walletInfoIsLoading = true.obs;
+  RxBool chapaWebViewIsLoading = false.obs;
+  Map<String, dynamic>? verificationResult;
+  RxString walletAmount = ''.obs;
+  // RxList transactionDetail = [].obs;
+  // List<Map<String, dynamic>> transactionDetail = [];
+
   final tokenBox = GetStorage();
+  RxString userEnteredAmount = ''.obs;
   //walletid in url
   //amount
   //txntypt
@@ -24,37 +38,52 @@ class WalletController extends GetxController {
   }
   String? txRef;
   String? storedTxRef;
-  Future<void> addMoneyToWallet(BuildContext context) async {
+
+  Future<void> addMoneyToWallet(
+      BuildContext context, String userEnteredAmount) async {
     try {
       String txRef = TxRefRandomGenerator.generate(prefix: 'Pharmabet');
       String storedTxRef = TxRefRandomGenerator.gettxRef;
       print('Generated TxRef: $txRef');
       print('Stored TxRef: $storedTxRef');
       String? paymentUrl = await Chapa.getInstance.startPayment(
+          // returnUrl: '/wallet',
+
           callbackUrl:
               "https://api.chapa.co/v1/transaction/verify/$storedTxRef",
           context: context,
           txRef: storedTxRef,
-          amount: '100',
+          amount: userEnteredAmount,
           currency: 'ETB',
           enableInAppPayment: true,
           onInAppPaymentSuccess: (successMsg) async {
+            Get.toNamed('success');
             print('successMsg $successMsg');
             //verify the payment fucntion run
-            Map<String, dynamic> verificationResult =
-                await Chapa.getInstance.verifyPayment(
+            verificationResult = await Chapa.getInstance.verifyPayment(
               txRef: storedTxRef ?? '',
             );
 
-            verificationResult.values.forEach((element) {
-              print(element);
+            verificationResult?.values.forEach((element) {
+              print('element$element');
             });
 
-            int? walletMoney = verificationResult['data']['amount'];
+            int? walletMoney = verificationResult?['data']['amount'];
 
-            print('walletM:$walletMoney');
-            walletAmount.value = walletMoney ?? 0;
-            print('WalletControllerAmount:$walletAmount');
+            String sentAmount = walletMoney.toString();
+            // print('SentAmount:$sentAmount');
+            // int walletId = tokenBox.read('wallet_id');
+            // print('walletId:$walletId');
+
+            final response = await updateWalletForDeposit(sentAmount);
+            print('backend response $response');
+
+            // final walletResponse = await getWalletInformations();
+            // walletAmount.value = walletResponse.balance;
+            // print('finalWalletResponse :${walletAmount.value}');
+
+            // print('backendresponse:${response}');
+            //redirect to success page
           },
           onInAppPaymentError: (errorMsg) {
             print('errorMsg $errorMsg');
@@ -87,12 +116,13 @@ class WalletController extends GetxController {
     });
   }
 
-  Future<dio.Response> updateWalletForDeposit() async {
+  Future<dio.Response> updateWalletForDeposit(String amount) async {
     final walletId = tokenBox.read('walletId');
     print("Wallet id $walletId");
     try {
-      final response = await httpServices!.postRequest('/user/updateWallet/5',
-          {"amount": "100", "transaction_type": "deposit"});
+      final response = await httpServices!.postRequest(
+          '/user/updateWallet/$walletId',
+          {"amount": "$amount", "transaction_type": "deposit"});
 
       print('response $response');
       if (response == null) {
@@ -104,4 +134,31 @@ class WalletController extends GetxController {
       throw Exception(e);
     }
   }
+
+  Future<WalletModel> getWalletInformations() async {
+    final walletId = tokenBox.read('walletId');
+    print('start:$walletId');
+    try {
+      final response =
+          await httpServices?.getRequest('/user/retriveWalletInfo/$walletId');
+      walletInfoIsLoading.toggle();
+      if (response == null) {
+        return throw Exception('update-deposte response is null');
+      }
+      print('wallet-data:${WalletModel.fromJson(response.data)}');
+      return WalletModel.fromJson(response.data);
+    } on dio.DioException catch (e) {
+      print('error@ getWalletinfo:$e');
+      throw Exception(e);
+    }
+  }
 }
+
+
+
+
+
+
+
+// { "amount":"2", "transaction_type":"deposit"
+// }

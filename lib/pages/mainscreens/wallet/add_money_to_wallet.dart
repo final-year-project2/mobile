@@ -1,12 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 
 class AddMoneyToWallet extends StatelessWidget {
-  const AddMoneyToWallet({super.key});
-
+  AddMoneyToWallet({super.key});
+  final walletController = Get.find<WalletController>();
+  TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final screensize = MediaQuery.of(context).size;
@@ -49,6 +52,7 @@ class AddMoneyToWallet extends StatelessWidget {
                 Container(
                   width: screensize.width * 0.7,
                   child: TextFormField(
+                    controller: textEditingController,
                     autofocus: true,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
@@ -74,9 +78,15 @@ class AddMoneyToWallet extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(25.0, 0, 0, 0),
               child: GestureDetector(
                   onTap: () {
-                    Get.toNamed('success');
+                    String userInput = textEditingController.text;
+                    walletController.addMoneyToWallet(context, userInput);
+                    walletController.chapaWebViewIsLoading.toggle();
+                    Future.delayed(Duration(seconds: 1),
+                        () => walletController.chapaWebViewIsLoading.toggle());
+                    // Get.toNamed('success');
                   },
-                  child: DefaultButton('Add Money ', false.obs)),
+                  child: Obx(() => DefaultButton(
+                      'Add Money ', walletController.chapaWebViewIsLoading))),
             )
           ],
         ),

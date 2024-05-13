@@ -26,6 +26,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:chapa_unofficial/chapa_unofficial.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final themeController = Get.put(ThemeControllers());
