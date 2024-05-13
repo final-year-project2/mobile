@@ -26,7 +26,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:chapa_unofficial/chapa_unofficial.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final themeController = Get.put(ThemeControllers());
@@ -56,14 +55,11 @@ class MyApp extends StatelessWidget {
           theme: themeController.lightTheme,
           initialRoute: "/landingpage",
           getPages: [
+            // GetPage(
 
-            GetPage(
-              page: () => MainPage()),
+            //   page: () => MainPage()),
 
-            GetPage(
-              name: '/profile', 
-              page: () => Profile()),
-
+            GetPage(name: '/profile', page: () => Wallet()),
 
             GetPage(name: '/mainpage', page: () => MainPage()),
             GetPage(name: '/wallet', page: () => Wallet()),
@@ -73,15 +69,9 @@ class MyApp extends StatelessWidget {
                 page: () => LandingPage(),
                 binding: Binders()),
 
-            GetPage(
-              name: '/signin',
-              page: () => Login()),
-            GetPage(
-              name: '/signup',
-              page: () => SignUp()),
-            GetPage(
-              name: '/category',
-              page: () => Category()),
+            GetPage(name: '/signin', page: () => Login()),
+            GetPage(name: '/signup', page: () => SignUp()),
+            GetPage(name: '/category', page: () => Category()),
 
             GetPage(
               name: '/productdesciption',
@@ -92,23 +82,13 @@ class MyApp extends StatelessWidget {
               page: () => ProductDetail(),
             ),
 
+            GetPage(name: '/homepage', page: () => HomePage()),
 
-            GetPage(
-              name: '/homepage', 
-              page: () => HomePage()),
+            GetPage(name: '/detailpage', page: () => DetailPage()),
 
-            GetPage(
-              name: '/detailpage', 
-              page: ()=> DetailPage()),
+            GetPage(name: '/producimages', page: () => ProducImages()),
 
-            GetPage(
-              name: '/producimages', 
-              page: () => ProducImages()),
-
-            GetPage(
-              name: '/otp', 
-              page: () => OTP()),
-
+            GetPage(name: '/otp', page: () => OTP()),
 
             GetPage(
               name: '/success',
@@ -122,14 +102,9 @@ class MyApp extends StatelessWidget {
                 name: '/askphonenumber',
                 page: () => AskPhoneNumberForPasswordReset()),
 
-            GetPage(
-              name: '/reciveotp', 
-              page: () => ReciveOTP()),
+            GetPage(name: '/reciveotp', page: () => ReciveOTP()),
 
-            GetPage(
-              name: '/newpassword', 
-              page: () => NewPassword()),
-              
+            GetPage(name: '/newpassword', page: () => NewPassword()),
           ],
         ));
   }
