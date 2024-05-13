@@ -36,46 +36,55 @@ List item = ['item1','item1','item1','item1','item1','item1','item1','item1','it
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 10),
-                child: Icon(Icons.bookmark,size: 40,color: primaryColor,),
+                child:  FilledButton(
+                  style: ButtonStyle(
+                    backgroundColor:MaterialStateProperty.all<Color>(primaryColor),
+                  ),
+                  onPressed: (){},
+                  child: Text('Buy ticket'),),
               )
             ],
-            backgroundColor: primaryColor,
             expandedHeight:250.0,
+            centerTitle: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: Container(
-                child: Text('this is yihenew'),
-              ),
               background:Container(
                 decoration: BoxDecoration(
-                  color: Colors.yellow
+                  color: primaryColor,
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight:  Radius.circular(20))
                 ),
                 child: Stack(
                   children:[ 
                   CarouselSlider(
                     items:[
                       Container(
-                        margin: EdgeInsets.only(bottom: 60),
-                        child:Image.asset(
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                              'assets/car1.jpg'),  
+                        child:ClipRRect(
+                          borderRadius:  BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight:  Radius.circular(20)),
+                          child: Image.asset(
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                                'assets/car1.jpg'),
+                        ),  
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 60),
-                        child:Image.asset(
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                              'assets/car2.jpg'),
+                        child:ClipRRect(
+                          borderRadius:  BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight:  Radius.circular(20)),
+                          child: Image.asset(
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                                'assets/car2.jpg'),
+                        ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 60),
-                        child:Image.asset(
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                              'assets/a.jpg'),
+                        child:ClipRRect(
+                          borderRadius:  BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight:  Radius.circular(20)),
+                          child: Image.asset(
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                                'assets/a.jpg'),
+                        ),
                       )
                     ],
                     options:  CarouselOptions(
@@ -150,9 +159,9 @@ List item = ['item1','item1','item1','item1','item1','item1','item1','item1','it
                         ),
                             ],
                           ),
-                         ),
+                        ),
                         SizedBox(height: 20,),
-                        DefaultButton("But Ticket",false.obs),
+                        DefaultButton("Buy Ticket",false.obs),
                         SizedBox(height: 20,),
                         DefaultButton("Share Ticket",false.obs),
                         Column(
