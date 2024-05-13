@@ -57,12 +57,7 @@ class MyApp extends StatelessWidget {
           initialRoute: "/landingpage",
           getPages: [
 
-            GetPage(
-              page: () => MainPage()),
-
-            GetPage(
-              name: '/profile', 
-              page: () => Profile()),
+            
 
 
             GetPage(name: '/mainpage', page: () => MainPage()),
