@@ -3,6 +3,7 @@ import 'package:frontend/constants.dart';
 import 'package:get/get.dart';
 
 Widget DefaultButton(String text, RxBool isLoading) {
+  
   return Container(
     height: 49,
     width: 342,

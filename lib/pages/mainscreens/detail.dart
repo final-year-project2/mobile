@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
-import 'package:frontend/controller/detail_controler.dart';
+import 'package:frontend/widgets/buttons.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class DetailPage extends StatefulWidget {
 DetailPage({super.key});
@@ -11,31 +15,8 @@ DetailPage({super.key});
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
-
 class _DetailPageState extends State<DetailPage> {
-  final Controler = Get.find<DetailControler>();
-  Timer? _timer;
-
-  void startTimer(){
-    _timer = Timer.periodic(Duration(seconds: 4), (timer) { 
-      if (Controler.pageController.page == 2){
-          Controler.pageController.animateToPage(0,duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
-      }else{
-        Controler.pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.easeInOut);
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    startTimer();
-  }
-  @override
-  void dispose() {
-    super.dispose();
-    _timer?.cancel();
-  }
+List item = ['item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1','item1',];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,104 +26,145 @@ class _DetailPageState extends State<DetailPage> {
             pinned: true,
             floating: true,
             leading: GestureDetector(
-              onTap: ()=>Get.back(),
+              onTap: ()=>Get.offNamed('/homepage'),
               child: Icon(
                 Icons.arrow_back,
                 color: whiteColor,
                 size: 30,
                 ),
             ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(Icons.bookmark,size: 40,color: primaryColor,),
+              )
+            ],
             backgroundColor: primaryColor,
-            expandedHeight: 250.0,
+            expandedHeight:250.0,
             flexibleSpace: FlexibleSpaceBar(
-              background:Stack(
-                children:[ 
-                  PageView(
-                  controller:Controler.pageController,
-                  children: [
-                    Container(
-                      color: Colors.red,
-                    ),
-                    Container(
-                      color: Colors.green,
-                    ),
-                    Container(
-                      color: Colors.yellow,
-                    ),
-                  ],
+              title: Container(
+                child: Text('this is yihenew'),
+              ),
+              background:Container(
+                decoration: BoxDecoration(
+                  color: Colors.yellow
                 ),
-                Container(
-                  alignment: Alignment(0, 0.9),
-                  child: SmoothPageIndicator(
-                        controller: Controler.pageController,
-                        count: 3,
-                        effect: const WormEffect(
-                            dotWidth: 13,
-                            dotHeight: 13,
-                            dotColor: fotterTextColor,
-                            activeDotColor: primaryColor),
+                child: Stack(
+                  children:[ 
+                  CarouselSlider(
+                    items:[
+                      Container(
+                        margin: EdgeInsets.only(bottom: 60),
+                        child:Image.asset(
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                              'assets/car1.jpg'),  
                       ),
-                  )
-                ]
+                      Container(
+                        margin: EdgeInsets.only(bottom: 60),
+                        child:Image.asset(
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                              'assets/car2.jpg'),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 60),
+                        child:Image.asset(
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                              'assets/a.jpg'),
+                      )
+                    ],
+                    options:  CarouselOptions(
+                            height: double.infinity,
+                            viewportFraction: 1,
+                            initialPage: 0,
+                            autoPlay: false,
+                            autoPlayInterval: Duration(seconds: 3),
+                            autoPlayAnimationDuration: Duration(milliseconds: 800),
+                            autoPlayCurve: Curves.easeInOut,
+                            enlargeCenterPage: true,
+                            enlargeFactor: 0,
+                            scrollDirection: Axis.horizontal,
+                          )),
+                  ]
+                ),
               )
             ),
           ),
 
 
+
+
+
           SliverToBoxAdapter(
               child: Column(
-                children: [
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-                  Text('this is yihenew'),
-
-                ],
-              ),
-            )
+                      children: [
+                        SizedBox(height: 20,),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                          decoration: BoxDecoration(
+                            color: blureGreen,                            borderRadius: BorderRadius.all(Radius.circular(10))
+                          ),
+                          child: Column(
+                            children: [
+                          Padding(
+                          padding: const EdgeInsets.fromLTRB(15,10,20,5),
+                          child: Text('lorem ipsum transition ai transition safe fse t',style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                        ),
+                        LinearPercentIndicator(
+                              width:MediaQuery.of(context).size.width-20,
+                              lineHeight: 10,
+                              animation: true,
+                              animationDuration: 2000,
+                              percent: 0.7,
+                              barRadius:Radius.circular(10),
+                              progressColor: primaryColor,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(15,0,15,0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('0 Birr'),
+                              Text('100 Birr')
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 15,),
+                        Row(
+                          children: [
+                            SizedBox(width: 15,),
+                            Text("200" ,style: TextStyle(
+                              color: thirdColor
+                            ),),
+                            SizedBox(width: 3,),
+                            Text('People bought this ticket ')
+                          ],
+                        ),
+                            ],
+                          ),
+                         ),
+                        SizedBox(height: 20,),
+                        DefaultButton("But Ticket",false.obs),
+                        SizedBox(height: 20,),
+                        DefaultButton("Share Ticket",false.obs),
+                        Column(
+                          children: item.map((items) => Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Text("$items"),
+                            )).toList(),
+                        )
+                          ],
+                        ), 
+                        
+                ),
         ],
       )
     );
