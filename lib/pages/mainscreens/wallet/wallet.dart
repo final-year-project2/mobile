@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/wallet_controller.dart';
+import 'package:frontend/models/wallet_model.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
@@ -11,9 +12,19 @@ import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:get_storage/get_storage.dart';
 
 class Wallet extends StatelessWidget {
-  final tokenBox = GetStorage();
   Wallet({super.key});
+
   final walletController = Get.find<WalletController>();
+
+  // void fetchData() async {
+  //   final walletResponse = await walletController.getWalletInformations();
+  //   walletController.walletAmount.value = walletResponse.balance;
+
+  //   print('finalWalletResponse :${walletController.walletAmount}');
+  // }
+
+  final tokenBox = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
@@ -76,11 +87,16 @@ class Wallet extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    '59,990',
-                                    style: TextStyle(
-                                        color: whiteColor, fontSize: 40),
-                                  ),
+                                  Obx(() => walletController
+                                          .walletInfoIsLoading.value
+                                      ? CircularProgressIndicator(
+                                          color: primaryColor,
+                                        )
+                                      : Text(
+                                          walletController.walletAmount.value,
+                                          style: TextStyle(
+                                              fontSize: 35, color: whiteColor),
+                                        )),
                                   HorizontalSpace(5),
                                   Image.asset(width: 35, 'assets/birr2.png')
                                 ],
@@ -226,8 +242,6 @@ class Wallet extends StatelessWidget {
     );
   }
 }
-
-
 
 //  // // await walletController.addMoneyToWallet(context);
                     // Get.toNamed('addmoneytowallet');
