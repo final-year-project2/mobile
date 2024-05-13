@@ -44,7 +44,11 @@ class ProductDetail extends StatelessWidget {
               ),
               CustomForm(
                 isPassword: false,
+
+                // editingController: numbereditingController,
+
                 editingController: numberController,
+
                 hintText: 'e.g 100',
               ),
               VerticalSpace(30),

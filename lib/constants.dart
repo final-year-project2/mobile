@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const primaryColor = Color.fromRGBO(253, 195, 2, 1);
 const thirdColor = Color.fromRGBO(9, 168, 25, 1);
+const blureGreen = Color.fromRGBO(139, 193, 144, 1);
 const colorForContrast = Color.fromRGBO(245, 232, 195, 1);
 const blackColor = Color.fromARGB(255, 33, 30, 30);
 const whiteColor = Color.fromRGBO(255, 255, 255, 1);

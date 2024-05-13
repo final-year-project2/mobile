@@ -12,6 +12,7 @@ import 'package:frontend/pages/authentication/password_reset/verify_otp_password
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
+import 'package:frontend/pages/mainscreens/detail.dart';
 import 'package:frontend/pages/mainscreens/main_page.dart';
 import 'package:frontend/pages/mainscreens/wallet/add_money_to_wallet.dart';
 import 'package:frontend/pages/mainscreens/wallet/success.dart';
@@ -55,15 +56,33 @@ class MyApp extends StatelessWidget {
           theme: themeController.lightTheme,
           initialRoute: "/landingpage",
           getPages: [
+
+            GetPage(
+              page: () => MainPage()),
+
+            GetPage(
+              name: '/profile', 
+              page: () => Profile()),
+
+
             GetPage(name: '/mainpage', page: () => MainPage()),
             GetPage(name: '/wallet', page: () => Wallet()),
+
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),
                 binding: Binders()),
-            GetPage(name: '/signin', page: () => Login()),
-            GetPage(name: '/signup', page: () => SignUp()),
-            GetPage(name: '/category', page: () => Category()),
+
+            GetPage(
+              name: '/signin',
+              page: () => Login()),
+            GetPage(
+              name: '/signup',
+              page: () => SignUp()),
+            GetPage(
+              name: '/category',
+              page: () => Category()),
+
             GetPage(
               name: '/productdesciption',
               page: () => ProductDesciption(),
@@ -72,6 +91,25 @@ class MyApp extends StatelessWidget {
               name: '/productdetail',
               page: () => ProductDetail(),
             ),
+
+
+            GetPage(
+              name: '/homepage', 
+              page: () => HomePage()),
+
+            GetPage(
+              name: '/detailpage', 
+              page: ()=> DetailPage()),
+
+            GetPage(
+              name: '/producimages', 
+              page: () => ProducImages()),
+
+            GetPage(
+              name: '/otp', 
+              page: () => OTP()),
+
+
             GetPage(
               name: '/success',
               page: () => Success(),
@@ -83,8 +121,15 @@ class MyApp extends StatelessWidget {
             GetPage(
                 name: '/askphonenumber',
                 page: () => AskPhoneNumberForPasswordReset()),
-            GetPage(name: '/reciveotp', page: () => ReciveOTP()),
-            GetPage(name: '/newpassword', page: () => NewPassword()),
+
+            GetPage(
+              name: '/reciveotp', 
+              page: () => ReciveOTP()),
+
+            GetPage(
+              name: '/newpassword', 
+              page: () => NewPassword()),
+              
           ],
         ));
   }
