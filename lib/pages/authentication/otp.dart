@@ -83,7 +83,6 @@ class OTP extends StatelessWidget {
                           sigunupController.isSucessfulSignup.value = true;
 
                           //popup message with
-
                           Get.toNamed('/signin');
                         } else {
                           //popup

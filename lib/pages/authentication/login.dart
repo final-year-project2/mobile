@@ -22,7 +22,7 @@ class Login extends StatelessWidget {
   final loginController = Get.find<LoginController>();
   final sigunUpController = Get.find<SignUpController>();
 
-  final productController = Get.find<MegaProductController>();
+  // final productController = Get.find<MegaProductController>();
 
   final tokenBox = GetStorage();
   TextEditingController phoneNumberControler = TextEditingController();
@@ -124,17 +124,30 @@ class Login extends StatelessWidget {
                       // Get.toNamed('/productdesciption');
 
                       try {
+                        print('login start');
                         loginController.isLoading.value = true;
                         final loginResponse = await loginController
                             .loginRequest(Phone_no, password);
+                        print('login middle');
+
                         if (loginResponse.statusCode == 200) {
+                          print('ok response');
+
                           String accessToken = loginResponse.data['access'];
                           String refreshToken = loginResponse.data['refresh'];
+                          print('response:$loginResponse');
+                          // String userId = loginResponse.data['user_id'];
+                          // print('userId:$userId');
+
+                          int wallet_id = loginResponse.data['wallet_id'];
                           tokenBox.write('accessToken', accessToken);
                           tokenBox.write('refreshToken', refreshToken);
+                          tokenBox.write('walletId', wallet_id);
 
+                          print('fromTokenBox:walletId${wallet_id}');
                           print('fromTokenBox:AcessToken${accessToken}');
                           print('fromTokenBox:refreshToken${refreshToken}');
+                          print('wallet-id :$wallet_id');
                           loginController.isLoading.value = false;
                           Get.toNamed('/mainpage');
                         } else {

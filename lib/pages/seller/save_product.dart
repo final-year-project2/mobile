@@ -71,7 +71,7 @@ class ProductService extends GetxController {
       final response =
           await httpServices.postRequest('product/save-ticket/', formData);
       // Use the endpoint path
-      if (response.statusCode == 201) {
+      if (response?.statusCode == 201) {
         // Handle success
         print('Product data sent successfully');
       } else {

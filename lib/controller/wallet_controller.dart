@@ -1,7 +1,7 @@
-import 'dart:ffi';
-
 import 'package:chapa_unofficial/chapa_unofficial.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/authentication/categories.dart';
 import 'package:frontend/services/http_services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -10,11 +10,17 @@ import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 
 class WalletController extends GetxController {
-  RxInt walletAmount = 0.obs;
+  HttpServices? httpServices;
 
+  RxInt walletAmount = 0.obs;
+  final tokenBox = GetStorage();
+  //walletid in url
+  //amount
+  //txntypt
+  dio.Dio _dio = dio.Dio();
   WalletController() {
-    HttpServices httpServices = HttpServices();
-    httpServices.initAuthenticated();
+    httpServices = HttpServices();
+    httpServices?.init();
   }
   String? txRef;
   String? storedTxRef;
@@ -79,5 +85,23 @@ class WalletController extends GetxController {
     verificationResult.values.forEach((element) {
       print(element);
     });
+  }
+
+  Future<dio.Response> updateWalletForDeposit() async {
+    final walletId = tokenBox.read('walletId');
+    print("Wallet id $walletId");
+    try {
+      final response = await httpServices!.postRequest('/user/updateWallet/5',
+          {"amount": "100", "transaction_type": "deposit"});
+
+      print('response $response');
+      if (response == null) {
+        return throw Exception('update-deposte response is null');
+      }
+      return response;
+    } on dio.DioException catch (e) {
+      print('error occure depositing ');
+      throw Exception(e);
+    }
   }
 }
