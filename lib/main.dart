@@ -14,7 +14,9 @@ import 'package:frontend/pages/landing_page.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/mainscreens/detail.dart';
 import 'package:frontend/pages/mainscreens/main_page.dart';
-import 'package:frontend/pages/mainscreens/profile.dart';
+import 'package:frontend/pages/mainscreens/wallet/add_money_to_wallet.dart';
+import 'package:frontend/pages/mainscreens/wallet/success.dart';
+import 'package:frontend/pages/mainscreens/wallet/wallet.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/onboarding/page1.dart';
 import 'package:frontend/pages/seller/product_description.dart';
@@ -53,13 +55,17 @@ class MyApp extends StatelessWidget {
           theme: themeController.lightTheme,
           initialRoute: "/landingpage",
           getPages: [
+
             GetPage(
-              name: '/mainpage', 
               page: () => MainPage()),
 
             GetPage(
               name: '/profile', 
               page: () => Profile()),
+
+
+            GetPage(name: '/mainpage', page: () => MainPage()),
+            GetPage(name: '/wallet', page: () => Wallet()),
 
             GetPage(
                 name: '/landingpage',
@@ -85,6 +91,7 @@ class MyApp extends StatelessWidget {
               page: () => ProductDetail(),
             ),
 
+
             GetPage(
               name: '/homepage', 
               page: () => HomePage()),
@@ -101,6 +108,15 @@ class MyApp extends StatelessWidget {
               name: '/otp', 
               page: () => OTP()),
 
+
+            GetPage(
+              name: '/success',
+              page: () => Success(),
+            ),
+            GetPage(name: '/addmoneytowallet', page: () => AddMoneyToWallet()),
+            GetPage(name: '/homepage', page: () => HomePage()),
+            GetPage(name: '/producimages', page: () => ProducImages()),
+            GetPage(name: '/otp', page: () => OTP()),
             GetPage(
                 name: '/askphonenumber',
                 page: () => AskPhoneNumberForPasswordReset()),
