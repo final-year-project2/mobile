@@ -39,7 +39,7 @@ class CustomForm extends StatelessWidget {
             // Text(labelText ?? ''),
             // VerticalSpace(10),
             Container(
-              width: 350,
+              width: 330,
               child: TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
