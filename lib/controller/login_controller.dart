@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   HttpServices? httpServices;
+  RxBool isLoading = false.obs;
   LoginController() {
     httpServices = HttpServices();
     httpServices?.init();

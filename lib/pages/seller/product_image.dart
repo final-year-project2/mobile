@@ -224,7 +224,20 @@ class ProducImages extends StatelessWidget {
                             formData.fields.forEach((field) {
                               print('${field.key}: ${field.value}');
                             });
-                            await productService.sendProductDataToDatabase();
+                            //Send product data to database
+                            try {
+                              await productService.sendProductDataToDatabase();
+                              // Show success message using a SnackBar
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Product Sent Successfully'),
+                                  duration: Duration(seconds: 3),
+                                ),
+                              );
+                            } catch (e) {
+                              // Handle DioException or any other error
+                              print('Error sending product data: $e');
+                            }
                           }
                         },
                         child: DefaultButton(

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
   RxBool isLoading = false.obs;
+  RxBool isSucessfulSignup = false.obs;
   var phoneNumber = '';
   var id = 0;
 

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/controller/categories_controller.dart';
+import 'package:frontend/controller/Product_controller.dart';
+import 'package:frontend/controller/categories_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -14,6 +16,10 @@ class ProductDetail extends StatelessWidget {
   final productDetailController = Get.find<ProductController>();
   final selectedvalue = Get.find<CategoryController>();
   TextEditingController numberController = TextEditingController();
+
+  // const ProductDetail({super.key});
+  // final productDetailController = Get.find<MegaProductController>()
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

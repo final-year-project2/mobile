@@ -4,6 +4,7 @@ import 'package:get/get_connect/http/src/multipart/form_data.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:get/get.dart';
 import 'package:frontend/services/http_services.dart';
+import 'package:frontend/controller/sellerController.dart';
 import 'dart:io'; // Import Dart's IO package to work with files
 import 'dart:convert';
 
@@ -11,10 +12,12 @@ class ProductService extends GetxController {
   final HttpServices httpServices = HttpServices();
   Future<dio.FormData> prepareFormData() async {
     final productController = Get.find<ProductController>();
+    final seller = Get.find<SellerController>();
     // Prepare FormData
     final formData = dio.FormData();
 
     formData.fields.addAll([
+      MapEntry('seller', seller.sellerId.toString()),
       MapEntry('title', productController.title.value),
       MapEntry('description', productController.description.value),
       MapEntry('number_of_tickets',
