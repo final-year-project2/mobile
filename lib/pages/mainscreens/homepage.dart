@@ -185,7 +185,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           SliverToBoxAdapter(
             child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
               child: Container(
                 width: double.infinity,
                 height: 500,
