@@ -18,7 +18,7 @@ class SellerRegistrationPage extends StatelessWidget {
     httpServices.initAuthenticated();
     try {
       final response = await HttpServices().postRequest(
-        'http://192.168.137.181:8000/product/become_seller/',
+        'http://10.0.2.2:8000/product/become_seller/',
         formData,
       );
 
@@ -56,7 +56,7 @@ class SellerRegistrationPage extends StatelessWidget {
     final formData = {'user_id': userId.toString()};
     try {
       final response = await HttpServices().postRequest(
-        'http://192.168.137.181:8000/product/check_seller/',
+        'http://10.0.2.2:8000/product/check_seller/',
         formData,
       );
 

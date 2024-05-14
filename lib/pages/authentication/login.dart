@@ -114,9 +114,11 @@ class Login extends StatelessWidget {
                 VerticalSpace(40),
 
                 GestureDetector(
+                    child: Obx(
+                      () =>
+                          DefaultButton('SIGNIN'.tr, loginController.isLoading),
+                    ),
                     onTap: () async {
-                      // print('PhoneNumbers:${phoneNumberControler.text }');
-                      // print('password:${passwordControler.text}');
                       String Phone_no = phoneNumberControler.text;
                       String password = passwordControler.text;
                       print('Phoneno:$Phone_no');
@@ -175,14 +177,8 @@ class Login extends StatelessWidget {
                           isErroccured.value = false;
                         });
                       }
-                    },
-                    child: Obx(() =>
-                    
-                        GestureDetector(
-                          onTap: (){
-                            
-                          },
-                          child: DefaultButton('SIGNIN'.tr, loginController.isLoading)))),
+                    }),
+
                 VerticalSpace(30),
 
                 Obx(() => isErroccured.value
@@ -207,7 +203,7 @@ class Login extends StatelessWidget {
                                       style: TextStyle(
                                           letterSpacing: 2,
                                           wordSpacing: 2,
-                                          color: Colors.red ),
+                                          color: Colors.red),
                                       'Incorrect phonenumber or password,please try again ',
                                       softWrap: true,
                                       maxLines: 2,
