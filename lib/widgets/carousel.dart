@@ -10,9 +10,9 @@ class CarouselWidjit extends StatelessWidget {
     return CarouselSlider(
   options: CarouselOptions(
     height: double.infinity,
-    viewportFraction: 0.8,
+    viewportFraction: 2,
     initialPage: 0,
-    autoPlay: false,
+    autoPlay: true,
     autoPlayInterval: Duration(seconds: 3),
     autoPlayAnimationDuration: Duration(milliseconds: 800),
     autoPlayCurve: Curves.easeInOut,
@@ -24,15 +24,19 @@ class CarouselWidjit extends StatelessWidget {
     return Builder(
       builder: (BuildContext context) {
         return Container(
+          
           child:Container(
-                  margin: EdgeInsets.only(top: 90,left: 15,bottom: 10),
-                
+                  margin: EdgeInsets.only(top:90),             
                   child:Column(
                     children: [
                       ClipRRect(
-                        borderRadius:BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(15),
                         child: Image.asset(
-                              item?[i-1]),
+                              item?[i-1],
+                              width: MediaQuery.of(context).size.width-30,
+                              height: 225,
+                              fit: BoxFit.cover,
+                              ),
                       ),
                     ],
                   ),

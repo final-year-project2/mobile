@@ -28,10 +28,10 @@ class HttpServices {
     try {
       final response = await dio.get(
         url,
-        queryParameters: data, // Use queryParameters for GET requests
+        queryParameters: data, 
       );
       return response;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       print('Error on get method: $e');
       throw Exception(e.message);
     }
