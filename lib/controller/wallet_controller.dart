@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
@@ -16,17 +18,24 @@ class WalletController extends GetxController {
     super.onInit();
     final responseBalance = await getWalletInformations();
     walletAmount.value = responseBalance.balance;
+    await getRecentTransaction();
+
+    print('RXtransaction$transactions');
   }
 
+  RxList<TransactionModel> transactions = <TransactionModel>[].obs;
   HttpServices? httpServices;
   RxBool walletInfoIsLoading = true.obs;
+  RxBool isTransactionLoading = true.obs;
   RxBool chapaWebViewIsLoading = false.obs;
   Map<String, dynamic>? verificationResult;
   RxString walletAmount = ''.obs;
+
   // RxList transactionDetail = [].obs;
   // List<Map<String, dynamic>> transactionDetail = [];
 
   final tokenBox = GetStorage();
+
   RxString userEnteredAmount = ''.obs;
   //walletid in url
   //amount
@@ -152,7 +161,31 @@ class WalletController extends GetxController {
       throw Exception(e);
     }
   }
+
+  Future<List<TransactionModel>> getRecentTransaction() async {
+    final walletId = tokenBox.read('walletId');
+
+    try {
+      final response = await httpServices
+          ?.getRequest('user/retiveTransactionInfo/$walletId');
+      isTransactionLoading.toggle();
+      // print('bTransaction:${response?.data}');
+      // print('transaction: $response');
+
+      if (response == null) {
+        return throw Exception('transaction response is null');
+      }
+
+      transactions.value = TransactionModel.fromJsonList(response.data);
+
+      return transactions;
+    } catch (e) {
+      print('error transaction data $e');
+      throw Exception(e);
+    }
+  }
 }
+
 
 
 

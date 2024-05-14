@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -169,7 +167,12 @@ class Login extends StatelessWidget {
                       }
                     },
                     child: Obx(() =>
-                        DefaultButton('SIGNIN'.tr, loginController.isLoading))),
+                    
+                        GestureDetector(
+                          onTap: (){
+                            
+                          },
+                          child: DefaultButton('SIGNIN'.tr, loginController.isLoading)))),
                 VerticalSpace(30),
 
                 Obx(() => isErroccured.value
@@ -194,7 +197,7 @@ class Login extends StatelessWidget {
                                       style: TextStyle(
                                           letterSpacing: 2,
                                           wordSpacing: 2,
-                                          color: Colors.red),
+                                          color: Colors.red ),
                                       'Incorrect phonenumber or password,please try again ',
                                       softWrap: true,
                                       maxLines: 2,

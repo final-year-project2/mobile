@@ -10,7 +10,6 @@ import 'package:frontend/controller/product_image_controller.dart';
 import 'package:frontend/controller/signup_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/controller/verify_otp_password_reset_controller.dart';
-
 import 'package:frontend/pages/seller/save_product.dart';
 import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
@@ -30,7 +29,7 @@ class Binders extends Bindings {
     Get.put(AskPhoneNumber());
     Get.put(VerifyOtpPasswordResetController());
     Get.put(NewPasswordController());
-    // Get.put(MegaProductController());
+    Get.put(MegaProductController());
     Get.put(HomePage());
     Get.put(LoginController());
     Get.put(ProductImageController());
