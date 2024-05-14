@@ -11,7 +11,7 @@ var refreshToken = tokenBox.read('refreshToken');
 class HttpServices {
   Dio dio = Dio();
 
-  Future<Response?> postRequest(String url, dynamic data) async {
+  Future<Response> postRequest(String url, dynamic data) async {
     try {
       final response = await dio.post(
         url,

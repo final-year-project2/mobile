@@ -9,6 +9,8 @@ import 'package:frontend/controller/otp_controller.dart';
 import 'package:frontend/controller/product_image_controller.dart';
 import 'package:frontend/controller/signup_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
+import 'package:frontend/controller/UserController.dart';
+import 'package:frontend/controller/sellerController.dart';
 import 'package:frontend/controller/verify_otp_password_reset_controller.dart';
 import 'package:frontend/pages/seller/save_product.dart';
 import 'package:frontend/controller/wallet_controller.dart';
@@ -34,6 +36,15 @@ class Binders extends Bindings {
     Get.put(LoginController());
     Get.put(ProductImageController());
     Get.put(CategoryController());
+    Get.put(UserController());
+    Get.put(SellerController());
+    Get.put(LoginController());
+    Get.put(ProductImageController());
+
+    Get.put(CategoryController());
+    Get.put(CategoryController());
+
+    // Get.put(CategoryController());
     Get.put(LanguageController());
     Get.put(ProductService());
     Get.put(DetailControler());

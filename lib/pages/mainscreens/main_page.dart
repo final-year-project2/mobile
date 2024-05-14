@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/authentication/login.dart';
-import 'package:frontend/pages/landing_page.dart';
+import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/mainscreens/wallet/add_money_to_wallet.dart';
 import 'package:frontend/pages/mainscreens/wallet/success.dart';
 import 'package:frontend/pages/mainscreens/wallet/wallet.dart';
+// import 'package:frontend/pages/mainscreens/profile.dart';
+import 'package:frontend/pages/seller/seller_Registration.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -15,11 +17,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<Widget> pages = [
-    const HomePage(),
-    LandingPage(),
-    Wallet(),
-  ];
+  List<Widget> pages = [const HomePage(), SellerRegistrationPage(), Wallet()];
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {
