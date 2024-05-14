@@ -21,6 +21,7 @@ import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/onboarding/page1.dart';
 import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/seller/product_detail.dart';
+import 'package:frontend/pages/seller/seller_Registration.dart';
 import 'package:frontend/pages/seller/product_image.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -64,6 +65,8 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/mainpage', page: () => MainPage()),
             GetPage(name: '/wallet', page: () => Wallet()),
 
+            // GetPage(name: '/profile', page: () => Profile()),
+            GetPage(name: '/seller', page: () => SellerRegistrationPage()),
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),

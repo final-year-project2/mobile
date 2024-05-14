@@ -12,7 +12,6 @@ import 'package:frontend/widgets/layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:flash/flash.dart';
 import 'package:get/get_rx/get_rx.dart';
 
 class SignUp extends StatelessWidget {
