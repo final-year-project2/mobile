@@ -40,10 +40,6 @@ class Wallet extends StatelessWidget {
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: true,
-            title: Text(
-              "",
-              style: TextStyle(color: blackColor, fontSize: 18),
-            ),
             actions: [
               HorizontalSpace(15),
               Padding(
@@ -56,7 +52,7 @@ class Wallet extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  height: 220,
+                  height: 180,
                   width: screenSize.size.width,
                   decoration: BoxDecoration(
                       color: primaryColor,
@@ -115,7 +111,7 @@ class Wallet extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 70, 0, 0),
+              padding: const EdgeInsets.fromLTRB(50, 50, 0, 0),
               child: Text(
                 '',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -124,7 +120,7 @@ class Wallet extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(35, 5, 15, 25),
+              padding: EdgeInsets.fromLTRB(35, 0, 15, 10),
               child: SizedBox(
                 width: size.width,
                 child: Row(
@@ -216,7 +212,7 @@ class Wallet extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Column(
               children: List.generate(
-                  5,
+                  10,
                   (index) => Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
