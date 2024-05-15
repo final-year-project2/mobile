@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/controller/product_image_controller.dart';
 import 'package:frontend/pages/seller/product_description.dart';
+import 'package:frontend/pages/seller/save_product.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:frontend/widgets/progress_indicator.dart';
 import 'package:get/get.dart';
 import 'dart:io';
-
 import 'package:image_picker/image_picker.dart';
 
 class ProducImages extends StatelessWidget {
   final controller = Get.find<ProductImageController>();
-
+  final productController = Get.find<ProductController>();
+  final productService = Get.find<ProductService>();
+  // Corrected method name: getImage
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -195,7 +198,53 @@ class ProducImages extends StatelessWidget {
                     // VerticalSpace(20),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(30.0, 10, 0, 40),
-                      child: DefaultButton('CONTINUE'.tr, false.obs),
+                      child: GestureDetector(
+                        onTap: () async {
+                          if (productController.image_1.value == null) {
+                            // Show an error message using a SnackBar
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('First image field is required'),
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          } else {
+                            // Call sendProductDataToDatabase() when the button is pressed
+                            print('title: ${productController.title.value}');
+                            print(
+                                'description: ${productController.description.value}');
+                            print(
+                                'category: ${productController.prizeCategory.value}');
+                            print(
+                                'Image 1 path: ${productController.image_1.value?.path}');
+
+                            // Print form data
+                            final formData =
+                                await productService.prepareFormData();
+                            formData.fields.forEach((field) {
+                              print('${field.key}: ${field.value}');
+                            });
+                            //Send product data to database
+                            try {
+                              await productService.sendProductDataToDatabase();
+                              // Show success message using a SnackBar
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Product Sent Successfully'),
+                                  duration: Duration(seconds: 3),
+                                ),
+                              );
+                            } catch (e) {
+                              // Handle DioException or any other error
+                              print('Error sending product data: $e');
+                            }
+                          }
+                        },
+                        child: DefaultButton(
+                          'CONTINUE'.tr,
+                          false.obs,
+                        ),
+                      ),
                     )
                   ],
                 ),

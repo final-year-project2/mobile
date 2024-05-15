@@ -12,10 +12,11 @@ import 'package:frontend/widgets/layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:get/get_rx/get_rx.dart';
 
 class SignUp extends StatelessWidget {
   // var screensize  = MediaQuery.of(context)
-
+  // RxBool isSucessful = false.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -92,13 +93,18 @@ class SignUp extends StatelessWidget {
                       print('seelof${response.statusCode}');
                       print('responsex:$response');
 
+                      ;
+
                       if (response.statusCode == 201) {
                         controller.id = response.data['id'];
                         print('idd${controller.id}');
 
                         controller.phoneNumber = response.data['Phone_no'];
+                        controller.isLoading = false.obs;
                         Get.toNamed('/otp');
                       } else {
+                        controller.isLoading = false.obs;
+
                         print('statuscodeSignup${response.statusCode}');
                         print('error');
                       }

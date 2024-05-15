@@ -13,13 +13,13 @@ class CustomForm extends StatelessWidget {
   final String? hintText;
   final bool? isPassword;
   final bool? readonly;
+
   Function(String)? onchanged;
   Function()? ontap;
   TextEditingController? editingController;
 
   //dependency injection
   final controller = Get.find<LoginController>();
-
   CustomForm({
     Key? key,
     this.labelText,
@@ -57,6 +57,10 @@ class CustomForm extends StatelessWidget {
                     ? controller.isPasswordVissible.value
                     : controller.itIsNotPassword.value,
                 decoration: InputDecoration(
+                  // label: Text(
+                  //   labelText ?? '',
+                  //   style: TextStyle(fontSize: 15),
+                  // ),
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   contentPadding: EdgeInsets.only(top: 20),

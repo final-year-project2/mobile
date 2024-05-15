@@ -2,12 +2,13 @@
 import 'package:get/get.dart';
 
 class CategoryController extends GetxController {
-  RxList<String> selectedCategories = <String>[].obs;
-  void toggleCategories(String category) {
-    if (selectedCategories.contains(category)) {
-      selectedCategories.remove(category);
+  var selectedCategory = ''.obs;
+
+  void toggleCategory(String category) {
+    if (selectedCategory.value == category) {
+      selectedCategory.value = ''; // Deselect if already selected
     } else {
-      selectedCategories.add(category);
+      selectedCategory.value = category; // Select the new category
     }
   }
 }

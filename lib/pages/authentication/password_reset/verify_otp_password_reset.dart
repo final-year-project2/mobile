@@ -2,18 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/ask_phone_number_controller.dart';
 import 'package:frontend/controller/otp_controller.dart';
 import 'package:frontend/controller/signup_controller.dart';
+import 'package:frontend/controller/verify_otp_password_reset_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OTP extends StatelessWidget {
-  RxBool isSucessful = false.obs;
-  final otpController = Get.find<OTPController>();
-  final sigunupController = Get.find<SignUpController>();
+class ReciveOTP extends StatelessWidget {
+  final controller = Get.find<VerifyOtpPasswordResetController>();
   TextEditingController editingController = TextEditingController();
+  final phoneNumberController = Get.find<AskPhoneNumber>();
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -70,25 +72,14 @@ class OTP extends StatelessWidget {
                   padding: EdgeInsets.only(left: 30),
                   child: GestureDetector(
                       onTap: () async {
-                        String Phone_no = editingController.text;
+                        String phoneNumber =
+                            phoneNumberController.phoneNumber.value;
+                        controller.passwordOtp = editingController.text.obs;
+                        Get.toNamed('newpassword');
+                        String otp = editingController.text;
+                        controller.passwordResetOtpVerification(
+                            otp, phoneNumber);
                         //here the phone number indicates the otp to make it similar to backendfiled
-                        var id = sigunupController.id;
-
-                        print('CapitalOTP: $Phone_no');
-                        print('UserID:$id');
-                        final otpResponse =
-                            await otpController.verifOtp(id, Phone_no);
-
-                        if (otpResponse.statusCode == 200) {
-                          sigunupController.isSucessfulSignup.value = true;
-
-                          //popup message with
-
-                          Get.toNamed('/signin');
-                        } else {
-                          //popup
-                          print('OTP${otpResponse.statusCode}');
-                        }
                       },
                       child: DefaultButton('CONTINUE'.tr, false.obs)))
             ],
