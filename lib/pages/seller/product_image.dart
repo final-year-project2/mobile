@@ -214,7 +214,7 @@ class ProducImages extends StatelessWidget {
                             print(
                                 'description: ${productController.description.value}');
                             print(
-                                'category: ${productController.selectedCategories.length}');
+                                'category: ${productController.prizeCategory.value}');
                             print(
                                 'Image 1 path: ${productController.image_1.value?.path}');
 

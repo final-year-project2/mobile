@@ -7,6 +7,7 @@ import 'package:frontend/pages/mainscreens/wallet/add_money_to_wallet.dart';
 import 'package:frontend/pages/mainscreens/wallet/success.dart';
 import 'package:frontend/pages/mainscreens/wallet/wallet.dart';
 // import 'package:frontend/pages/mainscreens/profile.dart';
+import 'package:frontend/pages/mainscreens/profile.dart';
 import 'package:frontend/pages/seller/seller_Registration.dart';
 
 class MainPage extends StatefulWidget {

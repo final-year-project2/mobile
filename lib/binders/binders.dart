@@ -31,11 +31,8 @@ class Binders extends Bindings {
     Get.put(AskPhoneNumber());
     Get.put(VerifyOtpPasswordResetController());
     Get.put(NewPasswordController());
-    Get.put(MegaProductController());
+    // Get.put(MegaProductController());
     Get.put(HomePage());
-    Get.put(LoginController());
-    Get.put(ProductImageController());
-    Get.put(CategoryController());
     Get.put(UserController());
     Get.put(SellerController());
     Get.put(LoginController());

@@ -17,6 +17,8 @@ import 'package:frontend/pages/mainscreens/main_page.dart';
 import 'package:frontend/pages/mainscreens/wallet/add_money_to_wallet.dart';
 import 'package:frontend/pages/mainscreens/wallet/success.dart';
 import 'package:frontend/pages/mainscreens/wallet/wallet.dart';
+import 'package:frontend/pages/mainscreens/main_page.dart';
+import 'package:frontend/pages/mainscreens/profile.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/onboarding/page1.dart';
 import 'package:frontend/pages/seller/product_description.dart';
@@ -27,8 +29,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:chapa_unofficial/chapa_unofficial.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   final themeController = Get.put(ThemeControllers());
   await GetStorage.init();
 
@@ -60,7 +63,7 @@ class MyApp extends StatelessWidget {
 
             //   page: () => MainPage()),
 
-            GetPage(name: '/profile', page: () => Wallet()),
+            GetPage(name: '/wallet', page: () => Wallet()),
 
             GetPage(name: '/mainpage', page: () => MainPage()),
             GetPage(name: '/wallet', page: () => Wallet()),
