@@ -13,13 +13,13 @@ class CustomForm extends StatelessWidget {
   final String? hintText;
   final bool? isPassword;
   final bool? readonly;
+
   Function(String)? onchanged;
   Function()? ontap;
   TextEditingController? editingController;
 
   //dependency injection
   final controller = Get.find<LoginController>();
-
   CustomForm({
     Key? key,
     this.labelText,

@@ -2,6 +2,7 @@ import 'package:frontend/controller/product_image_controller.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 
+import 'package:frontend/widgets/custom_form.dart';
 import 'package:get/get_rx/get_rx.dart';
 
 final imagecontrollers = Get.find<ProductImageController>();
@@ -10,10 +11,10 @@ class ProductController extends GetxController {
   RxString title = ''.obs;
   RxString description = ''.obs;
   RxInt number_of_tickets = 0.obs;
-  List<String> selectedCategories = [];
-  void addToList(String selected) {
-    selectedCategories.add(selected);
-  }
+  RxString prizeCategory = ''.obs;
+  // void addToList(String selected) {
+  //   selectedCategories.add(selected);
+  // }
 
   var image_1 = Rx<File?>(null);
   var image_2 = Rx<File?>(null);
@@ -52,7 +53,7 @@ class ProductController extends GetxController {
   }
 
   // Method to convert selectedCategories to JSON array
-  List<String> toJsonArray() {
-    return selectedCategories.map((category) => category).toList();
-  }
+//   List<String> toJsonArray() {
+//     return selectedCategories.map((category) => category).toList();
+//   }
 }

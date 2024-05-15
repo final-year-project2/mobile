@@ -19,11 +19,15 @@ class HttpServices {
       final response = await dio.post(
         url,
         data: data,
+        options: Options(
+          contentType: Headers
+              .formUrlEncodedContentType, // Use formUrlEncodedContentType for form data
+        ),
       );
       return response;
     } on DioException catch (e) {
       print('Error on post method: $e');
-      throw Exception(e.message);
+      throw Exception(e.message); // You can customize error handling as needed
     }
   }
 
@@ -31,7 +35,7 @@ class HttpServices {
     try {
       final response = await dio.get(
         url,
-        queryParameters: data,
+        queryParameters: data, // Use queryParameters for GET requests
       );
       return response;
     } on DioException catch (e) {
@@ -45,6 +49,7 @@ class HttpServices {
       final response = await dio.patch(
         url,
         data: data,
+        options: Options(),
       );
       return response;
     } on DioException catch (e) {
