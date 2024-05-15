@@ -2,14 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/controller/categories_controller.dart';
 import 'package:frontend/controller/mega_product_controller.dart';
+
+import 'package:frontend/pages/seller/product_image.dart';
+
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 
+
 class Category extends StatelessWidget {
   Category({super.key});
+
+  final productSelector = Get.find<ProductController>();
 
   final List<String> categories = [
     'Electronics',
@@ -71,12 +78,16 @@ class Category extends StatelessWidget {
                     ) =>
                         Obx(() => GestureDetector(
                               onTap: () {
-                                controller.toggleCategories(category);
+                                // controller.toggleCategories(category);
+                                // productSelector.addToList(category);
+                                controller.toggleCategory(category);
+                                productSelector.prizeCategory =
+                                    controller.selectedCategory;
                               },
                               child: Container(
                                 decoration: BoxDecoration(
                                     //If the name is found in the list of selctedcategroy change the color else not
-                                    color: controller.selectedCategories
+                                    color: controller.selectedCategory
                                             .contains(category)
                                         ? colorForContrast
                                         : null,
@@ -94,7 +105,11 @@ class Category extends StatelessWidget {
               VerticalSpace(50),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 100),
-                child: DefaultButton('Continue', false.obs),
+                child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: DefaultButton('Continue', false.obs)),
               )
             ],
           ),

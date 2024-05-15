@@ -13,12 +13,15 @@ import 'package:frontend/widgets/layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:frontend/controller/UserController.dart';
 
 class Login extends StatelessWidget {
   RxBool isErroccured = false.obs;
   final themeControllers = Get.find<ThemeControllers>();
   final loginController = Get.find<LoginController>();
   final sigunUpController = Get.find<SignUpController>();
+  final userController =
+      Get.find<UserController>(); // Instantiate UserController
 
   // final productController = Get.find<MegaProductController>();
 
@@ -111,9 +114,11 @@ class Login extends StatelessWidget {
                 VerticalSpace(40),
 
                 GestureDetector(
+                    child: Obx(
+                      () =>
+                          DefaultButton('SIGNIN'.tr, loginController.isLoading),
+                    ),
                     onTap: () async {
-                      // print('PhoneNumbers:${phoneNumberControler.text }');
-                      // print('password:${passwordControler.text}');
                       String Phone_no = phoneNumberControler.text;
                       String password = passwordControler.text;
                       print('Phoneno:$Phone_no');
@@ -134,10 +139,15 @@ class Login extends StatelessWidget {
                           String accessToken = loginResponse.data['access'];
                           String refreshToken = loginResponse.data['refresh'];
                           print('response:$loginResponse');
+                          int userId = loginResponse.data['user_id'];
+                          print('userId:$userId');
+
+                          int wallet_id = loginResponse.data['wallet_id'];
+                          print('response:$loginResponse');
                           // String userId = loginResponse.data['user_id'];
                           // print('userId:$userId');
 
-                          int wallet_id = loginResponse.data['wallet_id'];
+                          // int wallet_id = loginResponse.data['wallet_id'];
                           tokenBox.write('accessToken', accessToken);
                           tokenBox.write('refreshToken', refreshToken);
                           tokenBox.write('walletId', wallet_id);
@@ -147,6 +157,8 @@ class Login extends StatelessWidget {
                           print('fromTokenBox:refreshToken${refreshToken}');
                           print('wallet-id :$wallet_id');
                           loginController.isLoading.value = false;
+                          userController.setUserId(
+                              userId); // Set user ID in UserController
                           Get.toNamed('/mainpage');
                         } else {
                           //popup,show incorrect combination
@@ -165,14 +177,8 @@ class Login extends StatelessWidget {
                           isErroccured.value = false;
                         });
                       }
-                    },
-                    child: Obx(() =>
-                    
-                        GestureDetector(
-                          onTap: (){
-                            
-                          },
-                          child: DefaultButton('SIGNIN'.tr, loginController.isLoading)))),
+                    }),
+
                 VerticalSpace(30),
 
                 Obx(() => isErroccured.value
@@ -197,7 +203,7 @@ class Login extends StatelessWidget {
                                       style: TextStyle(
                                           letterSpacing: 2,
                                           wordSpacing: 2,
-                                          color: Colors.red ),
+                                          color: Colors.red),
                                       'Incorrect phonenumber or password,please try again ',
                                       softWrap: true,
                                       maxLines: 2,
