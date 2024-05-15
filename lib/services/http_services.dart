@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-const BASE_URL = 'http://10.0.2.2:8000/';
+// const BASE_URL = 'fia';
 
 final tokenBox = GetStorage();
 
@@ -9,6 +10,8 @@ var accessToken = tokenBox.read('accessToken');
 var refreshToken = tokenBox.read('refreshToken');
 
 class HttpServices {
+  final BASE_URL = dotenv.env['BASE_URL'];
+
   Dio dio = Dio();
 
   Future<Response> postRequest(String url, dynamic data) async {
@@ -28,7 +31,7 @@ class HttpServices {
     try {
       final response = await dio.get(
         url,
-        queryParameters: data, 
+        queryParameters: data,
       );
       return response;
     } on DioException catch (e) {
@@ -63,12 +66,12 @@ class HttpServices {
   }
 
   void init() {
-    dio =
-        Dio(BaseOptions(baseUrl: BASE_URL, sendTimeout: Duration(seconds: 30)));
+    dio = Dio(BaseOptions(
+        baseUrl: BASE_URL ?? '', sendTimeout: Duration(seconds: 30)));
   }
 
   void initAuthenticated() {
-    dio.options.baseUrl = BASE_URL;
+    dio.options.baseUrl = BASE_URL ?? '';
     dio.options.headers["Authorization"] = "Bearer $accessToken";
 
     dio.interceptors.add(InterceptorsWrapper(

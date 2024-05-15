@@ -9,6 +9,10 @@ import 'package:frontend/services/http_services.dart';
 import 'package:frontend/constants.dart';
 
 class SellerRegistrationPage extends StatelessWidget {
+
+
+
+  
   final sellerId = Get.find<UserController>();
   final sellerController = Get.find<SellerController>();
 
