@@ -11,7 +11,7 @@ var refreshToken = tokenBox.read('refreshToken');
 class HttpServices {
   Dio dio = Dio();
 
-  Future<Response?> postRequest(String url, dynamic data) async {
+  Future<Response> postRequest(String url, dynamic data) async {
     try {
       final response = await dio.post(
         url,
@@ -28,10 +28,10 @@ class HttpServices {
     try {
       final response = await dio.get(
         url,
-        queryParameters: data, // Use queryParameters for GET requests
+        queryParameters: data, 
       );
       return response;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       print('Error on get method: $e');
       throw Exception(e.message);
     }

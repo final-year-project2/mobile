@@ -24,12 +24,12 @@ class _DetailPageState extends State<DetailPage> {
         SliverAppBar(
           pinned: true,
           floating: true,
-          backgroundColor: primaryColor,
+          backgroundColor: whiteColor,
           leading: GestureDetector(
             onTap: () => Get.offNamed('/homepage'),
             child: Icon(
               Icons.arrow_back,
-              color: whiteColor,
+              color: blackColor,
               size: 30,
             ),
           ),
@@ -65,32 +65,17 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),
           ],
-          expandedHeight: 320.0,
+          expandedHeight: 300.0,
           flexibleSpace: FlexibleSpaceBar(
               background: Container(
+
             decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
+              color: whiteColor
+            ),
             child: Stack(children: [
               CarouselWidjit(
                 item: controler.ticketImage,
               ),
-              Positioned(
-                  bottom: 5,
-                  left: 80,
-                  child: FilledButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(secondaryColor),
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      'Car Catagory',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ))
             ]),
           )),
         ),
@@ -121,8 +106,8 @@ class _DetailPageState extends State<DetailPage> {
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
                       decoration: BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10)
+                      ),
                       child: Column(
                         children: [
                           Row(
@@ -132,27 +117,21 @@ class _DetailPageState extends State<DetailPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "Price 10 Birr",
-                                    style: TextStyle(
-                                        color: whiteColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "20 Tickets sold",
-                                    style: TextStyle(
-                                        color: thirdColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    "10 Tickets remains",
-                                    style: TextStyle(
-                                        color: grayTextColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
+                                  Text("Price 10 Birr",style: TextStyle(
+                                    color: grayTextColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),),
+                                  Text("20 Tickets sold",style: TextStyle(
+                                    color: thirdColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),),
+                                  Text("10 Tickets remains",style: TextStyle(
+                                    color: grayTextColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18
+                                  ),),
                                 ],
                               ),
                               CircularPercentIndicator(
@@ -160,7 +139,7 @@ class _DetailPageState extends State<DetailPage> {
                                 progressColor: thirdColor,
                                 backgroundColor: blureGreen,
                                 animation: true,
-                                lineWidth: 20,
+                                lineWidth: 15,
                                 animationDuration: 2000,
                                 percent: 0.7,
                                 circularStrokeCap: CircularStrokeCap.round,
