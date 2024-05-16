@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+// import 'package:intl/intl/date_time.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+
 import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/models/wallet_model.dart';
 import 'package:frontend/widgets/buttons.dart';
@@ -15,6 +17,8 @@ class Wallet extends StatelessWidget {
   Wallet({super.key});
 
   final walletController = Get.find<WalletController>();
+
+  // String datae=DateFormat('MM-dd-yyyy').format(walletController.transactions.first.transactionDate)
 
   // void fetchData() async {
   //   final walletResponse = await walletController.getWalletInformations();
@@ -35,11 +39,7 @@ class Wallet extends StatelessWidget {
         // scrollBehavior: ScrollBehavior.none,
         slivers: [
           SliverAppBar(
-            automaticallyImplyLeading: false,
-            title: Text(
-              "Welcom,Natnael",
-              style: TextStyle(color: blackColor, fontSize: 18),
-            ),
+            automaticallyImplyLeading: true,
             actions: [
               HorizontalSpace(15),
               Padding(
@@ -52,7 +52,7 @@ class Wallet extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  height: 220,
+                  height: 180,
                   width: screenSize.size.width,
                   decoration: BoxDecoration(
                       color: primaryColor,
@@ -66,7 +66,7 @@ class Wallet extends StatelessWidget {
                   child: Stack(clipBehavior: Clip.none, children: [
                     Container(
                       height: screenSize.size.width * 0.37,
-                      width: screenSize.size.width * 0.85,
+                      width: screenSize.size.width * 0.8,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: homePageBannerColor2),
@@ -75,7 +75,7 @@ class Wallet extends StatelessWidget {
                         top: 10,
                         left: 4,
                         child: Container(
-                          width: screenSize.size.width * 0.85,
+                          width: screenSize.size.width * 0.8,
                           child: Column(
                             children: [
                               Text(
@@ -111,7 +111,7 @@ class Wallet extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 70, 0, 0),
+              padding: const EdgeInsets.fromLTRB(50, 50, 0, 0),
               child: Text(
                 '',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -120,7 +120,7 @@ class Wallet extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(35, 5, 15, 25),
+              padding: EdgeInsets.fromLTRB(35, 0, 15, 10),
               child: SizedBox(
                 width: size.width,
                 child: Row(
@@ -222,16 +222,42 @@ class Wallet extends StatelessWidget {
                           child: ListTile(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
-                            subtitle: Text(
-                              '20/2/2024',
-                            ),
+                            subtitle: Obx(() =>
+                                walletController.isTransactionLoading.value
+                                    ? SizedBox(
+                                        width: 10,
+                                        height: 10,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ))
+                                    : Text(walletController
+                                        .transactions[index].transactionDate
+                                        .toString())),
                             leading: Icon(
-                              Icons.arrow_upward,
+                              Icons.arrow_downward,
                               color: thirdColor,
                             ),
                             tileColor: Color.fromARGB(218, 237, 236, 236),
-                            title: Text('-200'),
-                            trailing: Text('Withdrawal'),
+                            title: Obx(() =>
+                                walletController.isTransactionLoading.value
+                                    ? SizedBox(
+                                        width: 10,
+                                        height: 10,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ))
+                                    : Text(walletController
+                                        .transactions[index].amount)),
+                            trailing:
+                                walletController.isTransactionLoading.value
+                                    ? SizedBox(
+                                        width: 10,
+                                        height: 10,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ))
+                                    : Text(walletController
+                                        .transactions[index].transactionType),
                           ),
                         ),
                       )),

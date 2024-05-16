@@ -15,7 +15,6 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  
   final controler = Get.find<DetailControler>();
   @override
   Widget build(BuildContext context) {
@@ -39,8 +38,8 @@ class _DetailPageState extends State<DetailPage> {
               padding: const EdgeInsets.only(right: 10),
               child: FilledButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      secondaryColor),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(secondaryColor),
                 ),
                 onPressed: () {},
                 child: Text(
@@ -103,7 +102,6 @@ class _DetailPageState extends State<DetailPage> {
                             color: grayTextColor),
                       ),
                     ),
-                    
                     Container(
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -146,8 +144,7 @@ class _DetailPageState extends State<DetailPage> {
                                 percent: 0.7,
                                 circularStrokeCap: CircularStrokeCap.round,
                                 center: Text('20'),
-                                ),
-                                              
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -234,101 +231,102 @@ class _DetailPageState extends State<DetailPage> {
                 style: TextStyle(
                     color: grayTextColor, fontWeight: FontWeight.bold),
               ),
-              
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(20, 3, 5, 10),
-                    decoration: BoxDecoration(
-                      color: homePageContainerBackground,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    child: CustomForm(hintText:'Write comment')),
-                  Icon(Icons.send,size: 40,color: secondaryColor,)
+                      margin: EdgeInsets.fromLTRB(20, 3, 5, 10),
+                      decoration: BoxDecoration(
+                          color: homePageContainerBackground,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: CustomForm(hintText: 'Write comment')),
+                  Icon(
+                    Icons.send,
+                    size: 40,
+                    color: secondaryColor,
+                  )
                 ],
               ),
-              SizedBox(height: 10,),
-
+              SizedBox(
+                height: 10,
+              ),
               Column(
                 children: controler.coments
-                    .map((items) =>Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                          padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
-                          decoration: BoxDecoration(
-                            color: homePageContainerBackground
-                          ),
-                          child: Column(
-                            children: [
-                              
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.person_2_outlined,
-                                      color: secondaryColor,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text('Mandela .com'),
-                                    Text(
-                                      '  1hr ago',
-                                      style: TextStyle(
-                                          fontSize: 10, color: primaryColor),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Text(
-                                  "$items",
-                                  style: TextStyle(
-                                      fontSize: 13, color: grayTextColor),
-                                ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 5,),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
-                          margin: EdgeInsets.only(left: 50,bottom: 15),
-                          decoration: BoxDecoration(
-                            color: homePageContainerBackground
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Replay from ticket owner',style: TextStyle(
-                                color: secondaryColor
-                              ),),
-                              Text('$items',style: TextStyle(
-                                fontSize: 13,
-                                color: grayTextColor
-                              ),),
-
-                              
-                            ],
-                          ),
-                          
-                        ),
-                          Padding(
-                padding: const EdgeInsets.fromLTRB(10,0,10,30),
-                child: Divider(
-                  height: 0,
-                  color: grayTextColor,
-                ),
-              ),
-                      ],
-                    ))
+                    .map((items) => Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                              padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
+                              decoration: BoxDecoration(
+                                  color: homePageContainerBackground),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.person_2_outlined,
+                                        color: secondaryColor,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text('Mandela .com'),
+                                      Text(
+                                        '  1hr ago',
+                                        style: TextStyle(
+                                            fontSize: 10, color: primaryColor),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    "$items",
+                                    style: TextStyle(
+                                        fontSize: 13, color: grayTextColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
+                              margin: EdgeInsets.only(left: 50, bottom: 15),
+                              decoration: BoxDecoration(
+                                  color: homePageContainerBackground),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Replay from ticket owner',
+                                    style: TextStyle(color: secondaryColor),
+                                  ),
+                                  Text(
+                                    '$items',
+                                    style: TextStyle(
+                                        fontSize: 13, color: grayTextColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
+                              child: Divider(
+                                height: 0,
+                                color: grayTextColor,
+                              ),
+                            ),
+                          ],
+                        ))
                     .toList(),
               )
             ],
           ),
         ),
-        
       ],
     ));
   }

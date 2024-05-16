@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
-
+// const BASE_URL = 'fia';
 
 final tokenBox = GetStorage();
 
@@ -14,16 +14,20 @@ class HttpServices {
   final BASE_URL=dotenv.env['BASE_URL'];
   Dio dio = Dio();
 
-  Future<Response?> postRequest(String url, dynamic data) async {
+  Future<Response> postRequest(String url, dynamic data) async {
     try {
       final response = await dio.post(
         url,
         data: data,
+        options: Options(
+          contentType: Headers
+              .formUrlEncodedContentType, // Use formUrlEncodedContentType for form data
+        ),
       );
       return response;
     } on DioException catch (e) {
       print('Error on post method: $e');
-      throw Exception(e.message);
+      throw Exception(e.message); // You can customize error handling as needed
     }
   }
 
@@ -31,7 +35,7 @@ class HttpServices {
     try {
       final response = await dio.get(
         url,
-        queryParameters: data, 
+        queryParameters: data, // Use queryParameters for GET requests
       );
       return response;
     } on DioException catch (e) {
@@ -45,6 +49,7 @@ class HttpServices {
       final response = await dio.patch(
         url,
         data: data,
+        options: Options(),
       );
       return response;
     } on DioException catch (e) {
