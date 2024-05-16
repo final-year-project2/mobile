@@ -3,15 +3,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-// const BASE_URL = 'fia';
-
 final tokenBox = GetStorage();
 
-var accessToken = tokenBox.read('accessToken');
+var accessToken = tokenBox.read('accessTmoken');
 var refreshToken = tokenBox.read('refreshToken');
 
 class HttpServices {
-  final BASE_URL=dotenv.env['BASE_URL'];
+  final BASE_URL= dotenv.env['BASE_URL'];
   Dio dio = Dio();
 
   Future<Response> postRequest(String url, dynamic data) async {
