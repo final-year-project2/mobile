@@ -10,16 +10,19 @@ import 'package:frontend/services/http_services.dart';
 import 'package:frontend/constants.dart';
 
 class SellerRegistrationPage extends StatelessWidget {
+  final BASE_URL= dotenv.env['BASE_URL'];
   final sellerId = Get.find<UserController>();
   final sellerController = Get.find<SellerController>();
 
   Future<void> registerAsSeller(int userId) async {
     final formData = {'user_id': userId.toString()};
     HttpServices httpServices = HttpServices();
+
+
     httpServices.initAuthenticated();
     try {
       final response = await HttpServices().postRequest(
-        'http://192.168.137.181:8000/product/become_seller/',
+        'http://192.168.137.230:8000/product/become_seller/',
         formData,
       );
 
@@ -57,7 +60,7 @@ class SellerRegistrationPage extends StatelessWidget {
     final formData = {'user_id': userId.toString()};
     try {
       final response = await HttpServices().postRequest(
-        'http://192.168.137.181:8000/product/check_seller/',
+        'http://192.168.137.230:8000//product/check_seller/',
         formData,
       );
 

@@ -260,7 +260,7 @@ class Wallet extends StatelessWidget {
                                         .transactions[index].transactionType),
                           ),
                         ),
-                      )),
+              )),
             ),
           ))
         ],

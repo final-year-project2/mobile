@@ -44,13 +44,13 @@ class _DetailPageState extends State<DetailPage> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(secondaryColor),
                 ),
-                onPressed:()=>Get.bottomSheet(
-                        backgroundColor: whiteColor,
-                        Container(
-                        width: screenSize.width,
-                        height: screenSize.height*0.5,
-                        child: PaymentPage(),
-                      )),
+                onPressed: ()=>Get.bottomSheet(
+                              backgroundColor: whiteColor,
+                              isScrollControlled: true,
+                              Container(
+                              height: screenSize.height*0.9,
+                              child: PaymentPage(controler),
+                            )),
                 child: Text(
                   'Buy ticket',
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -176,7 +176,7 @@ class _DetailPageState extends State<DetailPage> {
                               isScrollControlled: true,
                               Container(
                               height: screenSize.height*0.9,
-                              child: PaymentPage(),
+                              child: PaymentPage(controler),
                             )),
                             child: DefaultButton("Buy Ticket", false.obs)),
 

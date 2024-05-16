@@ -11,7 +11,6 @@ var refreshToken = tokenBox.read('refreshToken');
 class HttpServices {
   final BASE_URL= dotenv.env['BASE_URL'];
   Dio dio = Dio();
-
   Future<Response> postRequest(String url, dynamic data) async {
     try {
       final response = await dio.post(
@@ -28,6 +27,7 @@ class HttpServices {
       throw Exception(e.message); // You can customize error handling as needed
     }
   }
+
 
   Future<Response> getRequest(String url, {dynamic data}) async {
     try {
