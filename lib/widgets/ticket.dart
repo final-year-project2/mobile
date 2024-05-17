@@ -8,42 +8,41 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:frontend/widgets/layout.dart';
 
-Widget Ticket(
-    {String? title,
-    String? ticketLeft,
-    String? totalTicket,
-    String? numberOfBuyers,
-    String? successfulCampaign,
-    String? sellerName}) {
-  return GestureDetector(
-    onTap: ()=>Get.toNamed('/detailpage'),
-    child: Container(
-      
-        width: 400,
-        height: 180,
-        decoration: BoxDecoration(
-            color: homePageContainerBackground,
-            borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(),
-              width: 130,
-              height: 180,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(0),
-                  bottomLeft: Radius.circular(10),
-                  topRight: Radius.circular(0),
-                  topLeft: Radius.circular(10),
-                ),
-                child: Image.asset(
-                    fit: BoxFit.cover,
-                    // scale: 0.9,
-                    'assets/a.jpg'),
+Widget Ticket({
+  String? title,
+  String? ticketLeft,
+  String? totalTicket,
+  String? numberOfBuyers,
+  String? successfulCampaign,
+  String? sellerName,
+  String? imageUri,
+}) {
+  return Container(
+      width: 400,
+      height: 165,
+      decoration: BoxDecoration(
+          color: homePageContainerBackground,
+          borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(),
+            width: 130,
+            height: 165,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(0),
+                bottomLeft: Radius.circular(10),
+                topRight: Radius.circular(0),
+                topLeft: Radius.circular(10),
               ),
+              child: Image.network(
+                  fit: BoxFit.cover,
+                  // scale: 0.9,
+                  imageUri ?? 'assets/a.jpg'),
+
             ),
             SizedBox(
               height: 180,
@@ -165,5 +164,3 @@ Widget Ticket(
         )),
   );
 }
-
-
