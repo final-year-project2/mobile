@@ -45,7 +45,7 @@ Widget Ticket({
             ),
           ),
           SizedBox(
-            height: 165,
+            height: 180,
             width: 260,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 10, 10, 0),
