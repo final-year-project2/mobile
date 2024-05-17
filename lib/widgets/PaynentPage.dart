@@ -122,10 +122,14 @@ Widget PaymentPage(final controler){
                       }),
           ),
         SizedBox(height: 20,),
+
+
+
+
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: darklight,
+            color: secondaryColor,
             borderRadius: BorderRadius.circular(10)
           ),
           child: Column(
@@ -139,10 +143,13 @@ Widget PaymentPage(final controler){
                       child: Column(
                         children: [
                           Text('${controler.SellectedTicket.length*10}',style: TextStyle(
+                            color: whiteColor,
                             fontSize: 20,
                             fontWeight: FontWeight.bold
                           ),),
-                          Text('Birr Tottal')
+                          Text('Birr Tottal',style: TextStyle(
+                            color: whiteColor
+                          ),)
                         ],
                       ),
                     ),
