@@ -1,6 +1,7 @@
 import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:frontend/controller/ticket_controller.dart';
 import 'package:frontend/models/wallet_model.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class WalletController extends GetxController {
     walletAmount.value = responseBalance.balance;
     await getRecentTransaction();
 
-    print('RXtransaction$transactions');
+   
   }
 
   RxList<TransactionModel> transactions = <TransactionModel>[].obs;
@@ -160,6 +161,9 @@ class WalletController extends GetxController {
       throw Exception(e);
     }
   }
+
+
+
 
   Future<List<TransactionModel>> getRecentTransaction() async {
     final walletId = tokenBox.read('walletId');

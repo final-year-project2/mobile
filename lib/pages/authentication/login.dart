@@ -129,8 +129,17 @@ class Login extends StatelessWidget {
                       try {
                         print('login start');
                         loginController.isLoading.value = true;
+
+
+
+                        
                         final loginResponse = await loginController
                             .loginRequest(Phone_no, password);
+
+
+
+
+
                         print('login middle');
 
                         if (loginResponse.statusCode == 200) {
@@ -151,6 +160,12 @@ class Login extends StatelessWidget {
                           tokenBox.write('accessToken', accessToken);
                           tokenBox.write('refreshToken', refreshToken);
                           tokenBox.write('walletId', wallet_id);
+                          tokenBox.write('userId', userId);
+                         int userIdFromStorage= tokenBox.read('userId');
+
+                         
+                         
+                          
 
                           print('fromTokenBox:walletId${wallet_id}');
                           print('fromTokenBox:AcessToken${accessToken}');
