@@ -9,6 +9,7 @@ import 'package:frontend/pages/mainscreens/wallet/wallet.dart';
 // import 'package:frontend/pages/mainscreens/profile.dart';
 import 'package:frontend/pages/mainscreens/profile.dart';
 import 'package:frontend/pages/seller/seller_Registration.dart';
+import 'package:get/get.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -18,6 +19,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  RxBool isregistered = false.obs;
+
   List<Widget> pages = [const HomePage(), SellerRegistrationPage(), Wallet()];
   int currentPage = 0;
   @override

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/detail_controler.dart';
+import 'package:frontend/widgets/PaynentPage.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:frontend/widgets/carousel.dart';
-
 class DetailPage extends StatefulWidget {
   DetailPage({super.key});
 
@@ -18,15 +19,17 @@ class _DetailPageState extends State<DetailPage> {
   final controler = Get.find<DetailControler>();
   @override
   Widget build(BuildContext context) {
+  final screenSize = MediaQuery.of(context).size;
     return Scaffold(
         body: CustomScrollView(
       slivers: [
+
         SliverAppBar(
           pinned: true,
           floating: true,
-          backgroundColor: whiteColor,
+          backgroundColor: primaryColor,
           leading: GestureDetector(
-            onTap: () => Get.offNamed('/homepage'),
+            onTap: () => Get.back(),
             child: Icon(
               Icons.arrow_back,
               color: blackColor,
@@ -41,7 +44,13 @@ class _DetailPageState extends State<DetailPage> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(secondaryColor),
                 ),
-                onPressed: () {},
+                onPressed: ()=>Get.bottomSheet(
+                              backgroundColor: whiteColor,
+                              isScrollControlled: true,
+                              Container(
+                              height: screenSize.height*0.9,
+                              child: PaymentPage(controler),
+                            )),
                 child: Text(
                   'Buy ticket',
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -79,6 +88,11 @@ class _DetailPageState extends State<DetailPage> {
             ]),
           )),
         ),
+
+
+
+
+
         SliverToBoxAdapter(
           child: Column(
             children: [
@@ -153,7 +167,21 @@ class _DetailPageState extends State<DetailPage> {
                           SizedBox(
                             height: 15,
                           ),
-                          DefaultButton("Buy Ticket", false.obs),
+
+
+
+                          GestureDetector(
+                            onTap: ()=>Get.bottomSheet(
+                              backgroundColor: whiteColor,
+                              isScrollControlled: true,
+                              Container(
+                              height: screenSize.height*0.9,
+                              child: PaymentPage(controler),
+                            )),
+                            child: DefaultButton("Buy Ticket", false.obs)),
+
+
+
                           SizedBox(
                             height: 5,
                           ),
@@ -161,6 +189,7 @@ class _DetailPageState extends State<DetailPage> {
                           SizedBox(
                             height: 15,
                           ),
+                          
                         ],
                       ),
                     )
@@ -226,104 +255,104 @@ class _DetailPageState extends State<DetailPage> {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                'Comments ${controler.coments.length}',
-                style: TextStyle(
-                    color: grayTextColor, fontWeight: FontWeight.bold),
-              ),
-              Row(
-                children: [
-                  Container(
-                      margin: EdgeInsets.fromLTRB(20, 3, 5, 10),
-                      decoration: BoxDecoration(
-                          color: homePageContainerBackground,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: CustomForm(hintText: 'Write comment')),
-                  Icon(
-                    Icons.send,
-                    size: 40,
-                    color: secondaryColor,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                children: controler.coments
-                    .map((items) => Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                              padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
-                              decoration: BoxDecoration(
-                                  color: homePageContainerBackground),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.person_2_outlined,
-                                        color: secondaryColor,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text('Mandela .com'),
-                                      Text(
-                                        '  1hr ago',
-                                        style: TextStyle(
-                                            fontSize: 10, color: primaryColor),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Text(
-                                    "$items",
-                                    style: TextStyle(
-                                        fontSize: 13, color: grayTextColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
-                              margin: EdgeInsets.only(left: 50, bottom: 15),
-                              decoration: BoxDecoration(
-                                  color: homePageContainerBackground),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Replay from ticket owner',
-                                    style: TextStyle(color: secondaryColor),
-                                  ),
-                                  Text(
-                                    '$items',
-                                    style: TextStyle(
-                                        fontSize: 13, color: grayTextColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
-                              child: Divider(
-                                height: 0,
-                                color: grayTextColor,
-                              ),
-                            ),
-                          ],
-                        ))
-                    .toList(),
-              )
+              // Text(
+              //   'Comments ${controler.coments.length}',
+              //   style: TextStyle(
+              //       color: grayTextColor, fontWeight: FontWeight.bold),
+              // ),
+              // Row(
+              //   children: [
+              //     Container(
+              //         margin: EdgeInsets.fromLTRB(20, 3, 5, 10),
+              //         decoration: BoxDecoration(
+              //             color: homePageContainerBackground,
+              //             borderRadius: BorderRadius.circular(5)),
+              //         child: CustomForm(hintText: 'Write comment')),
+              //     Icon(
+              //       Icons.send,
+              //       size: 40,
+              //       color: secondaryColor,
+              //     )
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // Column(
+              //   children: controler.coments
+              //       .map((items) => Column(
+              //             children: [
+              //               Container(
+              //                 margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
+              //                 padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
+              //                 decoration: BoxDecoration(
+              //                     color: homePageContainerBackground),
+              //                 child: Column(
+              //                   children: [
+              //                     Row(
+              //                       crossAxisAlignment:
+              //                           CrossAxisAlignment.center,
+              //                       children: [
+              //                         Icon(
+              //                           Icons.person_2_outlined,
+              //                           color: secondaryColor,
+              //                         ),
+              //                         SizedBox(
+              //                           width: 10,
+              //                         ),
+              //                         Text('Mandela .com'),
+              //                         Text(
+              //                           '  1hr ago',
+              //                           style: TextStyle(
+              //                               fontSize: 10, color: primaryColor),
+              //                         )
+              //                       ],
+              //                     ),
+              //                     SizedBox(
+              //                       height: 15,
+              //                     ),
+              //                     Text(
+              //                       "$items",
+              //                       style: TextStyle(
+              //                           fontSize: 13, color: grayTextColor),
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ),
+              //               SizedBox(
+              //                 height: 5,
+              //               ),
+              //               Container(
+              //                 padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
+              //                 margin: EdgeInsets.only(left: 50, bottom: 15),
+              //                 decoration: BoxDecoration(
+              //                     color: homePageContainerBackground),
+              //                 child: Column(
+              //                   crossAxisAlignment: CrossAxisAlignment.start,
+              //                   children: [
+              //                     Text(
+              //                       'Replay from ticket owner',
+              //                       style: TextStyle(color: secondaryColor),
+              //                     ),
+              //                     Text(
+              //                       '$items',
+              //                       style: TextStyle(
+              //                           fontSize: 13, color: grayTextColor),
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ),
+              //               Padding(
+              //                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
+              //                 child: Divider(
+              //                   height: 0,
+              //                   color: grayTextColor,
+              //                 ),
+              //               ),
+              //             ],
+              //           ))
+              //       .toList(),
+              // )
             ],
           ),
         ),

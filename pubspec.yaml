@@ -48,7 +48,7 @@ dependencies:
   dio: ^5.4.2
   get_storage:
   chapa_unofficial: ^0.0.5
-
+  
   carousel_slider: ^4.2.1
   percent_indicator: ^4.2.3
 

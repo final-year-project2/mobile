@@ -73,7 +73,7 @@ class ProductDetail extends StatelessWidget {
               ),
               CustomForm(
                 ontap: () {
-                  // Get.toNamed('/category');this was main
+                  Get.toNamed('/category');
                   // Get.toNamed('/producimages'); this was git main
                 },
                 isPassword: false,
