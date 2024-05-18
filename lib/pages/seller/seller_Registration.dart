@@ -1,28 +1,90 @@
 import 'dart:convert';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 import 'package:frontend/controller/UserController.dart';
 import 'package:frontend/controller/sellerController.dart';
 import 'package:frontend/services/http_services.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/pages/landing_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:frontend/controller/product_image_controller.dart';
+import 'dart:io';
 
 class SellerRegistrationPage extends StatelessWidget {
   final sellerId = Get.find<UserController>();
   final sellerController = Get.find<SellerController>();
+  //final controller = Get.find<ProductImageController>();
+  final Rx<File?> selectedImage = Rx<File?>(null);
+  final BASE_URL = dotenv.env['BASE_URL'];
+  // Function to handle image selection
+  Future<void> pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-  Future<void> registerAsSeller(int userId) async {
-    final formData = {'user_id': userId.toString()};
-    HttpServices httpServices = HttpServices();
-    httpServices.initAuthenticated();
+    if (pickedFile != null) {
+      selectedImage.value = File(pickedFile.path);
+    } else {
+      selectedImage.value = null; // Or initialize with a default image file
+    }
+  }
+
+  Future<void> registerAsSeller(String userId, File? imageFile) async {
+    final HttpServices httpServices = HttpServices();
+    final formData = dio.FormData.fromMap({'user_id': userId});
+
+    // Check if an image file is provided
+    if (imageFile != null) {
+      try {
+        final String fileExtension =
+            imageFile.path.split('.').last.toLowerCase();
+
+        // Determine content type based on file extension
+        String contentType;
+        switch (fileExtension) {
+          case 'jpg':
+          case 'jpeg':
+            contentType = 'image/jpeg';
+            break;
+          case 'png':
+            contentType = 'image/png';
+            break;
+          case 'gif':
+            contentType = 'image/gif';
+            break;
+          // Add cases for other image formats as needed
+          default:
+            // Set a default content type
+            contentType = 'application/octet-stream';
+            break;
+        }
+
+        // Create multipart file
+        final image = await dio.MultipartFile.fromFile(
+          imageFile.path,
+          filename: 'image.$fileExtension',
+          contentType: MediaType('image', fileExtension),
+        );
+
+        // Add image file to formData
+        formData.files.add(MapEntry('image', image));
+      } catch (e) {
+        print('Error adding image file to FormData: $e');
+        // Handle the error appropriately
+        return;
+      }
+    }
+
+    // Send the POST request to become a seller endpoint
     try {
-      final response = await HttpServices().postRequest(
-        'http://192.168.137.181:8000/product/become_seller/',
+      final response = await httpServices.postRequest(
+        '$BASE_URL/product/become_seller/',
         formData,
       );
-
       if (response.statusCode == 200) {
         // Seller registration successful
         // Parse response JSON to get seller ID
@@ -42,22 +104,28 @@ class SellerRegistrationPage extends StatelessWidget {
             snackPosition: SnackPosition.BOTTOM);
         Get.toNamed('/productdesciption');
         print('Seller ID: $sellerId');
-      } else {
-        Get.snackbar('Error', 'An error occurred. Please try again later',
+      } else if (response.statusCode == 404) {
+        await Get.snackbar('Not User', 'Please Login First',
             snackPosition: SnackPosition.BOTTOM);
+        Get.toNamed('/landingpage');
+      } else {
+        await Get.snackbar('Not User', 'Please Login First',
+            snackPosition: SnackPosition.BOTTOM);
+        Get.toNamed('/landingpage');
       }
     } catch (e) {
       // Handle DioException
-      Get.snackbar('Error', 'An error occurred. Please try again later',
+      await Get.snackbar('Not User', 'Please Login First',
           snackPosition: SnackPosition.BOTTOM);
+      Get.toNamed('/landingpage');
     }
   }
 
-  Future<bool> checkIfUserIsSeller(int userId) async {
+  Future<bool> checkIfUserIsSeller(String userId) async {
     final formData = {'user_id': userId.toString()};
     try {
       final response = await HttpServices().postRequest(
-        'http://192.168.137.181:8000/product/check_seller/',
+        '$BASE_URL/product/check_seller/',
         formData,
       );
 
@@ -90,7 +158,8 @@ class SellerRegistrationPage extends StatelessWidget {
     }
   }
 
-  Future<void> _showConfirmationDialog(BuildContext context, int userId) async {
+  Future<void> _showConfirmationDialog(
+      BuildContext context, String userId) async {
     print('Showing confirmation dialog');
     showDialog(
       context: context,
@@ -108,7 +177,14 @@ class SellerRegistrationPage extends StatelessWidget {
             TextButton(
               onPressed: () async {
                 Navigator.of(context).pop();
-                await registerAsSeller(userId); // Call registerAsSeller here
+
+                if (selectedImage.value == null) {
+                  Get.snackbar('Error', 'Profile image is required',
+                      snackPosition: SnackPosition.BOTTOM);
+                } else {
+                  await registerAsSeller(
+                      userId, selectedImage.value); // Pass the image file here
+                }
               },
               child: Text('Confirm'),
             ),
@@ -132,10 +208,64 @@ class SellerRegistrationPage extends StatelessWidget {
                   color: primaryColor,
                   fontSize: 23),
             ),
-            VerticalSpace(200),
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: Text(
+                textAlign: TextAlign.center,
+                'Profile_photo'.tr,
+                style: TextStyle(
+                    letterSpacing: 1.5,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+            VerticalSpace(15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: GestureDetector(
+                onTap: () async {
+                  await pickImage();
+                },
+                child: Obx(() => Center(
+                      child: Container(
+                        width: 250,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          image: selectedImage.value != null
+                              ? DecorationImage(
+                                  image: FileImage(selectedImage.value!),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: fotterTextColor),
+                        ),
+                        child: selectedImage.value != null
+                            ? null
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'TITLE_PHOTO'.tr,
+                                    style: TextStyle(),
+                                  ),
+                                  VerticalSpace(10),
+                                  IconButton(
+                                    onPressed: pickImage,
+                                    icon: Icon(Icons.add),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    )),
+              ),
+            ),
+            VerticalSpace(100),
             GestureDetector(
               onTap: () async {
-                int userId = sellerId.userId;
+                String userId = sellerId.userId.value;
                 //Show confirmation dialog to register as seller
                 _showConfirmationDialog(context, userId);
               },
@@ -144,7 +274,7 @@ class SellerRegistrationPage extends StatelessWidget {
             VerticalSpace(30),
             GestureDetector(
               onTap: () async {
-                int userId = sellerId.userId;
+                String userId = sellerId.userId.value;
                 bool isSeller = await checkIfUserIsSeller(userId);
                 if (isSeller) {
                   // User is already a seller, allow them to post

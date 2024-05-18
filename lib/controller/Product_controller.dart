@@ -12,6 +12,7 @@ class ProductController extends GetxController {
   RxString description = ''.obs;
   RxInt number_of_tickets = 0.obs;
   RxString prizeCategory = ''.obs;
+  RxInt price_of_ticket = 0.obs;
   // void addToList(String selected) {
   //   selectedCategories.add(selected);
   // }

@@ -20,7 +20,7 @@ class ProductDetail extends StatelessWidget {
   final productDetailController = Get.find<ProductController>();
   final selectedvalue = Get.find<CategoryController>();
   TextEditingController numberController = TextEditingController();
-
+  TextEditingController priceController = TextEditingController();
   // const ProductDetail({super.key});
   // final productDetailController = Get.find<MegaProductController>();
 
@@ -73,20 +73,35 @@ class ProductDetail extends StatelessWidget {
               ),
               CustomForm(
                 ontap: () {
-                  // Get.toNamed('/category');this was main
+                  Get.toNamed('/category');
                   // Get.toNamed('/producimages'); this was git main
                 },
                 isPassword: false,
                 readonly: true,
                 hintText: 'CLICK_HERE'.tr,
               ),
+              VerticalSpace(30),
+              Text(
+                'PRICE_OF_TICKET'.tr,
+                style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500),
+              ),
+              CustomForm(
+                editingController: priceController,
+                isPassword: false,
+                // editingController: numberController,
+                hintText: 'e.g 100',
+              ),
+
               // CustomForm(
 
               //   readonly: true,
               //   isPassword: false,
               //   hintText: 'Click here',
               // ),
-              VerticalSpace(450),
+              VerticalSpace(360),
               GestureDetector(
                 onTap: () {
                   if (numberController.text.isEmpty) {
@@ -124,6 +139,43 @@ class ProductDetail extends StatelessWidget {
                     );
                     return; // Prevent navigation
                   }
+                  //
+                  if (numberController.text.isEmpty) {
+                    // Show an error message using a SnackBar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Please enter the price of ticket.'),
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
+                    return; // Prevent navigation
+                  }
+                  // Validate that the input is a number
+                  final pricePattern = RegExp(r'^\d+$');
+                  if (!pricePattern.hasMatch(numberController.text)) {
+                    // Show an error message using a SnackBar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Please enter a valid number.'),
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
+                    return; // Prevent navigation
+                  }
+                  // Parse the number and check if it's greater than zero
+                  int priceNumber = int.parse(priceController.text);
+                  if (priceNumber <= 0) {
+                    // Show an error message using a SnackBar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'The price of tickets must be greater than zero.'),
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
+                    return; // Prevent navigation
+                  }
+                  //
                   if (selectedvalue.selectedCategory.isEmpty) {
                     // Show an error message using a SnackBar
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -136,10 +188,12 @@ class ProductDetail extends StatelessWidget {
                   }
                   productDetailController.number_of_tickets.value =
                       int.parse(numberController.text);
+                  productDetailController.price_of_ticket.value =
+                      int.parse(priceController.text);
                   Get.toNamed('/producimages');
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 25.0),
+                  padding: const EdgeInsets.only(left: 20.0),
                   child: DefaultButton('CONTINUE'.tr, false.obs),
                 ),
               )

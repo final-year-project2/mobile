@@ -23,6 +23,8 @@ class ProductService extends GetxController {
       MapEntry('number_of_tickets',
           productController.number_of_tickets.value.toString()),
       MapEntry('prize_categories', productController.prizeCategory.value),
+      MapEntry('price_of_ticket',
+          productController.price_of_ticket.value.toString()),
     ]);
     // Convert selectedCategories to JSON array
     // Convert selectedCategories to JSON array
@@ -32,32 +34,55 @@ class ProductService extends GetxController {
     // Add prize_categories as a JSON list
     //formData.fields.add(MapEntry('prize_categories', selectedCategoriesJson));
     try {
-      if (productController.image_1.value != null) {
-        final image_1 = await dio.MultipartFile.fromFile(
-          productController.image_1.value!.path,
-          filename: 'image_1.jpg',
-          contentType: MediaType('image', 'jpg'),
-        );
-        formData.files.add(MapEntry('image_1', image_1));
+      final List<dio.MultipartFile> imageFiles = [];
+
+      // Iterate through each image controller to add to FormData
+      for (int i = 0; i < 3; i++) {
+        final imageController = i == 0
+            ? productController.image_1
+            : i == 1
+                ? productController.image_2
+                : productController.image_3;
+
+        if (imageController.value != null) {
+          // Get file extension from the file path
+          final String fileExtension =
+              imageController.value!.path.split('.').last.toLowerCase();
+
+          // Determine content type based on file extension
+          String contentType;
+          switch (fileExtension) {
+            case 'jpg':
+            case 'jpeg':
+              contentType = 'image/jpeg';
+              break;
+            case 'png':
+              contentType = 'image/png';
+              break;
+            case 'gif':
+              contentType = 'image/gif';
+              break;
+            // Add cases for other image formats as needed
+            default:
+              // Set a default content type
+              contentType = 'application/octet-stream';
+              break;
+          }
+
+          // Create multipart file
+          final image = await dio.MultipartFile.fromFile(
+            imageController.value!.path,
+            filename: 'image_${i + 1}.$fileExtension',
+            contentType: MediaType('image', fileExtension),
+          );
+
+          imageFiles.add(image);
+        }
       }
 
-      if (productController.image_2.value != null) {
-        final image_2 = await dio.MultipartFile.fromFile(
-          productController.image_2.value!.path,
-          filename: 'image_2.jpg',
-          contentType: MediaType('image', 'jpg'),
-        );
-        formData.files.add(MapEntry('image_2', image_2));
-      }
-
-      if (productController.image_3.value != null) {
-        final image_3 = await dio.MultipartFile.fromFile(
-          productController.image_3.value!.path,
-          filename: 'image_3.jpg',
-          contentType: MediaType('image', 'jpg'),
-        );
-        formData.files.add(MapEntry('image_3', image_3));
-      }
+      // Add image files to FormData
+      formData.files.addAll(imageFiles.map((image) =>
+          MapEntry('image_${imageFiles.indexOf(image) + 1}', image)));
     } catch (e) {
       print('Error adding image files to FormData: $e');
       // Handle the error appropriately, e.g., show an error message to the user
@@ -73,7 +98,7 @@ class ProductService extends GetxController {
     // Send the POST request using the endpoint path
     try {
       final response =
-          await httpServices.postRequest('product/save-ticket/', formData);
+          await httpServices.postRequest('/product/save-ticket/', formData);
       // Use the endpoint path
       if (response.statusCode == 201) {
         // Handle success
