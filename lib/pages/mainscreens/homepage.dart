@@ -11,6 +11,7 @@ import 'package:frontend/widgets/layout.dart';
 import 'package:frontend/widgets/ticket.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,16 +21,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  final ticketController = Get.find<TicketController>();
-  Widget tabBarContent = Container();
+  static const _pageSize = 20;
 
-  List tabBarList = [
-    'All',
-    'Electronics',
-    'Car',
-    'Home',
-    'Others',
-  ];
+  final PagingController<int, TicketModel> _pagingController =
+      PagingController(firstPageKey: 0);
+
   List campaign = [
     'First',
     'Second',
@@ -38,31 +34,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     'Third',
   ];
 
-  late TabController tabController;
   RxInt currentIndex = 0.obs;
+  Widget tabBarContent = Container();
+  List tabBarList = [
+    'All',
+    'Electronics',
+    'Car',
+    'Home',
+    'Others',
+  ];
+
+  late TabController tabController;
   RxInt testvalue = 0.obs;
-
-  void handelevent() {
-    currentIndex.value = tabController.index;
-    print('currentIndexxx$currentIndex');
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    final TabController tabController =
-        TabController(length: tabBarList.length, vsync: this);
-    currentIndex.listen((newindex) {
-      print('newindex$newindex');
-    });
-    tabController.addListener(handelevent);
-  }
+  final ticketController = Get.find<TicketController>();
 
   @override
   void dispose() {
     tabController.removeListener(handelevent);
     tabController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    final TabController tabController =
+        TabController(length: tabBarList.length, vsync: this);
+
+    currentIndex.listen((newindex) {
+      print('newindex$newindex');
+    });
+    tabController.addListener(handelevent);
+  }
+
+  void handelevent() {
+    currentIndex.value = tabController.index;
+    print('currentIndexxx$currentIndex');
   }
 
   @override
@@ -208,67 +216,64 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
           SliverToBoxAdapter(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Container(
-                  width: double.infinity,
-                  height: 500,
-                  child: TabBarView(
-                    controller: tabController,
-                    children: ticketController.tabData.entries.map((entry) {
-                      int tabIndex = entry.key
-                          .hashCode; // Use hashCode to uniquely identify tabs
-                      Widget tabBarContent = Container();
+            child: Container(
+                width: double.infinity,
+                height: 500,
+                child: TabBarView(
+                  controller: tabController,
+                  children: ticketController.tabData.entries.map((entry) {
+                    int tabIndex = entry
+                        .key.hashCode; // Use hashCode to uniquely identify tabs
+                    Widget tabBarContent = Container();
 
-                      // Access the data for the current tab
-                      List<TicketModel> data = entry.value;
+                    // Access the data for the current tab
+                    List<TicketModel> data = entry.value;
 
-                      // Check if data exists for the current tab
-                      if (data.isNotEmpty) {
-                        tabBarContent = ListView.builder(
-                          itemCount:
-                              data.length, // Use the length of the data list
-                          itemBuilder: (context, index) {
-                            // Extract properties from the TicketModel for display
-                            String title = data[index].title ??
-                                'No Title'; // Provide a fallback value
-                            String sellerName =
-                                data[index].seller ?? 'Unknown Seller';
+                    // Check if data exists for the current tab
+                    if (data.isNotEmpty) {
+                      tabBarContent = ListView.builder(
+                        itemCount:
+                            data.length, // Use the length of the data list
+                        itemBuilder: (context, index) {
+                          // Extract properties from the TicketModel for display
+                          String title = data[index].title ??
+                              'No Title'; // Provide a fallback value
+                          String sellerName =
+                              data[index].seller ?? 'Unknown Seller';
 
-                            String ticketLeft = data[index].numberOfTickets;
-                            String imageUri = data[index].image1;
+                          String ticketLeft = data[index].numberOfTickets;
+                          String imageUri = data[index].image1;
 
-                            // Provide a fallback value
-                            // Add more properties as needed
+                          // Provide a fallback value
+                          // Add more properties as needed
 
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
-                              child: Ticket(
-                                imageUri: imageUri,
-                                numberOfBuyers: '300', // Placeholder value
-                                title: title,
-                                ticketLeft: ticketLeft, // Placeholder value
-                                totalTicket: ticketLeft, // Placeholder value
-                                successfulCampaign: '2', // Placeholder value
-                                sellerName: sellerName,
-                              ),
-                            );
-                          },
-                        );
-                      } else {
-                        tabBarContent = Center(
-                            child: Text(
-                                'No data available for this tab.')); // Display a message if no data
-                      }
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
+                            child: Ticket(
+                              imageUri: imageUri,
+                              numberOfBuyers: '300', // Placeholder value
+                              title: title,
+                              ticketLeft: ticketLeft, // Placeholder value
+                              totalTicket: ticketLeft, // Placeholder value
+                              successfulCampaign: '2', // Placeholder value
+                              sellerName: sellerName,
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      tabBarContent = Center(
+                          child: Text(
+                              'No data available for this tab.')); // Display a message if no data
+                    }
 
-                      return GestureDetector(
-                          onTap: () {
-                            Get.toNamed('detailpage');
-                          },
-                          child: tabBarContent);
-                    }).toList(),
-                  )),
-            ),
+                    return GestureDetector(
+                        onTap: () {
+                          Get.toNamed('detailpage');
+                        },
+                        child: tabBarContent);
+                  }).toList(),
+                )),
           )
         ],
       ),

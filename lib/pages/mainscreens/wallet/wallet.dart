@@ -225,10 +225,12 @@ class Wallet extends StatelessWidget {
                             subtitle: Obx(() =>
                                 walletController.isTransactionLoading.value
                                     ? SizedBox(
-                                        width: 10,
-                                        height: 10,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
+                                        width: 50,
+                                        height: 50,
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
                                         ))
                                     : Text(walletController
                                         .transactions[index].transactionDate
@@ -241,10 +243,12 @@ class Wallet extends StatelessWidget {
                             title: Obx(() =>
                                 walletController.isTransactionLoading.value
                                     ? SizedBox(
-                                        width: 10,
-                                        height: 10,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
+                                        width: 50,
+                                        height: 50,
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
                                         ))
                                     : Text(walletController
                                         .transactions[index].amount)),
@@ -260,7 +264,7 @@ class Wallet extends StatelessWidget {
                                         .transactions[index].transactionType),
                           ),
                         ),
-              )),
+                      )),
             ),
           ))
         ],

@@ -7,23 +7,20 @@ import 'package:frontend/pages/authentication/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/services/http_services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/state_manager.dart';
+
 import 'package:get_storage/get_storage.dart';
 
 class WalletController extends GetxController {
+  RxList<TransactionModel> transactions = <TransactionModel>[].obs;
+
   @override
   void onInit() async {
     super.onInit();
     final responseBalance = await getWalletInformations();
     walletAmount.value = responseBalance.balance;
-    await getRecentTransaction();
-
-   
+    // transactions.value = await getRecentTransaction();
   }
 
-  RxList<TransactionModel> transactions = <TransactionModel>[].obs;
   HttpServices? httpServices;
   RxBool walletInfoIsLoading = true.obs;
   RxBool isTransactionLoading = true.obs;
@@ -161,9 +158,6 @@ class WalletController extends GetxController {
       throw Exception(e);
     }
   }
-
-
-
 
   Future<List<TransactionModel>> getRecentTransaction() async {
     final walletId = tokenBox.read('walletId');
