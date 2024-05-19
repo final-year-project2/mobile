@@ -234,6 +234,7 @@ class ProducImages extends StatelessWidget {
                                   duration: Duration(seconds: 3),
                                 ),
                               );
+                              Get.toNamed('/homepage');
                             } catch (e) {
                               // Handle DioException or any other error
                               print('Error sending product data: $e');

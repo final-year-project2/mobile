@@ -38,6 +38,7 @@ class TransactionModel {
     required this.transactionDate,
     required this.walletBalance,
   });
+  
   static List<TransactionModel> fromJsonList(List<dynamic> jsonList) {
     return jsonList
         .map((item) => TransactionModel(

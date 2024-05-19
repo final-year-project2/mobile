@@ -1,12 +1,17 @@
+// import 'dart:js_interop';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/ticket_controller.dart';
+import 'package:frontend/models/ticket_model.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:frontend/widgets/ticket.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,13 +21,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  List tabBarList = [
-    'All',
-    'Electronics',
-    'Car',
-    'Home',
-    'Others',
-  ];
+  static const _pageSize = 20;
+
+  final PagingController<int, TicketModel> _pagingController =
+      PagingController(firstPageKey: 0);
+
   List campaign = [
     'First',
     'Second',
@@ -31,27 +34,49 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     'Third',
   ];
 
-  void handelevent() {
-    setState(() {
-      currentIndex = tabController.index;
-    });
-  }
+  RxInt currentIndex = 0.obs;
+  Widget tabBarContent = Container();
+  List tabBarList = [
+    'All',
+    'Electronics',
+    'Car',
+    'Home',
+    'Others',
+  ];
 
   late TabController tabController;
-  int currentIndex = 0;
+  RxInt testvalue = 0.obs;
+  final ticketController = Get.find<TicketController>();
+
+  @override
+  void dispose() {
+    tabController.removeListener(handelevent);
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
-    final TabController tabController =
-        TabController(length: tabBarList.length, vsync: this);
+
+    tabController = TabController(length: tabBarList.length, vsync: this);
+
+    currentIndex.listen((newindex) {
+      print('newindex$newindex');
+    });
     tabController.addListener(handelevent);
+  }
+
+  void handelevent() {
+    currentIndex.value = tabController.index;
+    print('currentIndexxx$currentIndex');
   }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
-    final TabController tabController =
-        TabController(length: tabBarList.length, vsync: this);
+    //final TabController tabController =
+    //TabController(length: tabBarList.length, vsync: this);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -148,7 +173,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               length: tabBarList.length,
               child: TabBar(
                   indicatorColor: Colors.amberAccent,
-                  onTap: (value) {},
+                  onTap: (value) async {
+                    currentIndex.value = tabController.index;
+                  },
                   // unselectedLabelStyle: TextStyle(color: Colors.red),
                   padding: EdgeInsets.only(bottom: 10),
                   labelPadding: currentIndex == 0
@@ -163,96 +190,89 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   splashFactory: NoSplash.splashFactory,
                   tabs: List.generate(
                       tabController.length,
-                      (index) => Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: currentIndex == index
-                                    ? primaryColor
-                                    : Color.fromRGBO(224, 224, 224, 1)),
-                            child: Center(
-                                child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                              child: Text(
-                                tabBarList[index],
-                                style: TextStyle(
-                                    color: currentIndex == index
-                                        ? Colors.black
-                                        : Color.fromRGBO(130, 130, 130, 1)),
-                              ),
-                            )),
-                          ))),
+                      (index) => Obx(() {
+                            print('Current index$currentIndex');
+                            return Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: currentIndex == index
+                                      ? primaryColor
+                                      : Color.fromRGBO(224, 224, 224, 1)),
+                              child: Center(
+                                  child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                child: Text(
+                                  tabBarList[index],
+                                  style: TextStyle(
+                                      color: currentIndex.value == index
+                                          ? Colors.black
+                                          : Color.fromRGBO(130, 130, 130, 1)),
+                                ),
+                              )),
+                            );
+                          }))),
             ),
           ),
           SliverToBoxAdapter(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Container(
+            child: Container(
                 width: double.infinity,
                 height: 500,
                 child: TabBarView(
-                    controller: tabController,
-                    children: tabBarList.asMap().entries.map((e) {
-                      int tabIndex = e.key;
-                      Widget tabBarContent = Container();
+                  controller: tabController,
+                  children: ticketController.tabData.entries.map((entry) {
+                    int tabIndex = entry
+                        .key.hashCode; // Use hashCode to uniquely identify tabs
+                    Widget tabBarContent = Container();
 
-                      if (tabIndex == 0) {
-                        tabBarContent = Ticket(
-                            numberOfBuyers: '300',
-                            title: "Title for all",
-                            ticketLeft: '20',
-                            totalTicket: '400',
-                            successfulCampaign: '2',
-                            sellerName: 'Belete Maru');
-                        // return tabBarContent;
-                      } else if (tabIndex == 1) {
-                        tabBarContent = Ticket(
-                            numberOfBuyers: '300',
-                            title: "Title for Electronics",
-                            ticketLeft: '20',
-                            totalTicket: '400',
-                            successfulCampaign: '2',
-                            sellerName: 'Belete Maru');
-                        // return tabBarContent;
-                      } else if (tabIndex == 2) {
-                        tabBarContent = Ticket(
-                            numberOfBuyers: '300',
-                            title: "Title for Car",
-                            ticketLeft: '20',
-                            totalTicket: '400',
-                            successfulCampaign: '2',
-                            sellerName: 'Belete Maru');
+                    // Access the data for the current tab
+                    List<TicketModel> data = entry.value;
 
-                        // return tabBarContent;
-                      } else if (tabIndex == 3) {
-                        tabBarContent = Ticket(
-                            numberOfBuyers: '300',
-                            title: "Title for Home",
-                            ticketLeft: '20',
-                            totalTicket: '400',
-                            successfulCampaign: '2',
-                            sellerName: 'Belete Maru');
-                        // return tabBarContent;
-                      } else if (tabIndex == 4) {
-                        tabBarContent = Ticket(
-                            numberOfBuyers: '300',
-                            title: "Title for Others",
-                            ticketLeft: '20',
-                            totalTicket: '400',
-                            successfulCampaign: '2',
-                            sellerName: 'Belete Maru');
+                    // Check if data exists for the current tab
+                    if (data.isNotEmpty) {
+                      tabBarContent = ListView.builder(
+                        itemCount:
+                            data.length, // Use the length of the data list
+                        itemBuilder: (context, index) {
+                          // Extract properties from the TicketModel for display
+                          String title = data[index].title ??
+                              'No Title'; // Provide a fallback value
+                          String sellerName =
+                              data[index].seller ?? 'Unknown Seller';
 
-                        // return tabBarContent;
-                      }
+                          String ticketLeft = data[index].numberOfTickets;
+                          String imageUri = data[index].image1;
 
-                      return ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (context, index) => Padding(
+                          // Provide a fallback value
+                          // Add more properties as needed
+
+                          return Padding(
                             padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
-                            child: tabBarContent),
+                            child: Ticket(
+                              imageUri: imageUri,
+                              numberOfBuyers: '300', // Placeholder value
+                              title: title,
+                              ticketLeft: ticketLeft, // Placeholder value
+                              totalTicket: ticketLeft, // Placeholder value
+                              successfulCampaign: '2', // Placeholder value
+                              sellerName: sellerName,
+                            ),
+                          );
+                        },
                       );
-                    }).toList()),
-              ),
-            ),
+                    } else {
+                      tabBarContent = Center(
+                          child: Text(
+                              'No data available for this tab.')); // Display a message if no data
+                    }
+
+                    return GestureDetector(
+                        onTap: () {
+                          Get.toNamed('detailpage');
+                        },
+                        child: tabBarContent);
+                  }).toList(),
+                )),
           )
         ],
       ),

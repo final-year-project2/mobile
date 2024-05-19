@@ -8,13 +8,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:frontend/widgets/layout.dart';
 
-Widget Ticket(
-    {String? title,
-    String? ticketLeft,
-    String? totalTicket,
-    String? numberOfBuyers,
-    String? successfulCampaign,
-    String? sellerName}) {
+Widget Ticket({
+  String? title,
+  String? ticketLeft,
+  String? totalTicket,
+  String? numberOfBuyers,
+  String? successfulCampaign,
+  String? sellerName,
+  String? imageUri,
+}) {
   return Container(
       width: 400,
       height: 165,
@@ -36,14 +38,14 @@ Widget Ticket(
                 topRight: Radius.circular(0),
                 topLeft: Radius.circular(10),
               ),
-              child: Image.asset(
+              child: Image.network(
                   fit: BoxFit.cover,
                   // scale: 0.9,
-                  'assets/a.jpg'),
+                  imageUri ?? 'assets/a.jpg'),
             ),
           ),
           SizedBox(
-            height: 165,
+            height: 180,
             width: 260,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 10, 10, 0),
@@ -161,5 +163,3 @@ Widget Ticket(
         ],
       ));
 }
-
-

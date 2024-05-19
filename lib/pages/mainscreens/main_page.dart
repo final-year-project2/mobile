@@ -22,6 +22,7 @@ class _MainPageState extends State<MainPage> {
   final checker = Get.find<UserController>();
   final sellerId = Get.find<UserController>();
   List<Widget> pages = [const HomePage(), Container(), Wallet()];
+
   int currentPage = 0;
 
   @override
