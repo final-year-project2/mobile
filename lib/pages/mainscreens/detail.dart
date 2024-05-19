@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
@@ -17,10 +19,15 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   final controler = Get.find<DetailControler>();
+  
   @override
   Widget build(BuildContext context) {
+  var Ticket = Get.arguments;
+  List TicketImage = [Ticket.image1,Ticket.image2,Ticket.image3];
+
   final screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Color(0xFFF4F5F9),
         body: CustomScrollView(
       slivers: [
 
@@ -79,11 +86,11 @@ class _DetailPageState extends State<DetailPage> {
               background: Container(
 
             decoration: BoxDecoration(
-              color: whiteColor
+              color: whiteColor,
             ),
             child: Stack(children: [
               CarouselWidjit(
-                item: controler.ticketImage,
+                item: TicketImage,
               ),
             ]),
           )),
@@ -102,18 +109,33 @@ class _DetailPageState extends State<DetailPage> {
               Container(
                 margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
                 decoration: BoxDecoration(
-                    color: homePageContainerBackground,
+                    color: whiteColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 185, 180, 180).withOpacity(0.5),
+                        blurRadius: 8, // changes position of shadow
+                      ),
+                    ],
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 10, 20, 5),
-                      child: Text(
-                        'lorem ipsum transition ai ',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: grayTextColor),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                          '   ${Ticket.title.substring(0,min<int>(25,Ticket.title.length))} ...',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: grayTextColor,),
+                                overflow: TextOverflow.clip,
+                          ),
+                          Text(Ticket.prizeCategories,style: TextStyle(
+                            color: thirdColor
+                          ),)
+                        ],
                       ),
                     ),
                     Container(
@@ -125,39 +147,49 @@ class _DetailPageState extends State<DetailPage> {
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Price 10 Birr",style: TextStyle(
-                                    color: grayTextColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  ),),
-                                  Text("20 Tickets sold",style: TextStyle(
-                                    color: thirdColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  ),),
-                                  Text("10 Tickets remains",style: TextStyle(
-                                    color: grayTextColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  ),),
-                                ],
+                              Container(
+                                margin: EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: blackBackground,
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Price 10 Birr",style: TextStyle(
+                                      color: darklight,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                    SizedBox(height: 5,),
+                                    Text("20 Tickets sold",style: TextStyle(
+                                      color: darklight,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                    SizedBox(height: 5,),
+                                    Text("10 Tickets remains",style: TextStyle(
+                                      color: darklight,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                  ],
+                                ),
                               ),
                               CircularPercentIndicator(
                                 radius: 50,
                                 progressColor: thirdColor,
                                 backgroundColor: blureGreen,
                                 animation: true,
-                                lineWidth: 15,
+                                lineWidth: 12,
                                 animationDuration: 2000,
                                 percent: 0.7,
                                 circularStrokeCap: CircularStrokeCap.round,
-                                center: Text('20'),
+                                center: Text('20',style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold
+                                ),),
                               ),
                             ],
                           ),
@@ -189,7 +221,6 @@ class _DetailPageState extends State<DetailPage> {
                           SizedBox(
                             height: 15,
                           ),
-                          
                         ],
                       ),
                     )
@@ -205,7 +236,7 @@ class _DetailPageState extends State<DetailPage> {
                     width: 30,
                   ),
                   Icon(
-                    Icons.person_4,
+                    Icons.person,
                     size: 40,
                     color: thirdColor,
                   ),
@@ -215,7 +246,7 @@ class _DetailPageState extends State<DetailPage> {
                   Column(
                     children: [
                       Text(
-                        'Campiain creater',
+                        "${Ticket.seller}",
                         style: TextStyle(
                             color: grayTextColor, fontWeight: FontWeight.bold),
                       ),
@@ -231,6 +262,7 @@ class _DetailPageState extends State<DetailPage> {
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Divider(
                   height: 20,
+                  thickness: 0.3,
                   color: grayTextColor,
                 ),
               ),
@@ -239,19 +271,19 @@ class _DetailPageState extends State<DetailPage> {
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: homePageContainerBackground,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 185, 180, 180).withOpacity(0.5),
+                        blurRadius: 3, // changes position of shadow
+                      ),
+                    ],
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat augue vel nisi ornare tincidunt. Ut nec erat enim. Proin rhoncus sodales arcu sit amet vulputate. Donec varius aliquam ex, at tincidunt ligula blandit nec. Fusce est tortor, molestie id neque ut, convallis rutrum sapien. Vestibulum posuere congue leo. Mauris vel augue odio. Integer vitae finibus massa. Fusce euismod eu metus nec lobortis. Integer imperdiet nibh eget pharetra tristique. Nunc sed pretium eros. Sed rutrum odio condimentum orci accumsan finibus. Nunc nisi augue, sagittis ut sodales molestie, suscipit vitae lorem. Sed luctus justo imperdiet dolor pellentesque, eu aliquet magna pharetra.pharetra pharetrapharetra pharetra .',
-                  style: TextStyle(color: grayTextColor, fontSize: 13),
+                child: Text(Ticket.description ?? "",
+                  style: TextStyle(color: blackColor),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Divider(
-                  height: 10,
-                  color: grayTextColor,
-                ),
-              ),
+
+
               SizedBox(
                 height: 10,
               ),

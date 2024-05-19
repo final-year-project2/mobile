@@ -125,7 +125,6 @@ Widget PaymentPage(final controler){
 
 
 
-
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(

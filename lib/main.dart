@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
           fallbackLocale: Locale('en', 'Us'),
           debugShowCheckedModeBanner: false,
           theme: themeController.lightTheme,
+          // initialRoute: "/detailpage",
           initialRoute: "/landingpage",
           getPages: [
             // GetPage(
@@ -76,10 +77,15 @@ class MyApp extends StatelessWidget {
 
             // GetPage(name: '/profile', page: () => Profile()),
             GetPage(name: '/seller', page: () => SellerRegistrationPage()),
+            // GetPage(name: '/detailpage', page: () => DetailPage(),
+            //     binding: Binders()),
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),
                 binding: Binders()),
+              // GetPage(
+              //   name: '/landingpage',
+              //   page: () => LandingPage()),
 
             GetPage(name: '/signin', page: () => Login()),
             GetPage(name: '/signup', page: () => SignUp()),

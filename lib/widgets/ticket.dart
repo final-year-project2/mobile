@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:frontend/widgets/layout.dart';
-import 'package:flutter/material.dart';
-import 'package:frontend/constants.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:frontend/widgets/layout.dart';
 
 Widget Ticket({
   String? title,
@@ -19,7 +14,7 @@ Widget Ticket({
 }) {
   return Container(
       width: 400,
-      height: 165,
+      height: 175,
       decoration: BoxDecoration(
           color: homePageContainerBackground,
           borderRadius: BorderRadius.circular(10)),
@@ -43,7 +38,7 @@ Widget Ticket({
                   // scale: 0.9,
                   imageUri ?? 'assets/a.jpg'),
 
-            ),
+            ),),
             SizedBox(
               height: 180,
               width: 260,
@@ -161,6 +156,5 @@ Widget Ticket({
               ),
             )
           ],
-        )),
-  );
+        ));
 }

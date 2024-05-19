@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     currentIndex.value = tabController.index;
     print('currentIndexxx$currentIndex');
   }
-
   @override
   void initState() {
     super.initState();
@@ -232,7 +231,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             // Extract properties from the TicketModel for display
                             String title = data[index].title ??
                                 'No Title'; // Provide a fallback value
-                            String sellerName =
+                            int sellerName =
                                 data[index].seller ?? 'Unknown Seller';
 
                             String ticketLeft = data[index].numberOfTickets;
@@ -241,31 +240,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             // Provide a fallback value
                             // Add more properties as needed
 
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
-                              child: Ticket(
-                                imageUri: imageUri,
-                                numberOfBuyers: '300', // Placeholder value
-                                title: title,
-                                ticketLeft: ticketLeft, // Placeholder value
-                                totalTicket: ticketLeft, // Placeholder value
-                                successfulCampaign: '2', // Placeholder value
-                                sellerName: sellerName,
+                            return GestureDetector(
+                              onTap: ()=>Get.toNamed('detailpage',arguments:data[index]),
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
+                                child: Ticket(
+                                  imageUri: imageUri,
+                                  numberOfBuyers: '300', // Placeholder value
+                                  title: title,
+                                  ticketLeft: ticketLeft, // Placeholder value
+                                  totalTicket: ticketLeft, // Placeholder value
+                                  successfulCampaign: '2', // Placeholder value
+                                  sellerName: '2'
+                                ),
                               ),
                             );
                           },
                         );
                       } else {
+
                         tabBarContent = Center(
                             child: Text(
                                 'No data available for this tab.')); // Display a message if no data
                       }
 
-                      return GestureDetector(
-                          onTap: () {
-                            Get.toNamed('detailpage');
-                          },
-                          child: tabBarContent);
+                      return tabBarContent;
                     }).toList(),
                   )),
             ),

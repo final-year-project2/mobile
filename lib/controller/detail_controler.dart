@@ -9,7 +9,7 @@ class DetailControler extends GetxController{
   RxList ticketImage = ['assets/car2.jpg','assets/car2.jpg','assets/a.jpg'].obs;
   RxString PaymentTyle = "Wallet".obs;
   RxList SellectedTicket = [].obs;
-  
+
   void AddRemoveTicket(int number){
     if(SellectedTicket.contains(number)){
       SellectedTicket.remove(number);
