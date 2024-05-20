@@ -99,11 +99,17 @@ class Success extends StatelessWidget {
                                 'Transaction reference',
                                 style: TextStyle(color: grayTextColor),
                               ),
-                              Text(
-                                walletController.verificationResult?['data']
-                                        ['reference'] ??
-                                    '',
-                              )
+                              Obx(() {
+                                return walletController
+                                        .isVerificationResultLoading.value
+                                    ? Text('')
+                                    : Text(
+                                        walletController
+                                                    .verificationResult?['data']
+                                                ['reference'] ??
+                                            '',
+                                      );
+                              })
                             ],
                           ),
                         ),
@@ -116,12 +122,18 @@ class Success extends StatelessWidget {
                                 'Amount',
                                 style: TextStyle(color: grayTextColor),
                               ),
-                              Text(
-                                walletController.verificationResult?['data']
-                                            ['amount']
-                                        .toString() ??
-                                    '',
-                              )
+                              Obx(() {
+                                return walletController
+                                        .isVerificationResultLoading.value
+                                    ? Text('')
+                                    : Text(
+                                        walletController
+                                                .verificationResult?['data']
+                                                    ['amount']
+                                                .toString() ??
+                                            '',
+                                      );
+                              })
                             ],
                           ),
                         ),
@@ -152,6 +164,11 @@ class Success extends StatelessWidget {
                     walletController.walletAmount.value =
                         responseBalance.balance;
                     walletController.walletInfoIsLoading.value = false;
+
+                    ///calling transaction function to update the treansaction
+                    ///
+                    await walletController.getRecentTransaction();
+
                     Get.toNamed('/wallet');
                   },
                   child: DefaultButton('Continue', false.obs))

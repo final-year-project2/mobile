@@ -23,9 +23,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   static const _pageSize = 20;
 
-  final PagingController<int, TicketModel> _pagingController =
-      PagingController(firstPageKey: 0);
-
   List campaign = [
     'First',
     'Second',
@@ -57,15 +54,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    super.initState();
-
-    final TabController tabController =
-        TabController(length: tabBarList.length, vsync: this);
+   tabController = TabController(length: tabBarList.length, vsync: this);
 
     currentIndex.listen((newindex) {
       print('newindex$newindex');
     });
     tabController.addListener(handelevent);
+    super.initState();
   }
 
   void handelevent() {
@@ -76,8 +71,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
-    final TabController tabController =
-        TabController(length: tabBarList.length, vsync: this);
+  
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -247,16 +241,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           // Provide a fallback value
                           // Add more properties as needed
 
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
-                            child: Ticket(
-                              imageUri: imageUri,
-                              numberOfBuyers: '300', // Placeholder value
-                              title: title,
-                              ticketLeft: ticketLeft, // Placeholder value
-                              totalTicket: ticketLeft, // Placeholder value
-                              successfulCampaign: '2', // Placeholder value
-                              sellerName: sellerName,
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed('detailpage');
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
+                              child: Ticket(
+                                imageUri: imageUri,
+                                numberOfBuyers: '300', // Placeholder value
+                                title: title,
+                                ticketLeft: ticketLeft, // Placeholder value
+                                totalTicket: ticketLeft, // Placeholder value
+                                successfulCampaign: '2', // Placeholder value
+                                sellerName: sellerName,
+                              ),
                             ),
                           );
                         },
@@ -267,11 +266,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               'No data available for this tab.')); // Display a message if no data
                     }
 
-                    return GestureDetector(
-                        onTap: () {
-                          Get.toNamed('detailpage');
-                        },
-                        child: tabBarContent);
+                    return tabBarContent;
                   }).toList(),
                 )),
           )
