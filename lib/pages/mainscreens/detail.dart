@@ -10,27 +10,56 @@ import 'package:frontend/widgets/custom_form.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:frontend/widgets/carousel.dart';
-class DetailPage extends StatefulWidget {
+class DetailPage extends StatelessWidget {
   DetailPage({super.key});
 
-  @override
-  State<DetailPage> createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
   final controler = Get.find<DetailControler>();
-  
+
   @override
   Widget build(BuildContext context) {
+  
+ 
   var Ticket = Get.arguments;
+  // controler.selectedTicketId.value = Ticket.id;
   List TicketImage = [Ticket.image1,Ticket.image2,Ticket.image3];
+  
+  controler.GetPurchaseTicketNo(Ticket.id.toString());
+
 
   final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xFFF4F5F9),
+      floatingActionButton: GestureDetector(
+        onTap: ()=>
+        Get.bottomSheet(
+                        backgroundColor: whiteColor,
+                        isScrollControlled: true,
+                        Container(
+                        height: screenSize.height*0.7,
+                        child: Center(child: Text('No available comments'),),
+                      )
+                    ),
+        child:Container(
+          width: 150,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.message_outlined,color: whiteColor,),
+              SizedBox(width: 5,),
+              Text('Comments',style: TextStyle(color: whiteColor,fontWeight: FontWeight.bold),)
+            ],
+          ),
+        )
+        ),
+      
+
         body: CustomScrollView(
       slivers: [
-
+        
         SliverAppBar(
           pinned: true,
           floating: true,
@@ -51,13 +80,14 @@ class _DetailPageState extends State<DetailPage> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(secondaryColor),
                 ),
-                onPressed: ()=>Get.bottomSheet(
-                              backgroundColor: whiteColor,
-                              isScrollControlled: true,
-                              Container(
-                              height: screenSize.height*0.9,
-                              child: PaymentPage(controler),
-                            )),
+                onPressed: ()=>{},
+                // Get.bottomSheet(
+                //               backgroundColor: whiteColor,
+                //               isScrollControlled: true,
+                //               Container(
+                //               height: screenSize.height*0.9,
+                //               child: PaymentPage(controler),
+                //             )),
                 child: Text(
                   'Buy ticket',
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -202,16 +232,17 @@ class _DetailPageState extends State<DetailPage> {
 
 
 
-                          GestureDetector(
+                          Obx(() => GestureDetector(
                             onTap: ()=>Get.bottomSheet(
                               backgroundColor: whiteColor,
                               isScrollControlled: true,
                               Container(
                               height: screenSize.height*0.9,
-                              child: PaymentPage(controler),
+                              child: PaymentPage(controler,Ticket.numberOfTickets),
                             )),
-                            child: DefaultButton("Buy Ticket", false.obs)),
-
+                            child: controler.isPending.value?CircularProgressIndicator(
+                              color: primaryColor,
+                            ):DefaultButton("Buy Ticket", false.obs)),),
 
 
                           SizedBox(
@@ -273,8 +304,8 @@ class _DetailPageState extends State<DetailPage> {
                     color: homePageContainerBackground,
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromARGB(255, 185, 180, 180).withOpacity(0.5),
-                        blurRadius: 3, // changes position of shadow
+                        color: grayTextColor.withOpacity(0.5),
+                        blurRadius: 1, // changes position of shadow
                       ),
                     ],
                     borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -287,104 +318,6 @@ class _DetailPageState extends State<DetailPage> {
               SizedBox(
                 height: 10,
               ),
-              // Text(
-              //   'Comments ${controler.coments.length}',
-              //   style: TextStyle(
-              //       color: grayTextColor, fontWeight: FontWeight.bold),
-              // ),
-              // Row(
-              //   children: [
-              //     Container(
-              //         margin: EdgeInsets.fromLTRB(20, 3, 5, 10),
-              //         decoration: BoxDecoration(
-              //             color: homePageContainerBackground,
-              //             borderRadius: BorderRadius.circular(5)),
-              //         child: CustomForm(hintText: 'Write comment')),
-              //     Icon(
-              //       Icons.send,
-              //       size: 40,
-              //       color: secondaryColor,
-              //     )
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              // Column(
-              //   children: controler.coments
-              //       .map((items) => Column(
-              //             children: [
-              //               Container(
-              //                 margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
-              //                 padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
-              //                 decoration: BoxDecoration(
-              //                     color: homePageContainerBackground),
-              //                 child: Column(
-              //                   children: [
-              //                     Row(
-              //                       crossAxisAlignment:
-              //                           CrossAxisAlignment.center,
-              //                       children: [
-              //                         Icon(
-              //                           Icons.person_2_outlined,
-              //                           color: secondaryColor,
-              //                         ),
-              //                         SizedBox(
-              //                           width: 10,
-              //                         ),
-              //                         Text('Mandela .com'),
-              //                         Text(
-              //                           '  1hr ago',
-              //                           style: TextStyle(
-              //                               fontSize: 10, color: primaryColor),
-              //                         )
-              //                       ],
-              //                     ),
-              //                     SizedBox(
-              //                       height: 15,
-              //                     ),
-              //                     Text(
-              //                       "$items",
-              //                       style: TextStyle(
-              //                           fontSize: 13, color: grayTextColor),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //               SizedBox(
-              //                 height: 5,
-              //               ),
-              //               Container(
-              //                 padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
-              //                 margin: EdgeInsets.only(left: 50, bottom: 15),
-              //                 decoration: BoxDecoration(
-              //                     color: homePageContainerBackground),
-              //                 child: Column(
-              //                   crossAxisAlignment: CrossAxisAlignment.start,
-              //                   children: [
-              //                     Text(
-              //                       'Replay from ticket owner',
-              //                       style: TextStyle(color: secondaryColor),
-              //                     ),
-              //                     Text(
-              //                       '$items',
-              //                       style: TextStyle(
-              //                           fontSize: 13, color: grayTextColor),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //               Padding(
-              //                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
-              //                 child: Divider(
-              //                   height: 0,
-              //                   color: grayTextColor,
-              //                 ),
-              //               ),
-              //             ],
-              //           ))
-              //       .toList(),
-              // )
             ],
           ),
         ),

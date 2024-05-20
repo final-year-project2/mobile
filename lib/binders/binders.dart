@@ -45,8 +45,9 @@ class Binders extends Bindings {
     // Get.put(CategoryController());
     Get.put(LanguageController());
     Get.put(ProductService());
-    Get.put(DetailControler());
-
+    // Get.put(DetailControler());
+    // Get.lazyPut<DetailControler>(() => DetailControler());
+    Get.create<DetailControler>(() => DetailControler());
     // ticketcontroller
     Get.put(TicketController());
   }

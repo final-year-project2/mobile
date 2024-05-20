@@ -7,6 +7,9 @@ const blureGreen = Color.fromRGBO(139, 193, 144, 1);
 const colorForContrast = Color.fromRGBO(245, 232, 195, 1);
 const blackColor = Color.fromARGB(255, 33, 30, 30);
 // #
+
+
+const redColore = Color.fromARGB(255, 236, 83, 7);
 const blackBackground = Color(0xFF0B1A2F);
 const whiteColor = Color.fromRGBO(255, 255, 255, 1);
 const grayTextColor = Color.fromRGBO(114, 112, 112, 1);

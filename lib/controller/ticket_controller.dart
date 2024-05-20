@@ -71,4 +71,5 @@ class TicketController extends GetxController {
       // print(tabData[tab]);
     }
   }
+  
 }

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:lottie/lottie.dart';
 
-Widget PaymentPage(final controler){
+Widget PaymentPage(final controler,String NoOfTicket){
   return Container(
     padding: EdgeInsets.fromLTRB(15, 5, 15, 15),
       child: Obx(() => Column(
@@ -90,31 +90,31 @@ Widget PaymentPage(final controler){
           ),
           Row(
             children: [
-              Text('${controler.SellectedTicket.length}'),
+              Text('${controler.SellectedTicketNo.length}'),
               Icon(Icons.shopping_cart, size: 30,color: primaryColor,)
             ],
           )
-            ],
+          ],
           ),
           SizedBox(height: 5,),
           SizedBox(
             height: 280,
             
             child: GridView.builder(
-                        itemCount: 50,
+                        itemCount: int.parse(NoOfTicket),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5), 
                         itemBuilder: (context,index){
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: GestureDetector(
-                              onTap: ()=>controler.AddRemoveTicket(index+1),
+                              onTap: ()=> controler.purchasedTicketList.contains(index+1)?'':controler.AddRemoveTicket(index+1),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: controler.SellectedTicket.contains(index+1)?thirdColor:progressBackground,
+                                  color: controler.SellectedTicketNo.contains(index+1)?thirdColor:progressBackground,
                                   borderRadius: BorderRadius.circular(5)
                                 ),
                                 child: Center(
-                                  child: Text('${index+1}'),
+                                  child: controler.purchasedTicketList.contains(index+1)?Text('Sold',style: TextStyle(color: redColore,fontWeight: FontWeight.bold),):Text('${index+1}'),
                                 ),
                               ),
                             ),
@@ -141,7 +141,7 @@ Widget PaymentPage(final controler){
                     Container(
                       child: Column(
                         children: [
-                          Text('${controler.SellectedTicket.length*10}',style: TextStyle(
+                          Text('${controler.SellectedTicketNo.length*10}',style: TextStyle(
                             color: whiteColor,
                             fontSize: 20,
                             fontWeight: FontWeight.bold

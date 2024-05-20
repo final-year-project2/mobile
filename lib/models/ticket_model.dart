@@ -4,6 +4,7 @@ String ticketsToJson(List<TicketModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class TicketModel {
+  int id;
   dynamic seller;
   String title;
   String description;
@@ -14,6 +15,8 @@ class TicketModel {
   dynamic image3;
 
   TicketModel({
+
+    required this.id,
     required this.seller,
     required this.title,
     required this.description,
@@ -33,6 +36,7 @@ class TicketModel {
   static List<TicketModel> fromJsonList(List<dynamic> jsonList) {
     return jsonList
         .map((item) => TicketModel(
+              id: item['id'],
               seller: item['seller'],
               title: item['title'],
               description: item["description"],

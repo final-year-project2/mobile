@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final TabController tabController =
         TabController(length: tabBarList.length, vsync: this);
     currentIndex.listen((newindex) {
-      print('newindex$newindex');
+    
     });
     tabController.addListener(handelevent);
   }
