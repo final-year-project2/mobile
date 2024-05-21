@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/detail_controler.dart';
 import 'package:frontend/controller/ticket_controller.dart';
 import 'package:frontend/models/ticket_model.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -21,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final ticketController = Get.find<TicketController>();
+  final DetailTicketcontroler = Get.find<DetailControler>();
   Widget tabBarContent = Container();
 
   List tabBarList = [
@@ -241,7 +243,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             // Add more properties as needed
 
                             return GestureDetector(
-                              onTap: ()=>Get.toNamed('detailpage',arguments:data[index]),
+                              onTap: ()=>{
+                                DetailTicketcontroler.Ticket.value = {
+                                  "id": data[index].id,
+                                  "seller":data[index].seller,
+                                  "title":data[index].title,
+                                  "description":data[index].description,
+                                  "numberOfTickets":data[index].numberOfTickets,
+                                  "prizeCategories":data[index].prizeCategories,
+                                  "price_of_ticket":data[index].price_of_ticket,
+                                  "image1":data[index].image1,
+                                  "image2":data[index].image2,
+                                  "image3":data[index].image3,
+                                  },
+                                Get.toNamed('detailpage')},
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
                                 child: Ticket(

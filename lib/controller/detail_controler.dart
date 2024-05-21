@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:get/get.dart';
 import 'package:frontend/models/purchasedTicketModel.dart';
 import 'package:frontend/services/http_services.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/state_manager.dart';
+import 'package:dio/dio.dart' as dio;
 class DetailControler extends GetxController{
 
 
@@ -14,13 +12,15 @@ class DetailControler extends GetxController{
   RxString PaymentTyle = "Wallet".obs;
   RxInt selectedTicketId = 0.obs;
   RxList SellectedTicketNo = [].obs;
+  RxList<dynamic> SelectedTicketObject = [].obs;
   RxList purchasedTicketList = [].obs;
   RxList PurcasedTicketNoList = [].obs;
   RxBool isPending = false.obs;
+  RxMap Ticket = {}.obs;
   HttpServices httpServices = HttpServices();
 
 DetailControler(){
-  httpServices.init();
+  httpServices.initAuthenticated();
 }
 
 
@@ -28,10 +28,14 @@ DetailControler(){
   void AddRemoveTicket(int number){
     if(SellectedTicketNo.contains(number)){
       SellectedTicketNo.remove(number);
+      SelectedTicketObject.value = SelectedTicketObject.where((ticket) => ticket['Ticket_number']!= number.toString()).toList();
+      // SelectedTicketObject.remove({"Ticket_id":Ticket['id'],"Ticket_number":number.toString()});
     }else{
       SellectedTicketNo.add(number);
+      SelectedTicketObject.add({"Ticket_id":Ticket['id'],"Ticket_number":"$number","Transaction_from":"from_wallet"});
     }
     print(SellectedTicketNo);
+    print(SelectedTicketObject);
   }
 
   void changePaymentType(){
@@ -55,8 +59,8 @@ DetailControler(){
       throw Exception(e);}
   }
 
-  void GetPurchaseTicketNo(String id) async{
-    PurcasedTicketNoList.value = await  getTicketsInfo(id);
+  void GetPurchaseTicketNo() async{
+    PurcasedTicketNoList.value = await  getTicketsInfo(Ticket['id'].toString());
     
     print('purchased ticket');
     print(PurcasedTicketNoList[1]);
@@ -64,5 +68,63 @@ DetailControler(){
       purchasedTicketList.add(int.parse(name.Ticket_number));
     }
   }
+
+
+  Future<dio.Response> PurchaseTicket() async {
+    try {
+      final response = await httpServices.postRequest('/ticket/purchase/',SelectedTicketObject);
+      if (response == null) {
+        return throw Exception('login response is null');
+      }
+      return response;
+    } on dio.DioException catch (e) {
+      print('LoginError:$e');
+      print('LoginDetail${e.response?.data['detail']}');
+      print('LoginStatuscode:${e.response?.statusCode}');
+      throw Exception(e);
+    }
+  }
+  
+void callPurchaseTicket()async{
+    var response = await PurchaseTicket();
+    print(response);
+}
+  
+  Future<void> pay(final context) async{
+  String txRef = TxRefRandomGenerator.generate(prefix: 'Pharmabet');
+  String storedTxRef = TxRefRandomGenerator.gettxRef;
+  
+
+  print('Generated TxRef: $txRef');
+  print('Stored TxRef: $storedTxRef');
+  try{
+      await Chapa.getInstance.startPayment(
+        context: context,
+        enableInAppPayment: true,
+        onInAppPaymentSuccess: (successMsg) {
+          callPurchaseTicket();
+          Get.toNamed('PurchaseSuccess');
+        },
+        onInAppPaymentError: (errorMsg) {
+          print('errorMsg $errorMsg');
+        },
+        amount: (SellectedTicketNo.length*int.parse(Ticket['price_of_ticket'])).toString(),
+        currency: 'ETB',
+        txRef: storedTxRef,
+      );
+  } on ChapaException catch (e) {
+      if (e is AuthException) {
+        print('In app $e ');
+      } else if (e is InitializationException) {
+        print('In app $e ');
+      } else if (e is NetworkException) {
+        print('In app $e ');
+      } else if (e is ServerException) {
+        print('In app $e ');
+      } else {
+        print('Unknown error please try again');
+      }
+    }
+}
 
 }

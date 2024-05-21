@@ -6,24 +6,23 @@ import 'package:frontend/constants.dart';
 import 'package:frontend/controller/detail_controler.dart';
 import 'package:frontend/widgets/PaynentPage.dart';
 import 'package:frontend/widgets/buttons.dart';
-import 'package:frontend/widgets/custom_form.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:frontend/widgets/carousel.dart';
+
 class DetailPage extends StatelessWidget {
   DetailPage({super.key});
-
   final controler = Get.find<DetailControler>();
 
   @override
   Widget build(BuildContext context) {
   
- 
-  var Ticket = Get.arguments;
-  // controler.selectedTicketId.value = Ticket.id;
-  List TicketImage = [Ticket.image1,Ticket.image2,Ticket.image3];
+  List TicketImage=[];
+
   
-  controler.GetPurchaseTicketNo(Ticket.id.toString());
+  TicketImage = [controler.Ticket['image1'],controler.Ticket['image2'],controler.Ticket['image3']];
+  controler.GetPurchaseTicketNo();
+
 
 
   final screenSize = MediaQuery.of(context).size;
@@ -156,13 +155,13 @@ class DetailPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                          '   ${Ticket.title.substring(0,min<int>(25,Ticket.title.length))} ...',
+                          '   ${controler.Ticket['title'].substring(0,min<int>(25,controler.Ticket['title'].length))} ...',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: grayTextColor,),
                                 overflow: TextOverflow.clip,
                           ),
-                          Text(Ticket.prizeCategories,style: TextStyle(
+                          Text(controler.Ticket['prizeCategories'],style: TextStyle(
                             color: thirdColor
                           ),)
                         ],
@@ -238,7 +237,7 @@ class DetailPage extends StatelessWidget {
                               isScrollControlled: true,
                               Container(
                               height: screenSize.height*0.9,
-                              child: PaymentPage(controler,Ticket.numberOfTickets),
+                              child: PaymentPage(controler,controler.Ticket['numberOfTickets'],context = context),
                             )),
                             child: controler.isPending.value?CircularProgressIndicator(
                               color: primaryColor,
@@ -277,7 +276,7 @@ class DetailPage extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        "${Ticket.seller}",
+                        "${controler.Ticket['seller']}",
                         style: TextStyle(
                             color: grayTextColor, fontWeight: FontWeight.bold),
                       ),
@@ -309,7 +308,7 @@ class DetailPage extends StatelessWidget {
                       ),
                     ],
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Text(Ticket.description ?? "",
+                child: Text(controler.Ticket['description'] ?? "",
                   style: TextStyle(color: blackColor),
                 ),
               ),

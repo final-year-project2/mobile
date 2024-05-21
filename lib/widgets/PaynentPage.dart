@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:lottie/lottie.dart';
 
-Widget PaymentPage(final controler,String NoOfTicket){
+Widget PaymentPage(final controler,String NoOfTicket,final context){
   return Container(
     padding: EdgeInsets.fromLTRB(15, 5, 15, 15),
       child: Obx(() => Column(
@@ -54,7 +54,7 @@ Widget PaymentPage(final controler,String NoOfTicket){
                       children: [
                         
                       Center(
-                      child: Text('10 Birr',style: TextStyle(
+                      child: Text('${controler.Ticket['price_of_ticket']} Birr',style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.w900,
                         color: blackColor
@@ -141,7 +141,7 @@ Widget PaymentPage(final controler,String NoOfTicket){
                     Container(
                       child: Column(
                         children: [
-                          Text('${controler.SellectedTicketNo.length*10}',style: TextStyle(
+                          Text('${controler.SellectedTicketNo.length*int.parse(controler.Ticket['price_of_ticket'])}',style: TextStyle(
                             color: whiteColor,
                             fontSize: 20,
                             fontWeight: FontWeight.bold
@@ -205,9 +205,12 @@ Widget PaymentPage(final controler,String NoOfTicket){
                   ],
                 ),
                 SizedBox(height: 10,),
-                Center(
-                  child:    
-                DefaultButton("Pay",false.obs),
+                GestureDetector(
+                  onTap: ()=>controler.pay(context),
+                  child: Center(
+                    child:    
+                  DefaultButton("Pay",false.obs),
+                  ),
                 ),
             ],
           ),

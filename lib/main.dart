@@ -11,6 +11,7 @@ import 'package:frontend/pages/authentication/password_reset/newpassword.dart';
 import 'package:frontend/pages/authentication/password_reset/verify_otp_password_reset.dart';
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
+import 'package:frontend/pages/mainscreens/PurchaseSuccessPage.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/mainscreens/detail.dart';
 import 'package:frontend/pages/mainscreens/main_page.dart';
@@ -39,7 +40,7 @@ void main() async {
 
   await themeController.loadThemePreference();
 
-  Chapa.configure(privateKey: "CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR");
+  Chapa.configure(privateKey: "CHASECK_TEST-NMHnfnAw81g9EWXYoSm6FrobP7rePyRd");
 
 
   runApp(MyApp());
@@ -123,6 +124,8 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/reciveotp', page: () => ReciveOTP()),
 
             GetPage(name: '/newpassword', page: () => NewPassword()),
+            // PurchaseSuccessPage
+            GetPage(name: '/PurchaseSuccess', page: () => PurchaseSuccess()),
           ],
         ));
   }

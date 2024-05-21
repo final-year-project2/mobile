@@ -5,13 +5,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final tokenBox = GetStorage();
 
-var accessToken = tokenBox.read('accessTmoken');
+var accessToken = tokenBox.read('accessToken');
 var refreshToken = tokenBox.read('refreshToken');
 
 class HttpServices {
   final BASE_URL= dotenv.env['BASE_URL'];
   Dio dio = Dio();
-  Future<Response> postRequest(String url, dynamic data) async {
+  Future<Response> postRequest(String url, var data) async {
     try {
       final response = await dio.post(
         url,
@@ -78,10 +78,14 @@ class HttpServices {
   void initAuthenticated() {
     dio.options.baseUrl = BASE_URL??"";
     dio.options.headers["Authorization"] = "Bearer $accessToken";
+    dio.options.headers["Content-Type"] = "application/json"; // Add this line
 
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         options.headers['Authorization'] = "Bearer $accessToken";
+        options.headers['Content-Type'] = "application/json"; 
+
+
         return handler.next(options);
       },
       onError: (error, handler) async {
