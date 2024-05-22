@@ -5,17 +5,19 @@ import 'package:get/get.dart';
 import 'package:frontend/models/purchasedTicketModel.dart';
 import 'package:frontend/services/http_services.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:get/get_rx/get_rx.dart';
 class DetailControler extends GetxController{
 
 
   RxList ticketImage = ['assets/car2.jpg','assets/car2.jpg','assets/a.jpg'].obs;
-  RxString PaymentTyle = "Wallet".obs;
+  RxString PaymentType = "from_wallet".obs;
   RxInt selectedTicketId = 0.obs;
   RxList SellectedTicketNo = [].obs;
   RxList<dynamic> SelectedTicketObject = [].obs;
   RxList purchasedTicketList = [].obs;
   RxList PurcasedTicketNoList = [].obs;
   RxBool isPending = false.obs;
+  RxBool isSeccess = false.obs;
   RxMap Ticket = {}.obs;
   HttpServices httpServices = HttpServices();
 
@@ -27,22 +29,22 @@ DetailControler(){
   
   void AddRemoveTicket(int number){
     if(SellectedTicketNo.contains(number)){
+      
       SellectedTicketNo.remove(number);
       SelectedTicketObject.value = SelectedTicketObject.where((ticket) => ticket['Ticket_number']!= number.toString()).toList();
       // SelectedTicketObject.remove({"Ticket_id":Ticket['id'],"Ticket_number":number.toString()});
     }else{
       SellectedTicketNo.add(number);
-      SelectedTicketObject.add({"Ticket_id":Ticket['id'],"Ticket_number":"$number","Transaction_from":"from_wallet"});
+      SelectedTicketObject.add({"Ticket_id":Ticket['id'],"Ticket_number":"$number","Transaction_from":PaymentType.toString()});
     }
-    print(SellectedTicketNo);
     print(SelectedTicketObject);
   }
 
   void changePaymentType(){
-    if(PaymentTyle.value == "Wallet" ){
-      PaymentTyle.value = "Chapa" ;
+    if(PaymentType.value == "from_wallet" ){
+      PaymentType.value = "from_chapa" ;
     }else{
-      PaymentTyle.value = "Wallet" ;
+      PaymentType.value = "from_wallet" ;
     }
   }
 
@@ -51,7 +53,7 @@ DetailControler(){
     isPending.value = true;
     try {
       final response = await httpServices.getRequest('/ticket/purchased_ticket/${id}/');
-      isPending.value = false;   
+      isPending.value = false; 
       return PurchasedTicketModel.fromJsonList(response.data);
     } catch (e) {
       print('Error fetching tickets djtail: ${e}');
@@ -61,9 +63,6 @@ DetailControler(){
 
   void GetPurchaseTicketNo() async{
     PurcasedTicketNoList.value = await  getTicketsInfo(Ticket['id'].toString());
-    
-    print('purchased ticket');
-    print(PurcasedTicketNoList[1]);
     for (var name in PurcasedTicketNoList){
       purchasedTicketList.add(int.parse(name.Ticket_number));
     }
@@ -73,21 +72,17 @@ DetailControler(){
   Future<dio.Response> PurchaseTicket() async {
     try {
       final response = await httpServices.postRequest('/ticket/purchase/',SelectedTicketObject);
-      if (response == null) {
-        return throw Exception('login response is null');
-      }
+      SellectedTicketNo.value = [];
       return response;
     } on dio.DioException catch (e) {
-      print('LoginError:$e');
-      print('LoginDetail${e.response?.data['detail']}');
-      print('LoginStatuscode:${e.response?.statusCode}');
+      print('Purchasing error:$e');
       throw Exception(e);
     }
   }
   
 void callPurchaseTicket()async{
     var response = await PurchaseTicket();
-    print(response);
+    Get.toNamed('PurchaseSuccess');
 }
   
   Future<void> pay(final context) async{

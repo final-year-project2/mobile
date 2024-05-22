@@ -7,10 +7,14 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:lottie/lottie.dart';
 
-Widget PaymentPage(final controler,String NoOfTicket,final context){
+Widget PaymentPage(final controler,String NoOfTicket,final context, final screenSize,final Walletcontroler){
   return Container(
     padding: EdgeInsets.fromLTRB(15, 5, 15, 15),
-      child: Obx(() => Column(
+      child: Obx((){
+          int ticketPrice = int.parse(controler.Ticket['price_of_ticket']);
+          int totalCost = controler.SellectedTicketNo.length * ticketPrice;
+          double walletPrice = double.parse(Walletcontroler.walletAmount.value);
+        return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -141,7 +145,7 @@ Widget PaymentPage(final controler,String NoOfTicket,final context){
                     Container(
                       child: Column(
                         children: [
-                          Text('${controler.SellectedTicketNo.length*int.parse(controler.Ticket['price_of_ticket'])}',style: TextStyle(
+                          Text('$totalCost',style: TextStyle(
                             color: whiteColor,
                             fontSize: 20,
                             fontWeight: FontWeight.bold
@@ -164,7 +168,7 @@ Widget PaymentPage(final controler,String NoOfTicket,final context){
                             Container(
                           padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           decoration: BoxDecoration(
-                            color:  controler.PaymentTyle=="Wallet"?thirdColor:whiteColor,
+                            color:  controler.PaymentType=="from_wallet"?thirdColor:whiteColor,
                             borderRadius: BorderRadius.circular(10)
                           ),
                           child: GestureDetector(
@@ -183,7 +187,7 @@ Widget PaymentPage(final controler,String NoOfTicket,final context){
                         Container(
                           padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           decoration: BoxDecoration(
-                            color:  controler.PaymentTyle=="Chapa"?thirdColor:whiteColor,
+                            color:  controler.PaymentType=="from_chapa"?thirdColor:whiteColor,
                             borderRadius: BorderRadius.circular(10)
                           ),
                           child: GestureDetector(
@@ -206,7 +210,44 @@ Widget PaymentPage(final controler,String NoOfTicket,final context){
                 ),
                 SizedBox(height: 10,),
                 GestureDetector(
-                  onTap: ()=>controler.pay(context),
+                  onTap: (){
+                    if(controler.PaymentType == "from_chapa"){
+                      controler.pay(context);
+                    
+                    }else{
+                    Get.bottomSheet(
+                      backgroundColor: whiteColor,
+                      isScrollControlled: true,
+                      Container(
+                        height: screenSize.height * 0.3,
+                        width: screenSize.width,
+                        child:Column(
+                          children: [
+                            Icon(Icons.card_giftcard, size: 100,color: thirdColor,),
+                            Text('${controler.SellectedTicketNo.length } Tickets',style: TextStyle(
+                              color: grayTextColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                            ),),
+                            Text('${totalCost} Birr From your wallet',style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                            ),),
+                            SizedBox(height: 20,),
+                            // 
+                            if(walletPrice>=totalCost)
+                            GestureDetector(
+                              onTap: ()=> controler.callPurchaseTicket(),
+                              child: DefaultButton("Confirm",false.obs),
+                            ),
+                            if(walletPrice<totalCost)
+                            Text('insuffiecient Amount ')
+                          ],
+                        ),
+                      )
+                    );
+                    }
+                  },
                   child: Center(
                     child:    
                   DefaultButton("Pay",false.obs),
@@ -216,6 +257,7 @@ Widget PaymentPage(final controler,String NoOfTicket,final context){
           ),
         )
         ],
-      ),)
+      );
+      })
     );
     }

@@ -100,10 +100,11 @@ class MyApp extends StatelessWidget {
               name: '/productdetail',
               page: () => ProductDetail(),
             ),
-
             GetPage(name: '/homepage', page: () => HomePage()),
 
             GetPage(name: '/detailpage', page: () => DetailPage()),
+            
+      
 
             GetPage(name: '/producimages', page: () => ProducImages()),
 
