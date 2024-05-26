@@ -12,7 +12,7 @@ class CarouselWidjit extends StatelessWidget {
     height: double.infinity,
     viewportFraction: 1,
     initialPage: 0,
-    autoPlay: true,
+    autoPlay: false,
     autoPlayInterval: Duration(seconds: 3),
     autoPlayAnimationDuration: Duration(milliseconds: 800),
     autoPlayCurve: Curves.easeInOut,

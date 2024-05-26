@@ -324,7 +324,7 @@ class DetailPage extends StatelessWidget {
                             blurRadius: 1, // changes position of shadow
                           ),
                         ],
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Text(
                       controler.Ticket['description'] ?? "",
                       style: TextStyle(color: blackColor),
