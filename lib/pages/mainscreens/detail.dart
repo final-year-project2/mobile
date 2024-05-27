@@ -28,6 +28,18 @@ class DetailPage extends StatelessWidget {
     ];
     controler.GetPurchaseTicketNo();
 
+    List FotterData = [
+      {
+        "icon":Icons.delivery_dining,"title":"Delivery","description":"we deliver your prize"
+      },
+      {
+        "icon":Icons.assured_workload_sharp,"title":"Trust","description":"Your money is safe with us"
+      },
+      {
+        "icon":Icons.celebration,"title":"Win","description":"play in our platform and win a prize you want"
+      }
+    ];
+
     final screenSize = MediaQuery.of(context).size;
     var children = <Widget>[
       Row(
@@ -331,8 +343,33 @@ class DetailPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
+                  Column(
+                      children: FotterData.map((elements) {
+                        return  Container(
+                          margin: EdgeInsets.all(5),
+                          child: Row(
+                            
+                            children: [
+                              SizedBox(width: 20,),
+                              Icon(elements["icon"],size: 50,),
+                              SizedBox(width: 20,),
+                              Expanded(
+                                child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(elements["title"]),
+                                    Text(elements["description"])
+                                  ],
+                                ),
+                              ),
+                              
+                            ],
+                          ),
+                        );  
+                      }).toList(),
+                    ),
                 ],
               ),
             ),
