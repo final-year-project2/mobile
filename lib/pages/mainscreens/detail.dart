@@ -7,6 +7,7 @@ import 'package:frontend/controller/detail_controler.dart';
 import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/widgets/PaynentPage.dart';
 import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:frontend/widgets/carousel.dart';
@@ -33,7 +34,7 @@ class DetailPage extends StatelessWidget {
         "icon":Icons.delivery_dining,"title":"Delivery","description":"we deliver your prize"
       },
       {
-        "icon":Icons.assured_workload_sharp,"title":"Trust","description":"Your money is safe with us"
+        "icon":Icons.security,"title":"Trust","description":"Your money is safe with us"
       },
       {
         "icon":Icons.celebration,"title":"Win","description":"play in our platform and win a prize you want"
@@ -345,31 +346,38 @@ class DetailPage extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  Column(
-                      children: FotterData.map((elements) {
-                        return  Container(
-                          margin: EdgeInsets.all(5),
-                          child: Row(
-                            
-                            children: [
-                              SizedBox(width: 20,),
-                              Icon(elements["icon"],size: 50,),
-                              SizedBox(width: 20,),
-                              Expanded(
-                                child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(elements["title"]),
-                                    Text(elements["description"])
-                                  ],
-                                ),
-                              ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(5, 10, 5, 30),
+                    child: Column(
+                        children: FotterData.map((elements) {
+                          return  Container(
+                            margin: EdgeInsets.all(5),
+                            child: Row(
                               
-                            ],
-                          ),
-                        );  
-                      }).toList(),
-                    ),
+                              children: [
+                                SizedBox(width: 20,),
+                                Icon(elements["icon"],size: 50,),
+                                SizedBox(width: 40,),
+                                Expanded(
+                                  child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: 10,),
+                                      Text(elements["title"]),
+                                      Text(elements["description"]),
+                                      SizedBox(height: 10,),
+                                      HorizontalLine(height: 1, width: 100),
+                                      SizedBox(height: 10,),
+                                    ],
+                                  ),
+                                ),
+                                
+                              ],
+                            ),
+                          );  
+                        }).toList(),
+                      ),
+                  ),
                 ],
               ),
             ),
