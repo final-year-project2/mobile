@@ -17,6 +17,38 @@ class ProducImages extends StatelessWidget {
   final productController = Get.find<ProductController>();
   final productService = Get.find<ProductService>();
   // Corrected method name: getImage
+  Future<void> _showImageSourceActionSheet(
+      BuildContext context, int index) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text('Gallery'),
+                onTap: () {
+                  Navigator.pop(context);
+                  controller.pickImage(index, ImageSource.gallery);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text('Camera'),
+                onTap: () {
+                  Navigator.pop(context);
+                  controller.pickImage(index, ImageSource.camera);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +92,7 @@ class ProducImages extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: GestureDetector(
                         onTap: () {
-                          controller.pickImage(0);
+                          _showImageSourceActionSheet(context, 0);
                           // controller.images[1];
                         },
                         child: Center(
@@ -91,7 +123,7 @@ class ProducImages extends StatelessWidget {
                                 VerticalSpace(10),
                                 IconButton(
                                   onPressed: () {
-                                    controller.pickImage(0);
+                                    _showImageSourceActionSheet(context, 0);
                                   },
                                   icon: Icon(controller.images.length > 0
                                       ? null
@@ -130,7 +162,8 @@ class ProducImages extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  controller.pickImage(index + 1);
+                                  _showImageSourceActionSheet(
+                                      context, index + 1);
                                 },
                                 child: Container(
                                   width: 150,
@@ -165,7 +198,8 @@ class ProducImages extends StatelessWidget {
                                               bottom: 20.0),
                                           child: IconButton(
                                             onPressed: () {
-                                              controller.pickImage(index + 1);
+                                              _showImageSourceActionSheet(
+                                                  context, index + 1);
                                             },
                                             icon: Icon(
                                                 controller.images.length >

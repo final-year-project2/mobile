@@ -38,6 +38,7 @@ class Languages extends Translations {
           'CLICK_HERE': 'Click here',
           'PRICE_OF_TICKET': 'Enter Price of ticket',
           'Profile_photo': 'Add Profile Photo here',
+          'TITLEs_PHOTO': 'Add cover photo',
           'NEARLY_FINISHED': 'early finished Add Images for your product',
           'COVER_IMAGE':
               'Add cover image that will be displayed as Title photo',

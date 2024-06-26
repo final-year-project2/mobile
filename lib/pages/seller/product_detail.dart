@@ -9,6 +9,7 @@ import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/controller/categories_controller.dart';
 import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/controller/categories_controller.dart';
+import 'package:frontend/pages/seller/product_image.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -191,6 +192,7 @@ class ProductDetail extends StatelessWidget {
                   productDetailController.price_of_ticket.value =
                       int.parse(priceController.text);
                   Get.toNamed('/producimages');
+                  //Get.to(ProducImages());
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20.0),

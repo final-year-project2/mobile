@@ -9,6 +9,7 @@ import 'package:frontend/pages/mainscreens/profile.dart';
 import 'package:frontend/pages/seller/seller_Registration.dart';
 import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/controller/UserController.dart';
+
 import 'package:get/get.dart';
 
 class MainPage extends StatefulWidget {
