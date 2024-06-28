@@ -104,6 +104,8 @@ Future Comment(String comment) async {
     for (var name in PurcasedTicketNoList){
       purchasedTicketList.add(int.parse(name.Ticket_number));
     }
+    print('object');
+    print(purchasedTicketList.length);
   }
 
 

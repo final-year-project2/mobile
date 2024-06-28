@@ -72,7 +72,7 @@ class DetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Price 10 Birr",
+                  "Price ${controler.Ticket['price_of_ticket']} Birr",
                   style: TextStyle(
                     color: darklight,
                     fontWeight: FontWeight.bold,
@@ -82,7 +82,7 @@ class DetailPage extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  "20 Tickets sold",
+                  "${controler.Ticket['numberOfTickets']} Tickets",
                   style: TextStyle(
                     color: darklight,
                     fontWeight: FontWeight.bold,
@@ -91,8 +91,10 @@ class DetailPage extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
+
+
                 Text(
-                  "10 Tickets remains",
+                  "purchase lead to winner",
                   style: TextStyle(
                     color: darklight,
                     fontWeight: FontWeight.bold,
@@ -111,7 +113,7 @@ class DetailPage extends StatelessWidget {
             percent: 0.7,
             circularStrokeCap: CircularStrokeCap.round,
             center: Text(
-              '20',
+              '${controler.Ticket['numberOfTickets']}',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
@@ -296,14 +298,14 @@ class DetailPage extends StatelessWidget {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(secondaryColor),
                     ),
-                    onPressed: () => {},
-                    // Get.bottomSheet(
-                    //               backgroundColor: whiteColor,
-                    //               isScrollControlled: true,
-                    //               Container(
-                    //               height: screenSize.height*0.9,
-                    //               child: PaymentPage(controler),
-                    //             )),
+                    onPressed:  () => Get.bottomSheet(
+                        backgroundColor: whiteColor,
+                        isScrollControlled: true,
+                        Container(
+                          height: screenSize.height * 0.9,
+                          child: PaymentPage(controler,
+                              controler.Ticket['numberOfTickets'], context, screenSize,Walletcontroler),
+                        )),
                     child: Text(
                       'Buy ticket',
                       style: TextStyle(fontWeight: FontWeight.bold),
