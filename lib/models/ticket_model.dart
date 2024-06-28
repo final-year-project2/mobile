@@ -19,6 +19,7 @@ class TicketModel {
 
     required this.id,
     required this.seller,
+    required this.id,
     required this.title,
     required this.description,
     required this.numberOfTickets,

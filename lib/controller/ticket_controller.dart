@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:frontend/models/ticket_model.dart'; 
+import 'package:frontend/models/ticket_model.dart';
 import 'package:get/get.dart';
 import 'package:frontend/services/http_services.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class TicketController extends GetxController {
-  final List<String> tabs = ['electronics', 'car', 'home']; 
+  final List<String> tabs = ['electronics', 'car', 'home'];
 
   final Map<String, List<TicketModel>> tabData = {
     'all': [],
@@ -22,6 +23,7 @@ class TicketController extends GetxController {
   TicketController() {
     httpServices.init();
   }
+  final RxBool isLoading = false.obs;
 
   @override
   void onInit() async {

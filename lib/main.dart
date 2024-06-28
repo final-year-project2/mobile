@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/binders/binders.dart';
+import 'package:frontend/controller/error_controller.dart';
 import 'package:frontend/controller/language_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/languages.dart';
@@ -31,9 +32,8 @@ import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-
+    Get.put(ErrorHandlerService());
   final themeController = Get.put(ThemeControllers());
   await GetStorage.init();
   await dotenv.load(fileName: ".env");
@@ -42,10 +42,7 @@ void main() async {
 
   Chapa.configure(privateKey: "CHASECK_TEST-NMHnfnAw81g9EWXYoSm6FrobP7rePyRd");
 
-
   runApp(MyApp());
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -70,6 +67,8 @@ class MyApp extends StatelessWidget {
             // GetPage(
 
             //   page: () => MainPage()),
+
+            
 
             GetPage(name: '/profile', page: () => Wallet()),
 

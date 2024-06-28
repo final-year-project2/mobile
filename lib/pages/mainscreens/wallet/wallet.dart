@@ -210,58 +210,46 @@ class Wallet extends StatelessWidget {
           SliverToBoxAdapter(
               child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Column(
-              children: List.generate(
-                  10,
-                  (index) => Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          width: size.width,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(23)),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            subtitle: Obx(() =>
-                                walletController.isTransactionLoading.value
-                                    ? SizedBox(
-                                        width: 10,
-                                        height: 10,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ))
-                                    : Text(walletController
-                                        .transactions[index].transactionDate
-                                        .toString())),
-                            leading: Icon(
-                              Icons.arrow_downward,
-                              color: thirdColor,
-                            ),
-                            tileColor: Color.fromARGB(218, 237, 236, 236),
-                            title: Obx(() =>
-                                walletController.isTransactionLoading.value
-                                    ? SizedBox(
-                                        width: 10,
-                                        height: 10,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ))
-                                    : Text(walletController
-                                        .transactions[index].amount)),
-                            trailing:
-                                walletController.isTransactionLoading.value
-                                    ? SizedBox(
-                                        width: 10,
-                                        height: 10,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ))
-                                    : Text(walletController
-                                        .transactions[index].transactionType),
-                          ),
-                        ),
-              )),
-            ),
+            child: Obx(() {
+              return walletController.transactions.isEmpty
+                  ? Center(child: Text('There is no transaction yet'))
+                  : Column(
+                      children: List.generate(
+                          walletController.transactions.length,
+                          (index) => Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  width: size.width,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(23)),
+                                  child: ListTile(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    subtitle:
+                                        Text(walletController
+                                            .transactions[index].transactionDate
+                                            .toString()),
+                                    leading: Icon(
+                                      Icons.arrow_downward,
+                                      color: thirdColor,
+                                    ),
+                                    tileColor:
+                                        Color.fromARGB(218, 237, 236, 236),
+                                    title: 
+                                        
+                                         Text(walletController
+                                            .transactions[index].amount),
+                                    trailing:
+                                        
+                                        Text(walletController
+                                            .transactions[index]
+                                            .transactionType),
+                                  ),
+                                ),
+                              )),
+                    );
+            }),
           ))
         ],
       ),

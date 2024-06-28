@@ -1,33 +1,32 @@
 import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:frontend/controller/error_controller.dart';
 import 'package:frontend/controller/ticket_controller.dart';
 import 'package:frontend/models/wallet_model.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/services/http_services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/state_manager.dart';
-import 'package:get_storage/get_storage.dart';
 
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 class WalletController extends GetxController {
+  RxList<TransactionModel> transactions = <TransactionModel>[].obs;
+
   @override
   void onInit() async {
     super.onInit();
     final responseBalance = await getWalletInformations();
     walletAmount.value = responseBalance.balance;
     await getRecentTransaction();
-
-   
   }
 
-  RxList<TransactionModel> transactions = <TransactionModel>[].obs;
   HttpServices? httpServices;
   RxBool walletInfoIsLoading = true.obs;
   RxBool isTransactionLoading = true.obs;
   RxBool chapaWebViewIsLoading = false.obs;
+  RxBool isVerificationResultLoading = true.obs;
   Map<String, dynamic>? verificationResult;
   RxString walletAmount = ''.obs;
 
@@ -72,7 +71,7 @@ class WalletController extends GetxController {
             verificationResult = await Chapa.getInstance.verifyPayment(
               txRef: storedTxRef ?? '',
             );
-
+            isVerificationResultLoading.value = false;
             verificationResult?.values.forEach((element) {
               print('element$element');
             });
@@ -140,6 +139,7 @@ class WalletController extends GetxController {
       return response;
     } on dio.DioException catch (e) {
       print('error occure depositing ');
+      Get.find<ErrorHandlerService>().handleError(e);
       throw Exception(e);
     }
   }
@@ -158,12 +158,11 @@ class WalletController extends GetxController {
       return WalletModel.fromJson(response.data);
     } on dio.DioException catch (e) {
       print('error@ getWalletinfo:$e');
+      Get.find<ErrorHandlerService>().handleError(e);
+
       throw Exception(e);
     }
   }
-
-
-
 
   Future<List<TransactionModel>> getRecentTransaction() async {
     final walletId = tokenBox.read('walletId');
@@ -171,7 +170,10 @@ class WalletController extends GetxController {
     try {
       final response = await httpServices
           ?.getRequest('user/retiveTransactionInfo/$walletId');
-      isTransactionLoading.toggle();
+      if (response?.statusCode == 200) {
+        isTransactionLoading.value = false;
+      }
+
       // print('bTransaction:${response?.data}');
       // print('transaction: $response');
 
@@ -180,13 +182,48 @@ class WalletController extends GetxController {
       }
 
       transactions.value = TransactionModel.fromJsonList(response.data);
+      print('Transaction :${transactions}');
 
       return transactions;
-    } catch (e) {
+    } on dio.DioException catch (e) {
+      Get.find<ErrorHandlerService>().handleError(e);
+
       print('error transaction data $e');
       throw Exception(e);
     }
   }
+
+
+
+Future<void> banks() async {
+  var headers = {
+'Authorization': 'Bearer CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR'
+};
+var request = http.Request('GET', Uri.parse('https://api.chapa.co/v1/banks'));
+
+request.headers.addAll(headers);
+
+http.StreamedResponse response = await request.send();
+
+if (response.statusCode == 200) {
+print(await response.stream.bytesToString());
+}
+else {
+print(response.reasonPhrase);
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+  
 }
 
 

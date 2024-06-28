@@ -19,9 +19,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  RxBool isregistered = false.obs;
+  
 
-  List<Widget> pages = [const HomePage(), SellerRegistrationPage(), Wallet()];
+  List<Widget> pages = [HomePage(), SellerRegistrationPage(), Wallet()];
+
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {
