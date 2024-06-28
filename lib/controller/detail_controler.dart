@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:chapa_unofficial/chapa_unofficial.dart';
+import 'package:frontend/models/TicketCommentModel.dart';
 import 'package:get/get.dart';
 import 'package:frontend/models/purchasedTicketModel.dart';
 import 'package:frontend/services/http_services.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 class DetailControler extends GetxController{
 
 
@@ -16,15 +19,50 @@ class DetailControler extends GetxController{
   RxList<dynamic> SelectedTicketObject = [].obs;
   RxList purchasedTicketList = [].obs;
   RxList PurcasedTicketNoList = [].obs;
+  RxList TicketCommentList = [].obs;
   RxBool isPending = false.obs;
   RxBool isSeccess = false.obs;
   RxMap Ticket = {}.obs;
   HttpServices httpServices = HttpServices();
-
+  
 DetailControler(){
   httpServices.initAuthenticated();
 }
+  void SetComment(String comment)async {
+    Comment(comment);
+  }
+  
+Future Comment(String comment) async {
+    try {
+      final response = await httpServices.postRequest('comment/',{
+        "Ticket_id":Ticket['id'],
+        "Comment":comment
+      });
+      print(response);
+    } on dio.DioException catch (e) {
+      print('Purchasing error:$e');
+      throw Exception(e);
+    }
+  }
+  
+  Future<List<CommentModel>> getTicketsComment() async {
+    isPending.value = true;
+    try {
+      final response = await httpServices.getRequest('comment/${Ticket['id']}');
+      isPending.value = false; 
+      return CommentModel.fromJsonList(response.data);
+      
+    } catch (e) {
+      print('Error fetching tickets djtail: ${e}');
+      isPending.value = false;
+      throw Exception(e);
+      
+      }
+  }
 
+  void getComment()async{
+    TicketCommentList.value = await getTicketsComment();
+  }
 
   
   void AddRemoveTicket(int number){

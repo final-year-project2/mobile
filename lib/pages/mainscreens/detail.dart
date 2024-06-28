@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
@@ -7,6 +8,7 @@ import 'package:frontend/controller/detail_controler.dart';
 import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/widgets/PaynentPage.dart';
 import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/custom_form.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -16,10 +18,23 @@ class DetailPage extends StatelessWidget {
   DetailPage({super.key});
   final controler = Get.find<DetailControler>();
   final Walletcontroler = Get.find<WalletController>();
+  TextEditingController CommentControler  = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    List TicketImage = [];
 
+    controler.GetPurchaseTicketNo();
+    controler.getComment();
+
+
+
+    List TicketImage = [];
+    // to write the comment 
+    void WritenComment(String comment){
+      controler.SetComment(comment);
+      CommentControler.text = '';
+    }
+
+    
     print('wallet cotroler');
     print(Walletcontroler.walletAmount);
     TicketImage = [
@@ -27,7 +42,7 @@ class DetailPage extends StatelessWidget {
       controler.Ticket['image2'],
       controler.Ticket['image3']
     ];
-    controler.GetPurchaseTicketNo();
+    
 
     List FotterData = [
       {
@@ -124,6 +139,8 @@ class DetailPage extends StatelessWidget {
                   )
                 : DefaultButton("Buy Ticket", false.obs)),
       ),
+
+
       SizedBox(
         height: 5,
       ),
@@ -138,11 +155,101 @@ class DetailPage extends StatelessWidget {
             onTap: () => Get.bottomSheet(
                 backgroundColor: whiteColor,
                 isScrollControlled: true,
+                
                 Container(
                   height: screenSize.height * 0.7,
-                  child: Center(
-                    child: Text('No available comments'),
-                  ),
+                  child: Container(
+                    width: screenSize.width,
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 15,),
+                        Obx(() => Expanded(
+                          child:controler.TicketCommentList.length ==0?Center(
+                            child: Text('No comment '),
+                          ): ListView.builder(
+                            itemCount: controler.TicketCommentList.length,
+                            itemBuilder:  (context, index) {
+                          return  Column(
+                            children: [
+                              SizedBox(height: 10,),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(Icons.person_2_outlined,color: thirdColor,),
+                                  SizedBox(width: 10,),
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: homePageContainerBackground,
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      child:Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                      Text("${controler.TicketCommentList[index].userId}",style: TextStyle(
+                                        color: optionalgrayTextColor
+                                      ),),
+                                      Text(controler.TicketCommentList[index].comment,style: TextStyle(
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 13,
+                                      color: homePageBannerColor),)
+                                        ],
+                                      ),
+                                    ))
+                                ],
+                              )
+                            ],
+                          );
+                    },            
+                  )
+                ),),
+                          
+
+                SizedBox(height: 10,),
+
+
+
+
+
+
+
+
+
+
+                        Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color:homePageContainerBackground ,
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Row(
+                              children: [
+                              CustomForm(
+                                  editingController: CommentControler,
+                                  hintText:'write your coment',
+                                  ),
+                                SizedBox(width: 20,),
+                                GestureDetector(
+                                  onTap: ()=>WritenComment(CommentControler.text),
+                                  child: Icon(Icons.send,color: homePageBannerColor2,))
+                              ],
+                          )),
+
+
+
+
+
+
+
+
+
+
+                      ],
+                    ),
+                  )
                 )),
             child: Container(
               width: 150,
@@ -300,9 +407,11 @@ class DetailPage extends StatelessWidget {
                         color: thirdColor,
                       ),
                       SizedBox(
-                        width: 20,
+                        width: screenSize.width*0.5,
                       ),
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        
                         children: [
                           Text(
                             "${controler.Ticket['seller']}",
@@ -331,12 +440,7 @@ class DetailPage extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: homePageContainerBackground,
-                        boxShadow: [
-                          BoxShadow(
-                            color: grayTextColor.withOpacity(0.5),
-                            blurRadius: 1, // changes position of shadow
-                          ),
-                        ],
+                        
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Text(
                       controler.Ticket['description'] ?? "",
@@ -356,7 +460,7 @@ class DetailPage extends StatelessWidget {
                               
                               children: [
                                 SizedBox(width: 20,),
-                                Icon(elements["icon"],size: 50,),
+                                Icon(elements["icon"],size: 50,color: grayTextColor,),
                                 SizedBox(width: 40,),
                                 Expanded(
                                   child: Column(

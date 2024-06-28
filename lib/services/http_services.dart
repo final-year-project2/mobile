@@ -17,8 +17,7 @@ class HttpServices {
         url,
         data: data,
         options: Options(
-          contentType: Headers
-              .formUrlEncodedContentType, // Use formUrlEncodedContentType for form data
+          contentType: Headers.formUrlEncodedContentType, // Use formUrlEncodedContentType for form data
         ),
       );
       return response;
@@ -30,6 +29,7 @@ class HttpServices {
 
 
   Future<Response> getRequest(String url, {dynamic data}) async {
+    print(accessToken);
     try {
       final response = await dio.get(
         url,
