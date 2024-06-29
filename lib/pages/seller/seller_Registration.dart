@@ -22,7 +22,7 @@ class SellerRegistrationPage extends StatelessWidget {
     httpServices.initAuthenticated();
     try {
       final response = await HttpServices().postRequest(
-        'http://10.0.2.2:800/product/become_seller/',
+        'http://10.0.2.2:8000/product/become_seller/',
         formData,
       );
 
@@ -31,6 +31,7 @@ class SellerRegistrationPage extends StatelessWidget {
         // Parse response JSON to get seller ID
         Map<String, dynamic> responseData = json.decode(response.toString());
         int sellerId = responseData['seller_id'];
+        print('seller-id $sellerId');
         sellerController.setSellerId(sellerId);
         // User is already a seller
         Get.snackbar('Already Seller', 'You are already a seller',

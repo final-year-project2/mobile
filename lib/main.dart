@@ -32,7 +32,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    Get.put(ErrorHandlerService());
+    Get.put(ErrorHandlerService()); 
   final themeController = Get.put(ThemeControllers());
   await GetStorage.init();
   await dotenv.load(fileName: ".env");

@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-   tabController = TabController(length: tabBarList.length, vsync: this);
+    tabController = TabController(length: tabBarList.length, vsync: this);
 
     currentIndex.listen((newindex) {
       print('newindex$newindex');
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
-  
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -211,36 +211,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           SliverToBoxAdapter(
             child: Container(
-                width: double.infinity,
-                height: 500,
-                child: TabBarView(
-                  controller: tabController,
-                  children: ticketController.tabData.entries.map((entry) {
-                    int tabIndex = entry
-                        .key.hashCode; // Use hashCode to uniquely identify tabs
-                    Widget tabBarContent = Container();
+              width: double.infinity,
+              height: 500,
+              child: TabBarView(
+                controller: tabController,
+                children: ticketController.tabs.map((tab) {
+                  final pagingController =
+                      ticketController.pagingControllers[tab];
 
-                    // Access the data for the current tab
-                    List<TicketModel> data = entry.value;
-
-                    // Check if data exists for the current tab
-                    if (data.isNotEmpty) {
-                      tabBarContent = ListView.builder(
-                        itemCount:
-                            data.length, // Use the length of the data list
-                        itemBuilder: (context, index) {
-                          // Extract properties from the TicketModel for display
-                          String title = data[index].title ??
-                              'No Title'; // Provide a fallback value
-                          String sellerName =
-                              data[index].seller ?? 'Unknown Seller';
-
-                          String ticketLeft = data[index].numberOfTickets;
-                          String imageUri = data[index].image1;
-
-                          // Provide a fallback value
-                          // Add more properties as needed
-
+                  // if (ticketController.pagingControllers[tab] == null) {
+                  //   ticketController.pagingControllers[tab] =
+                  //       PagingController(firstPageKey: 0);
+                  // }
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      await ticketController.refreshTickets(tab);
+                    },
+                    child: PagedListView<int, TicketModel>(
+                      pagingController: pagingController!,
+                      builderDelegate: PagedChildBuilderDelegate<TicketModel>(
+                        itemBuilder: (context, item, index) {
                           return GestureDetector(
                             onTap: () {
                               Get.toNamed('detailpage');
@@ -248,27 +238,38 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
                               child: Ticket(
-                                imageUri: imageUri,
-                                numberOfBuyers: '300', // Placeholder value
-                                title: title,
-                                ticketLeft: ticketLeft, // Placeholder value
-                                totalTicket: ticketLeft, // Placeholder value
+                                progessValue:
+                                    ticketController.normalizeNumberOfUser(
+                                        item.numberOfBuyer.toString(),
+                                        item.numberOfTickets),
+                                imageUri: item.image1,
+                                numberOfBuyers: item.numberOfBuyer
+                                    .toString(), // Placeholder value
+                                title: item.title ??
+                                    'No Title', // Provide a fallback value
+                                ticketLeft: item.ticketLeft
+                                    .toString(), // Placeholder value
+                                totalTicket:
+                                    item.numberOfTickets, // Placeholder value
                                 successfulCampaign: '2', // Placeholder value
-                                sellerName: sellerName,
+                                sellerName: 'item.seller ' ??
+                                    'Unknown Seller', // Provide a fallback value
                               ),
                             ),
                           );
                         },
-                      );
-                    } else {
-                      tabBarContent = Center(
-                          child: Text(
-                              'No data available for this tab.')); // Display a message if no data
-                    }
-
-                    return tabBarContent;
-                  }).toList(),
-                )),
+                        firstPageErrorIndicatorBuilder: (context) => Center(
+                          child: Text('Error loading first page'),
+                        ),
+                        noItemsFoundIndicatorBuilder: (context) => Center(
+                          child: Text('No items found'),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
           )
         ],
       ),

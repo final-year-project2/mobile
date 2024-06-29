@@ -99,17 +99,11 @@ class Success extends StatelessWidget {
                                 'Transaction reference',
                                 style: TextStyle(color: grayTextColor),
                               ),
-                              Obx(() {
-                                return walletController
-                                        .isVerificationResultLoading.value
-                                    ? Text('')
-                                    : Text(
-                                        walletController
-                                                    .verificationResult?['data']
-                                                ['reference'] ??
-                                            '',
-                                      );
-                              })
+                              Text(
+                                walletController.verificationResult?['data']
+                                        ['reference'] ??
+                                    '',
+                              )
                             ],
                           ),
                         ),
