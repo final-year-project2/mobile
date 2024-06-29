@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,23 +17,19 @@ class DetailPage extends StatelessWidget {
   DetailPage({super.key});
   final controler = Get.find<DetailControler>();
   final Walletcontroler = Get.find<WalletController>();
-  TextEditingController CommentControler  = TextEditingController();
+  TextEditingController CommentControler = TextEditingController();
   @override
   Widget build(BuildContext context) {
-
     controler.GetPurchaseTicketNo();
     controler.getComment();
 
-
-
     List TicketImage = [];
-    // to write the comment 
-    void WritenComment(String comment){
+    // to write the comment
+    void WritenComment(String comment) {
       controler.SetComment(comment);
       CommentControler.text = '';
     }
 
-    
     print('wallet cotroler');
     print(controler.Ticket['id']);
     print(Walletcontroler.walletAmount);
@@ -43,17 +38,22 @@ class DetailPage extends StatelessWidget {
       controler.Ticket['image2'],
       controler.Ticket['image3']
     ];
-    
 
     List FotterData = [
       {
-        "icon":Icons.delivery_dining,"title":"Delivery","description":"we deliver your prize"
+        "icon": Icons.delivery_dining,
+        "title": "Delivery",
+        "description": "we deliver your prize"
       },
       {
-        "icon":Icons.security,"title":"Trust","description":"Your money is safe with us"
+        "icon": Icons.security,
+        "title": "Trust",
+        "description": "Your money is safe with us"
       },
       {
-        "icon":Icons.celebration,"title":"Win","description":"play in our platform and win a prize you want"
+        "icon": Icons.celebration,
+        "title": "Win",
+        "description": "play in our platform and win a prize you want"
       }
     ];
 
@@ -92,8 +92,6 @@ class DetailPage extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-
-
                 Text(
                   "purchase lead to winner",
                   style: TextStyle(
@@ -133,8 +131,15 @@ class DetailPage extends StatelessWidget {
                 isScrollControlled: true,
                 Container(
                   height: screenSize.height * 0.9,
-                  child: PaymentPage(controler,
-                      controler.Ticket['numberOfTickets'], context, screenSize,Walletcontroler),
+                  child:
+                  PaymentPage(
+                      controler,
+                      controler.Ticket['numberOfTickets'],
+                      context,
+                      screenSize,
+                      Walletcontroler
+                      )
+                      ,
                 )),
             child: controler.isPending.value
                 ? CircularProgressIndicator(
@@ -142,8 +147,6 @@ class DetailPage extends StatelessWidget {
                   )
                 : DefaultButton("Buy Ticket", false.obs)),
       ),
-
-
       SizedBox(
         height: 5,
       ),
@@ -158,102 +161,115 @@ class DetailPage extends StatelessWidget {
             onTap: () => Get.bottomSheet(
                 backgroundColor: whiteColor,
                 isScrollControlled: true,
-                
                 Container(
-                  height: screenSize.height * 0.7,
-                  child: Container(
-                    width: screenSize.width,
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 15,),
-                        Obx(() => Expanded(
-                          child:controler.TicketCommentList.length ==0?Center(
-                            child: Text('No comment '),
-                          ): ListView.builder(
-                            itemCount: controler.TicketCommentList.length,
-                            itemBuilder:  (context, index) {
-                          return  Column(
-                            children: [
-                              SizedBox(height: 10,),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                    height: screenSize.height * 0.7,
+                    child: Container(
+                      width: screenSize.width,
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Obx(
+                            () => Expanded(
+                                child: controler.TicketCommentList.length == 0
+                                    ? Center(
+                                        child: Text('No comment '),
+                                      )
+                                    : ListView.builder(
+                                        itemCount:
+                                            controler.TicketCommentList.length,
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.person_2_outlined,
+                                                    color: thirdColor,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                      child: Container(
+                                                    padding: EdgeInsets.all(10),
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            homePageContainerBackground,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "${controler.TicketCommentList[index].userId}",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  optionalgrayTextColor),
+                                                        ),
+                                                        Text(
+                                                          controler
+                                                              .TicketCommentList[
+                                                                  index]
+                                                              .comment,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w100,
+                                                              fontSize: 13,
+                                                              color:
+                                                                  homePageBannerColor),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ))
+                                                ],
+                                              )
+                                            ],
+                                          );
+                                        },
+                                      )),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: homePageContainerBackground,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Row(
                                 children: [
-                                  Icon(Icons.person_2_outlined,color: thirdColor,),
-                                  SizedBox(width: 10,),
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: homePageContainerBackground,
-                                        borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child:Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                      Text("${controler.TicketCommentList[index].userId}",style: TextStyle(
-                                        color: optionalgrayTextColor
-                                      ),),
-                                      Text(controler.TicketCommentList[index].comment,style: TextStyle(
-                                      fontWeight: FontWeight.w100,
-                                      fontSize: 13,
-                                      color: homePageBannerColor),)
-                                        ],
-                                      ),
-                                    ))
-                                ],
-                              )
-                            ],
-                          );
-                    },            
-                  )
-                ),),
-                          
-
-                SizedBox(height: 10,),
-
-
-
-
-
-
-
-
-
-
-                        Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              color:homePageContainerBackground ,
-                              borderRadius: BorderRadius.circular(5)
-                            ),
-                            child: Row(
-                              children: [
-                              CustomForm(
-                                  editingController: CommentControler,
-                                  hintText:'write your coment',
+                                  CustomForm(
+                                    editingController: CommentControler,
+                                    hintText: 'write your coment',
                                   ),
-                                SizedBox(width: 20,),
-                                GestureDetector(
-                                  onTap: ()=>WritenComment(CommentControler.text),
-                                  child: Icon(Icons.send,color: homePageBannerColor2,))
-                              ],
-                          )),
-
-
-
-
-
-
-
-
-
-
-                      ],
-                    ),
-                  )
-                )),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  GestureDetector(
+                                      onTap: () =>
+                                          WritenComment(CommentControler.text),
+                                      child: Icon(
+                                        Icons.send,
+                                        color: homePageBannerColor2,
+                                      ))
+                                ],
+                              )),
+                        ],
+                      ),
+                    ))),
             child: Container(
               width: 150,
               padding: EdgeInsets.all(10),
@@ -299,13 +315,17 @@ class DetailPage extends StatelessWidget {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(secondaryColor),
                     ),
-                    onPressed:  () => Get.bottomSheet(
+                    onPressed: () => Get.bottomSheet(
                         backgroundColor: whiteColor,
                         isScrollControlled: true,
                         Container(
                           height: screenSize.height * 0.9,
-                          child: PaymentPage(controler,
-                              controler.Ticket['numberOfTickets'], context, screenSize,Walletcontroler),
+                          child: PaymentPage(
+                              controler,
+                              controler.Ticket['numberOfTickets'],
+                              context,
+                              screenSize,
+                              Walletcontroler),
                         )),
                     child: Text(
                       'Buy ticket',
@@ -410,11 +430,10 @@ class DetailPage extends StatelessWidget {
                         color: thirdColor,
                       ),
                       SizedBox(
-                        width: screenSize.width*0.5,
+                        width: screenSize.width * 0.5,
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        
                         children: [
                           Text(
                             "${controler.Ticket['seller']}",
@@ -443,7 +462,6 @@ class DetailPage extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: homePageContainerBackground,
-                        
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Text(
                       controler.Ticket['description'] ?? "",
@@ -456,34 +474,46 @@ class DetailPage extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.fromLTRB(5, 10, 5, 30),
                     child: Column(
-                        children: FotterData.map((elements) {
-                          return  Container(
-                            margin: EdgeInsets.all(5),
-                            child: Row(
-                              
-                              children: [
-                                SizedBox(width: 20,),
-                                Icon(elements["icon"],size: 50,color: grayTextColor,),
-                                SizedBox(width: 40,),
-                                Expanded(
-                                  child: Column(
+                      children: FotterData.map((elements) {
+                        return Container(
+                          margin: EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Icon(
+                                elements["icon"],
+                                size: 50,
+                                color: grayTextColor,
+                              ),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Expanded(
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 10,),
-                                      Text(elements["title"]),
-                                      Text(elements["description"]),
-                                      SizedBox(height: 10,),
-                                      HorizontalLine(height: 1, width: 100),
-                                      SizedBox(height: 10,),
-                                    ],
-                                  ),
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(elements["title"]),
+                                    Text(elements["description"]),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    HorizontalLine(height: 1, width: 100),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
                                 ),
-                                
-                              ],
-                            ),
-                          );  
-                        }).toList(),
-                      ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ],
               ),

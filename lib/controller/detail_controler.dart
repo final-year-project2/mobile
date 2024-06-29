@@ -79,10 +79,22 @@ Future Comment(String comment) async {
   }
 
   void changePaymentType(){
+      print(SelectedTicketObject[0]['Transaction_from']);
+    
     if(PaymentType.value == "from_wallet" ){
       PaymentType.value = "from_chapa" ;
+      if(SelectedTicketObject.length>0){
+        for (int index = 0; index < SelectedTicketObject.length; index++) {
+              SelectedTicketObject[index]['Transaction_from'] = "from_chapa";
+            }
+      }
     }else{
       PaymentType.value = "from_wallet" ;
+      if(SelectedTicketObject.length>0){
+        for (int index = 0; index < SelectedTicketObject.length; index++) {
+              SelectedTicketObject[index]['Transaction_from'] = "from_wallet";
+            }
+      }
     }
   }
 
