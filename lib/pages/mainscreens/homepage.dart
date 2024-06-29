@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController tabController;
   RxInt testvalue = 0.obs;
   final ticketController = Get.find<TicketController>();
-
+  final Detailcontroler = Get.find<DetailControler>();
   @override
   void dispose() {
     tabController.removeListener(handelevent);
@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           String title = data[index].title ??
                               'No Title'; // Provide a fallback value
                           String sellerName =
-                              data[index].seller ?? 'Unknown Seller';
+                              data[index].seller.toString() ?? 'Unknown Seller';
 
                           String ticketLeft = data[index].numberOfTickets;
                           String imageUri = data[index].image1;
@@ -243,6 +243,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
                           return GestureDetector(
                             onTap: () {
+                              Detailcontroler.Ticket.value = {
+                                "id":data[index].id,
+                                "seller":data[index].seller,
+                                "title":data[index].title,
+                                "description":data[index].description,
+                                "numberOfTickets":data[index].numberOfTickets,
+                                "prizeCategories":data[index].prizeCategories,
+                                "price_of_ticket":data[index].price_of_ticket,
+                                "image1":data[index].image1,
+                                "image2":data[index].image2,
+                                "image3":data[index].image3
+                              };
                               Get.toNamed('detailpage');
                             },
                             child: Padding(

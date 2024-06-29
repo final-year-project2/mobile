@@ -36,6 +36,7 @@ class DetailPage extends StatelessWidget {
 
     
     print('wallet cotroler');
+    print(controler.Ticket['id']);
     print(Walletcontroler.walletAmount);
     TicketImage = [
       controler.Ticket['image1'],
