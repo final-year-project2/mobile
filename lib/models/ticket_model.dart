@@ -10,17 +10,20 @@ class TicketModel {
   String description;
   String numberOfTickets;
   String prizeCategories;
+  String price_of_ticket;
   String image1;
   dynamic image2;
   dynamic image3;
 
   TicketModel({
-    required this.seller,
+
     required this.id,
+    required this.seller,
     required this.title,
     required this.description,
     required this.numberOfTickets,
     required this.prizeCategories,
+    required this.price_of_ticket,
     required this.image1,
     required this.image2,
     required this.image3,
@@ -41,6 +44,7 @@ class TicketModel {
               description: item["description"],
               numberOfTickets: item["number_of_tickets"],
               prizeCategories: item["prize_categories"],
+              price_of_ticket: item["price_of_ticket"],
               image1: item["image_1"],
               image2: item["image_2"],
               image3: item["image_3"],
@@ -54,6 +58,7 @@ class TicketModel {
         "description": description,
         "number_of_tickets": numberOfTickets,
         "prize_categories": prizeCategories,
+        "price_of_ticket": price_of_ticket,
         "image_1": image1,
         "image_2": image2,
         "image_3": image3,

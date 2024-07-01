@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/models/ticket_model.dart';
 import 'package:get/get.dart';
@@ -59,6 +58,7 @@ class TicketController extends GetxController {
       return TicketModel.fromJsonList(response.data);
     } catch (e) {
       print('Error fetching tickets: $e');
+      
       throw Exception(e);
     }
   }
@@ -68,9 +68,10 @@ class TicketController extends GetxController {
       // Fetch data for the current tab
       List<TicketModel> data = await getTickets(tab);
       // Store the fetched data in tabData
+    
       tabData[tab] = data;
-
-      print('${tabData[tab]}');
+      // print(tabData[tab]);
     }
   }
+  
 }
