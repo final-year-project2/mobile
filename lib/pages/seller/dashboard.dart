@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:frontend/controller/dashboard_controller.dart';
 import 'package:frontend/widgets/layout.dart';
+import 'package:get/get.dart';
 
 import 'package:percent_indicator/percent_indicator.dart';
 // import 'package:frontend/widgets/layout.dart' ;
@@ -53,13 +55,16 @@ class _DashboardState extends State<Dashboard> {
   final List<double> numberOfTicket = [10, 20, 5, 9, 10, 2];
   final double value = 100;
 
+  final controller = Get.find<DashboardController>();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Dashboard ",
+          "Dashboard  ",
           style: TextStyle(fontSize: 15),
         ),
       ),
@@ -553,8 +558,11 @@ class _DashboardState extends State<Dashboard> {
 
   // final List<String> users = ['John', 'Jack', 'Rodrigo'];
   final List<double> ticketsBought = [40, 100, 10];
+
   List<PieChartSectionData> showingSections() {
     return List.generate(3, (i) {
+      final categoryPercentage = controller.categoryPercentages[i];
+
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 60.0 : 50.0;
@@ -566,8 +574,8 @@ class _DashboardState extends State<Dashboard> {
             // color: Color.fromRGBO(230, 0, 73, 1.0),
             // color: Color.fromRGBO(255, 85, 85, 1.0),
 
-            value: 40,
-            title: '40%',
+            value: categoryPercentage.percentage.round().toDouble(),
+            title: '${categoryPercentage.percentage.round().toDouble()}',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -581,8 +589,8 @@ class _DashboardState extends State<Dashboard> {
             // color: Color.fromRGBO(11, 180, 255, 1.0),
             // color: Color.fromRGBO(255, 221, 51, 1.0),
             color: Color.fromRGBO(153, 85, 153, 1.0),
-            value: 30,
-            title: '30%',
+            value: categoryPercentage.percentage.round().toDouble(),
+            title: '${categoryPercentage.percentage.round().toDouble()}',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -595,8 +603,8 @@ class _DashboardState extends State<Dashboard> {
           return PieChartSectionData(
             color: Color.fromRGBO(51, 102, 204, 1.0),
             // color: Color.fromRGBO(96, 165, 188, 1.0),
-            value: 15,
-            title: '15%',
+            value: categoryPercentage.percentage.round().toDouble(),
+            title: '${categoryPercentage.percentage.round().toDouble()}',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,

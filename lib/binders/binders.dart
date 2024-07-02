@@ -1,6 +1,7 @@
 import 'package:frontend/controller/Product_controller.dart';
 import 'package:frontend/controller/ask_phone_number_controller.dart';
 import 'package:frontend/controller/categories_controller.dart';
+import 'package:frontend/controller/dashboard_controller.dart';
 import 'package:frontend/controller/language_controller.dart';
 import 'package:frontend/controller/login_controller.dart';
 import 'package:frontend/controller/mega_product_controller.dart';
@@ -24,7 +25,9 @@ class Binders extends Bindings {
   @override
   void dependencies() {
     // Get.put(ThemeControllers());
+    Get.put(DashboardController());
     Get.put(ProductController());
+
     Get.put(ThemeControllers());
     Get.create(() => WalletController());
     Get.put(OTPController());
