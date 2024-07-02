@@ -1,10 +1,10 @@
 // import 'dart:js_interop';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/detail_controler.dart';
 import 'package:frontend/controller/ticket_controller.dart';
 import 'package:frontend/models/ticket_model.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController tabController;
   RxInt testvalue = 0.obs;
   final ticketController = Get.find<TicketController>();
-
+  final Detailcontroler = Get.find<DetailControler>();
   @override
   void dispose() {
     tabController.removeListener(handelevent);
@@ -233,6 +233,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         itemBuilder: (context, item, index) {
                           return GestureDetector(
                             onTap: () {
+                              Detailcontroler.Ticket.value = {
+                                "id": item.id,
+                                "seller": item.seller,
+                                "title": item.title,
+                                "description": item.description,
+                                "numberOfTickets": item.numberOfTickets,
+                                "prizeCategories": item.prizeCategories,
+                                "price_of_ticket": item.priceOfTicket,
+                                "image1": item.image1,
+                                "image2": item.image2,
+                                "image3": item.image3
+                              };
                               Get.toNamed('detailpage');
                             },
                             child: Padding(

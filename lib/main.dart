@@ -12,6 +12,7 @@ import 'package:frontend/pages/authentication/password_reset/newpassword.dart';
 import 'package:frontend/pages/authentication/password_reset/verify_otp_password_reset.dart';
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
+import 'package:frontend/pages/mainscreens/PurchaseSuccessPage.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/mainscreens/detail.dart';
 import 'package:frontend/pages/mainscreens/main_page.dart';
@@ -39,7 +40,7 @@ void main() async {
 
   await themeController.loadThemePreference();
 
-  Chapa.configure(privateKey: "CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR");
+  Chapa.configure(privateKey: "CHASECK_TEST-NMHnfnAw81g9EWXYoSm6FrobP7rePyRd");
 
   runApp(MyApp());
 }
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           fallbackLocale: Locale('en', 'Us'),
           debugShowCheckedModeBanner: false,
           theme: themeController.lightTheme,
+          // initialRoute: "/detailpage",
           initialRoute: "/landingpage",
           getPages: [
             // GetPage(
@@ -75,10 +77,15 @@ class MyApp extends StatelessWidget {
 
             // GetPage(name: '/profile', page: () => Profile()),
             GetPage(name: '/seller', page: () => SellerRegistrationPage()),
+            // GetPage(name: '/detailpage', page: () => DetailPage(),
+            //     binding: Binders()),
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),
                 binding: Binders()),
+              // GetPage(
+              //   name: '/landingpage',
+              //   page: () => LandingPage()),
 
             GetPage(name: '/signin', page: () => Login()),
             GetPage(name: '/signup', page: () => SignUp()),
@@ -92,7 +99,6 @@ class MyApp extends StatelessWidget {
               name: '/productdetail',
               page: () => ProductDetail(),
             ),
-
             GetPage(name: '/homepage', page: () => HomePage()),
 
             GetPage(name: '/detailpage', page: () => DetailPage()),
@@ -116,6 +122,8 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/reciveotp', page: () => ReciveOTP()),
 
             GetPage(name: '/newpassword', page: () => NewPassword()),
+            // PurchaseSuccessPage
+            GetPage(name: '/PurchaseSuccess', page: () => PurchaseSuccess()),
           ],
         ));
   }

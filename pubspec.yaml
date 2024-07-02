@@ -57,6 +57,11 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   http: ^1.2.1
   fl_chart: ^0.68.0
+  syncfusion_flutter_datagrid: ^26.1.39
+  
+
+  
+  
 
 dev_dependencies:
   flutter_test:

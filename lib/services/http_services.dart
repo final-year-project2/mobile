@@ -11,7 +11,7 @@ String refreshToken = tokenBox.read('refreshToken');
 class HttpServices {
   final BASE_URL = dotenv.env['BASE_URL'];
   Dio dio = Dio();
-  Future<Response> postRequest(String url, dynamic data) async {
+  Future<Response> postRequest(String url, var data) async {
     try {
       final response = await dio.post(
         url,
@@ -29,6 +29,7 @@ class HttpServices {
   }
 
   Future<Response> getRequest(String url, {dynamic data}) async {
+    print(accessToken);
     try {
       final response = await dio.get(
         url,
@@ -94,10 +95,13 @@ class HttpServices {
   void initAuthenticated() {
     dio.options.baseUrl = BASE_URL ?? "";
     dio.options.headers["Authorization"] = "Bearer $accessToken";
+    dio.options.headers["Content-Type"] = "application/json"; // Add this line
 
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         options.headers['Authorization'] = "Bearer $accessToken";
+        options.headers['Content-Type'] = "application/json";
+
         return handler.next(options);
       },
       onError: (error, handler) async {

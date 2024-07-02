@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/models/ticket_model.dart';
 import 'package:get/get.dart';
@@ -113,17 +112,18 @@ class TicketController<T> extends GetxController {
   //   }
   // }
 
-  Future<List<TicketModel>> getTickets(String category) async {
-    try {
-      final response =
-          await httpServices.getRequest('/product/ticket-list/$category');
-      // List jsonResponse = json.decode(response.data);
-      return TicketModel.fromJsonList(response.data);
-    } catch (e) {
-      print('Error fetching tickets: $e');
-      throw Exception(e);
-    }
-  }
+  // Future<List<TicketModel>> getTickets(String category) async {
+  //   try {
+  //     final response =
+  //         await httpServices.getRequest('/product/ticket-list/$category');
+  //     // List jsonResponse = json.decode(response.data);
+  //     return TicketModel.fromJsonList(response.data);
+  //   } catch (e) {
+  //     print('Error fetching tickets: $e');
+
+  //     throw Exception(e);
+  //   }
+  // }
 
   refreshTickets(String category) {
     final pagingController = pagingControllers[category];
