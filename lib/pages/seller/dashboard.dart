@@ -548,6 +548,58 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ],
                 ),
+              ),
+              VerticalSpace(10),
+              Container(
+                height: 1,
+                width: 400,
+                color: Color.fromRGBO(184, 184, 184, 1),
+              ),
+              VerticalSpace(10),
+              Text(
+                'Live Tickets',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              VerticalSpace(10),
+              Container(
+                width: size.width,
+                height: size.height * 0.2,
+                child: ListView.builder(
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      height: size.height * 0.1,
+                      child: GestureDetector(
+                        onTap: () {
+                          //go to live ticket page
+                          Get.toNamed('/liveticket');
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: ListTile(
+                              leading: Image.asset(
+                                // fit: BoxFit.fitWidth,
+
+                                'assets/car2.jpg',
+                                height: 100,
+                                width: 100,
+
+                                // color: blureGreen,
+                              ),
+                              title: Text("I phone nx product"),
+                              subtitle: Text(
+                                '35 birr',
+                                style: TextStyle(
+                                    color: Colors.purple, fontSize: 11),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               )
             ],
           ),

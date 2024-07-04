@@ -21,6 +21,7 @@ import 'package:frontend/pages/mainscreens/wallet/success.dart';
 import 'package:frontend/pages/mainscreens/wallet/wallet.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/onboarding/page1.dart';
+import 'package:frontend/pages/seller/live_ticket.dart';
 import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/seller_Registration.dart';
@@ -33,7 +34,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    Get.put(ErrorHandlerService()); 
+  Get.put(ErrorHandlerService());
   final themeController = Get.put(ThemeControllers());
   await GetStorage.init();
   await dotenv.load(fileName: ".env");
@@ -68,8 +69,6 @@ class MyApp extends StatelessWidget {
 
             //   page: () => MainPage()),
 
-            
-
             GetPage(name: '/profile', page: () => Wallet()),
 
             GetPage(name: '/mainpage', page: () => MainPage()),
@@ -83,13 +82,14 @@ class MyApp extends StatelessWidget {
                 name: '/landingpage',
                 page: () => LandingPage(),
                 binding: Binders()),
-              // GetPage(
-              //   name: '/landingpage',
-              //   page: () => LandingPage()),
+            // GetPage(
+            //   name: '/landingpage',
+            //   page: () => LandingPage()),
 
             GetPage(name: '/signin', page: () => Login()),
             GetPage(name: '/signup', page: () => SignUp()),
             GetPage(name: '/category', page: () => Category()),
+            GetPage(name: '/liveticket', page: () => LiveTicket()),
 
             GetPage(
               name: '/productdesciption',
