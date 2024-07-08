@@ -50,7 +50,7 @@ dependencies:
   chapa_unofficial: ^0.0.5
   syncfusion_flutter_gauges: ^26.1.40
   web_socket_channel: ^3.0.0
-  
+  jwt_decoder: ^2.0.1
   carousel_slider: ^4.2.1
   percent_indicator: ^4.2.3
 

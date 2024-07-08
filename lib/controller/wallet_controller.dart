@@ -30,7 +30,9 @@ class WalletController extends GetxController {
   RxBool chapaWebViewIsLoading = false.obs;
   RxBool isVerificationResultLoading = true.obs;
   Map<String, dynamic>? verificationResult;
-  RxString walletAmount = ''.obs;
+  RxString walletAmount = '0'.obs;
+  RxString? addedMoney = ''.obs;
+  RxString? transaction_reference = ''.obs;
 
   // RxList transactionDetail = [].obs;
   // List<Map<String, dynamic>> transactionDetail = [];
@@ -80,6 +82,12 @@ class WalletController extends GetxController {
             });
 
             int? walletMoney = verificationResult?['data']['amount'];
+
+            addedMoney?.value =
+                verificationResult?['data']['amount'].toString() ?? '';
+            transaction_reference?.value =
+                verificationResult?['data']['reference'];
+            print('${addedMoney} andpoint ${transaction_reference?.value}');
 
             String sentAmount = walletMoney.toString();
             // print('SentAmount:$sentAmount');

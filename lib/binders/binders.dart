@@ -30,7 +30,7 @@ class Binders extends Bindings {
     Get.put(ProductController());
     Get.put(LiveTicketController());
     Get.put(ThemeControllers());
-    Get.create(() => WalletController());
+    Get.put(WalletController());
     Get.put(OTPController());
     Get.put(SignUpController());
     Get.put(AskPhoneNumber());

@@ -15,6 +15,8 @@ class Success extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    print(
+        'added m=o===${walletController.addedMoney?.value}==========================');
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -99,11 +101,11 @@ class Success extends StatelessWidget {
                                 'Transaction reference',
                                 style: TextStyle(color: grayTextColor),
                               ),
-                              Text(
-                                walletController.verificationResult?['data']
-                                        ['reference'] ??
-                                    '',
-                              )
+                              Obx(() {
+                                return Text(walletController
+                                        .transaction_reference?.value ??
+                                    'roller');
+                              })
                             ],
                           ),
                         ),
@@ -117,16 +119,11 @@ class Success extends StatelessWidget {
                                 style: TextStyle(color: grayTextColor),
                               ),
                               Obx(() {
-                                return walletController
-                                        .isVerificationResultLoading.value
-                                    ? Text('')
-                                    : Text(
-                                        walletController
-                                                .verificationResult?['data']
-                                                    ['amount']
-                                                .toString() ??
-                                            '',
-                                      );
+                                print(
+                                    '${walletController.addedMoney?.value} added money');
+                                return Text(
+                                    walletController.addedMoney?.value ??
+                                        'roller');
                               })
                             ],
                           ),
