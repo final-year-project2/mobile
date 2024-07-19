@@ -169,6 +169,9 @@ class SellerRegistrationPage extends StatelessWidget {
     );
   }
 
+//
+
+//
   Future<void> _showImageSourceActionSheet(BuildContext context) async {
     showModalBottomSheet(
       context: context,
@@ -274,6 +277,7 @@ class SellerRegistrationPage extends StatelessWidget {
                       )),
                 ),
               ),
+
               VerticalSpace(200),
               GestureDetector(
                 onTap: () async {

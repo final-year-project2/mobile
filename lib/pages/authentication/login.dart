@@ -147,7 +147,7 @@ class Login extends StatelessWidget {
                           String userId = tokenBox.read('userID').toString();
                           print('userId:$userId');
                           print('fromTokenBox:walletId${wallet_id}');
-                          print('fromTokenBox:AcessToken${accessToken}');
+                          print('fromTokenBox:AcessToken  ${accessToken}');
                           print('fromTokenBox:refreshToken${refreshToken}');
                           print('wallet-id :$wallet_id');
                           loginController.isLoading.value = false;
