@@ -37,7 +37,7 @@ class Login extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -115,11 +115,9 @@ class Login extends StatelessWidget {
                 VerticalSpace(40),
 
                 GestureDetector(
-                    child: Obx(
-                      () =>
-                          DefaultButton('SIGNIN'.tr, loginController.isLoading),
-                    ),
                     onTap: () async {
+                      // print('PhoneNumbers:${phoneNumberControler.text }');
+                      // print('password:${passwordControler.text}');
                       String Phone_no = phoneNumberControler.text;
                       String password = passwordControler.text;
                       print('Phoneno:$Phone_no');
@@ -131,8 +129,10 @@ class Login extends StatelessWidget {
                         print('login start');
                         loginController.isLoading.value = true;
 
+
                         final loginResponse = await loginController
                             .loginRequest(Phone_no, password);
+
 
                         print('login middle');
 
@@ -142,18 +142,19 @@ class Login extends StatelessWidget {
                           String accessToken = loginResponse.data['access'];
                           String refreshToken = loginResponse.data['refresh'];
                           print('response:$loginResponse');
-                          int userId = loginResponse.data['user_id'];
-                          print('userId:$userId');
-
+                          int user_Id = loginResponse.data['user_id'];
+                          String userID = user_Id.toString();
                           int wallet_id = loginResponse.data['wallet_id'];
-                          print('response:$loginResponse');
-                          // String userId = loginResponse.data['user_id'];
-                          // print('userId:$userId');
-
-                          // int wallet_id = loginResponse.data['wallet_id'];
                           tokenBox.write('accessToken', accessToken);
                           tokenBox.write('refreshToken', refreshToken);
                           tokenBox.write('walletId', wallet_id);
+
+                          tokenBox.write('userID', userID);
+                          String userId = tokenBox.read('userID').toString();
+                          print('userId:$userId');
+                          print('fromTokenBox:walletId${wallet_id}');
+                          print('fromTokenBox:AcessToken  ${accessToken}');
+
                           tokenBox.write('userId', userId);
                           int userIdFromStorage = tokenBox.read('userId');
 
@@ -163,7 +164,7 @@ class Login extends StatelessWidget {
                           print("Decodded ${decodedToken}");
 
                           print('fromTokenBox:AcessToken: ${accessToken}');
-                          print('fromTokenBox:refreshToken${refreshToken}');
+            print('fromTokenBox:refreshToken${refreshToken}');
 
                           print('wallet-id :$wallet_id');
                           loginController.isLoading.value = false;
@@ -187,8 +188,9 @@ class Login extends StatelessWidget {
                           isErroccured.value = false;
                         });
                       }
-                    }),
-
+                    },
+                    child: Obx(() =>
+                        DefaultButton('SIGNIN'.tr, loginController.isLoading))),
                 VerticalSpace(30),
 
                 Obx(() => isErroccured.value

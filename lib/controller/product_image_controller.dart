@@ -10,14 +10,25 @@ class ProductImageController extends GetxController {
 
   // No need for setProductController method anymore
 
-  Future<void> pickImage(int index) async {
-    final result = await picker.pickImage(source: ImageSource.gallery);
+  Future<void> pickImage(int index, ImageSource source) async {
+    final result = await picker.pickImage(source: source);
     print('Result: $result');
     if (result != null) {
+      final file = File(result.path);
+      final fileSize = await file.length(); // Get file size in bytes
+      final fileSizeInMB = fileSize / (1024 * 1024); // Convert to MB
+      if (fileSizeInMB > 9) {
+        // Show scaffold if image size exceeds 9MB
+        Get.snackbar(
+          'Error',
+          'Image size must be less than 9MB',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return;
+      }
       _images.insert(index, result);
       print('Image picked: ${result.path}');
       final productController = Get.find<ProductController>();
-      final file = File(result.path);
       print('File: $file');
       if (file.existsSync()) {
         print('File exists');

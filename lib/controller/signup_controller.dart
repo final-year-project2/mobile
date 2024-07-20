@@ -24,7 +24,7 @@ class SignUpController extends GetxController {
     try {
       print('function started2');
 
-      final response = await httpServices?.postRequest('user/create/', {
+      final response = await httpServices?.postRequest('/user/create/', {
         'name': name,
         'Phone_no': Phone_no,
         'password': password,

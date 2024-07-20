@@ -54,6 +54,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+
+    super.initState();
+
+
     tabController = TabController(length: tabBarList.length, vsync: this);
 
     currentIndex.listen((newindex) {
@@ -71,6 +75,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
+
+    //final TabController tabController =
+    //TabController(length: tabBarList.length, vsync: this);
+
 
     return Scaffold(
       body: CustomScrollView(

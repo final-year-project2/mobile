@@ -38,7 +38,6 @@ void main() async {
   final themeController = Get.put(ThemeControllers());
   await GetStorage.init();
   await dotenv.load(fileName: ".env");
-
   await themeController.loadThemePreference();
 
   Chapa.configure(privateKey: "CHASECK_TEST-NMHnfnAw81g9EWXYoSm6FrobP7rePyRd");
