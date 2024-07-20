@@ -36,6 +36,9 @@ class Languages extends Translations {
           'NUBER_OF_TICKETS': 'How many tickets want to be sold',
           'CATEGORY': 'Enter Prize category',
           'CLICK_HERE': 'Click here',
+          'PRICE_OF_TICKET': 'Enter Price of ticket',
+          'Profile_photo': 'Add Profile Photo here',
+          'TITLEs_PHOTO': 'Add cover photo',
           'NEARLY_FINISHED': 'early finished Add Images for your product',
           'COVER_IMAGE':
               'Add cover image that will be displayed as Title photo',
@@ -78,6 +81,8 @@ class Languages extends Translations {
           'NUBER_OF_TICKETS': 'ስንት ትኬት እንዲሸጥሎ ይፈልጋሉ?',
           'CATEGORY': 'የእጣውን መደብ ያስገቡ',
           'CLICK_HERE': 'ይሄን ይጫኑ',
+          'PRICE_OF_TICKET': 'የ እጣ ዋጋ ያሰግቡ',
+          'Profile_photo': '',
           'NEARLY_FINISHED': 'ጨርሰዋል...የእጣውን ፎቶዎች ብቻ ያስገቡ',
           'COVER_IMAGE': 'የእጣው የፊት ገፅ ላይ የሚታይ ፎቶ ያስገቡ',
           'TITLE_PHOTO': 'የፊት ገፅ ፎቶ ያስገቡ',
