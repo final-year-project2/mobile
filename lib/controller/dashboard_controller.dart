@@ -6,8 +6,8 @@ import 'package:frontend/services/http_services.dart';
 
 class DashboardController extends GetxController {
   HttpServices httpServices = HttpServices();
-  var categoryPercentages =
-      <CategoryPercentage>[].obs; // Make sure to import your model correctly
+  var categoryPercentages = <CategoryPercentage>[].obs;
+  var frequentBuyerList = <FrequentBuyer>[].obs;
 
   DashboardController() {
     httpServices.initAuthenticated();
@@ -16,6 +16,7 @@ class DashboardController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     getPiChart('1');
+    getFreqeuntBuyer('1');
     super.onInit();
   }
 
@@ -32,6 +33,19 @@ class DashboardController extends GetxController {
       print('Error on fetching on categroypercetage : ${e}');
 
       throw Exception(e);
+    }
+  }
+
+  Future<List<FrequentBuyer>> getFreqeuntBuyer(String sellerId) async {
+    print('frequent buyer start ');
+    try {
+      final response =
+          await httpServices.getRequest('/seller_admin/frequent_buyer/1');
+      print("frequent buyer ${response}");
+      frequentBuyerList.value = FrequentBuyer.fromJsonList(response.data);
+      return frequentBuyerList;
+    } catch (e) {
+      throw Exception('Exception @ getFrequentBuyer():${e}');
     }
   }
 }

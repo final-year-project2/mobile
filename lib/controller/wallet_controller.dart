@@ -26,6 +26,7 @@ class WalletController extends GetxController {
 
   HttpServices? httpServices;
   RxBool walletInfoIsLoading = true.obs;
+  RxBool networkException = false.obs;
   RxBool isTransactionLoading = true.obs;
   RxBool chapaWebViewIsLoading = false.obs;
   RxBool isVerificationResultLoading = true.obs;
@@ -115,6 +116,8 @@ class WalletController extends GetxController {
       } else if (e is InitializationException) {
         print('In app $e ');
       } else if (e is NetworkException) {
+        //show popup
+        networkException.value = true;
         print('In app $e ');
       } else if (e is ServerException) {
         print('In app $e ');
@@ -204,52 +207,54 @@ class WalletController extends GetxController {
     }
   }
 
-  Future<void> banks() async {
-    var headers = {
-      'Authorization': 'Bearer CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR'
-    };
-    var request =
-        http.Request('GET', Uri.parse('https://api.chapa.co/v1/banks'));
+  // Future<void> banks() async {
+  //   var headers = {
+  //     'Authorization': 'Bearer CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR'
+  //   };
+  //   var request =
+  //       http.Request('GET', Uri.parse('https://api.chapa.co/v1/banks'));
 
-    request.headers.addAll(headers);
+  //   request.headers.addAll(headers);
 
-    http.StreamedResponse response = await request.send();
+  //   http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 200) {
-      print('payout ${await response.stream.bytesToString()}');
-    } else {
-      print('payouterror ${response.reasonPhrase}');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     print('payout ${await response.stream.bytesToString()}');
+  //   } else {
+  //     print('payouterror ${response.reasonPhrase}');
+  //   }
+  // }
 
   void payout() async {
     // Prepare headers
     Map<String, String> headers = {
-      "Authorization": "Bearer CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR",
+      "Authorization": "Bearer CHASECK_TEST-NMHnfnAw81g9EWXYoSm6FrobP7rePyRd",
       "Content-Type": "application/json"
     };
 
     // Prepare payload
     String rawPayload = jsonEncode({
       "account_name": "Israel Goytom",
-      "account_number": "32423423000000",
-      "amount": "10",
+      "account_number": "32423423",
+      "amount": "100",
       "currency": "ETB",
       "reference": "3241342142sfdd",
-      "bank_code": "80a510ea-7497-4499-8b49-ac13a3ab7d07"
+      "bank_code": "fe087651-4910-43af-b666-bbd393d8e81f"
     });
 
     // Make the POST request
     try {
+      print('Transfer start ');
       final dio = Dio();
       final response = await dio.post(
         'https://api.chapa.co/v1/transfers',
         options: Options(headers: headers),
         data: rawPayload,
       );
-      print(response.data); // Assuming you want to print the response data
+      print(
+          'transfer:${response.data}'); // Assuming you want to print the response data
     } catch (e) {
-      print('Error: $e');
+      print('ErrorCatched: $e');
     }
   }
 }

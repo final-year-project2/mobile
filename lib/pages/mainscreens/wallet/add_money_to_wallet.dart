@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/error.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AddMoneyToWallet extends StatelessWidget {
   AddMoneyToWallet({super.key});
@@ -41,7 +43,7 @@ class AddMoneyToWallet extends StatelessWidget {
               'Natnael ',
               style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
             ),
-            VerticalSpace(screensize.height * 0.2),
+            VerticalSpace(screensize.height * 0.15),
             // Text(
             //   'Amount',
             //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.33),
@@ -73,7 +75,7 @@ class AddMoneyToWallet extends StatelessWidget {
                 )
               ],
             ),
-            VerticalSpace(screensize.height * 0.1),
+            VerticalSpace(screensize.height * 0.12),
             Padding(
               padding: const EdgeInsets.fromLTRB(25.0, 0, 0, 0),
               child: GestureDetector(
@@ -83,11 +85,24 @@ class AddMoneyToWallet extends StatelessWidget {
                     walletController.chapaWebViewIsLoading.toggle();
                     Future.delayed(Duration(seconds: 1),
                         () => walletController.chapaWebViewIsLoading.toggle());
+                    Future.delayed(Duration(seconds: 10),
+                        () => walletController.networkException.value = false);
+
                     // Get.toNamed('success');
                   },
                   child: Obx(() => DefaultButton(
                       'Add Money ', walletController.chapaWebViewIsLoading))),
-            )
+            ),
+            // Future.delayed(duration)
+
+            walletController.networkException == true
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: NetworkException(
+                        errorMessage:
+                            "Please check your Internet Connection ,then try again !"),
+                  )
+                : Text('')
           ],
         ),
       ),

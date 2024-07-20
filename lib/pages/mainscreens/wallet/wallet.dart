@@ -8,6 +8,7 @@ import 'package:frontend/constants.dart';
 import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/models/wallet_model.dart';
 import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/error.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 import 'package:chapa_unofficial/chapa_unofficial.dart';
@@ -154,7 +155,7 @@ class Wallet extends StatelessWidget {
                     HorizontalLine(height: 80, width: 1),
                     GestureDetector(
                       onTap: () async {
-                        walletController.banks();
+                        // walletController.banks();
                         walletController.payout();
                       },
                       child: Container(
@@ -179,24 +180,27 @@ class Wallet extends StatelessWidget {
                       ),
                     ),
                     HorizontalLine(height: 80, width: 1),
-                    Container(
-                      width: 100,
-                      height: 70,
-                      decoration: BoxDecoration(
-                          color: colorForContrast,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: primaryColor, width: 1)),
-                      child: Column(
-                        children: [
-                          VerticalSpace(5),
-                          Image.asset(width: 30, 'assets/sendmoney.png'),
-                          VerticalSpace(10),
-                          Text(
-                            'send ',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ],
+                    GestureDetector(
+                      onTap: () => Get.toNamed('homepage'),
+                      child: Container(
+                        width: 100,
+                        height: 70,
+                        decoration: BoxDecoration(
+                            color: colorForContrast,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: primaryColor, width: 1)),
+                        child: Column(
+                          children: [
+                            VerticalSpace(5),
+                            Image.asset(width: 30, 'assets/sendmoney.png'),
+                            VerticalSpace(10),
+                            Text(
+                              'Buy ',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

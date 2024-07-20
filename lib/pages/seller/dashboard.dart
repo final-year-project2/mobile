@@ -62,6 +62,7 @@ class _DashboardState extends State<Dashboard> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      drawer: Drawer(),
       appBar: AppBar(
         title: Text(
           "Dashboard  ",
@@ -398,23 +399,42 @@ class _DashboardState extends State<Dashboard> {
                       barTouchData: BarTouchData(
                         enabled: true,
                         touchTooltipData: BarTouchTooltipData(
-                          // tooltipBgColor: Colors.blueGrey,
-                          getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                            String campaign = campaigns[group.x.toInt()];
-                            String revenue =
-                                '\$${revenues[group.x.toInt()].toString()}';
-                            return BarTooltipItem(
-                              '$campaign\nRevenue: $revenue',
-                              TextStyle(color: Colors.white),
-                            );
-                          },
-                        ),
+                            // tooltipBgColor: Colors.blueGrey,
+                            // getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                            //   String campaign = campaigns[group.x.toInt()];
+                            //   String revenue =
+                            //       '\$${revenues[group.x.toInt()].toString()}';
+                            //   return BarTooltipItem(
+                            //     '$campaign\nRevenue: $revenue',
+                            //     TextStyle(color: Colors.white),
+                            //   );
+                            // },
+                            ),
                       ),
                       gridData: FlGridData(
                         show: false, // Hide the grid lines
                       ),
                       borderData: FlBorderData(show: false),
                       titlesData: FlTitlesData(
+                          leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                  showTitles: true,
+                                  reservedSize: 40,
+                                  getTitlesWidget: (value, meta) {
+                                    if (value % 40 == 0) {
+                                      // Customize the interval step
+                                      return Text(
+                                        value.toInt().toString(),
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      );
+                                    }
+                                    return Container();
+                                  },
+                                  interval: 2)),
                           rightTitles: AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
@@ -427,7 +447,12 @@ class _DashboardState extends State<Dashboard> {
                                       child: Transform.rotate(
                                         angle: -0.3,
                                         child: Text(
-                                          users[value.toInt()],
+                                          // controller.frequentBuyerList
+                                          //     .name[value.toInt()],x
+
+                                          controller
+                                              .frequentBuyerList[value.toInt()]
+                                              .name,
                                           style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
@@ -439,12 +464,15 @@ class _DashboardState extends State<Dashboard> {
                                   },
                                   reservedSize: 32))),
                       barGroups: List.generate(
-                        users.length,
+                        controller.frequentBuyerList.length,
                         (index) => BarChartGroupData(
                           x: index,
                           barRods: [
                             BarChartRodData(
-                              toY: numberOfTicket[index],
+                              fromY: 0,
+                              toY: controller
+                                  .frequentBuyerList[index].ticketCount
+                                  .toDouble(),
                               color: Color.fromRGBO(153, 85, 153, 1.0),
                             ),
                           ],

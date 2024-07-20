@@ -67,8 +67,7 @@ class DetailPage extends StatelessWidget {
             margin: EdgeInsets.only(left: 10),
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-                color: blackBackground,
-                borderRadius: BorderRadius.circular(10)),
+                color: grayTextColor, borderRadius: BorderRadius.circular(10)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -131,15 +130,12 @@ class DetailPage extends StatelessWidget {
                 isScrollControlled: true,
                 Container(
                   height: screenSize.height * 0.9,
-                  child:
-                  PaymentPage(
+                  child: PaymentPage(
                       controler,
                       controler.Ticket['numberOfTickets'],
                       context,
                       screenSize,
-                      Walletcontroler
-                      )
-                      ,
+                      Walletcontroler),
                 )),
             child: controler.isPending.value
                 ? CircularProgressIndicator(
@@ -308,31 +304,31 @@ class DetailPage extends StatelessWidget {
                 ),
               ),
               actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: FilledButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(secondaryColor),
-                    ),
-                    onPressed: () => Get.bottomSheet(
-                        backgroundColor: whiteColor,
-                        isScrollControlled: true,
-                        Container(
-                          height: screenSize.height * 0.9,
-                          child: PaymentPage(
-                              controler,
-                              controler.Ticket['numberOfTickets'],
-                              context,
-                              screenSize,
-                              Walletcontroler),
-                        )),
-                    child: Text(
-                      'Buy ticket',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 10),
+                //   child: FilledButton(
+                //     style: ButtonStyle(
+                //       backgroundColor:
+                //           MaterialStateProperty.all<Color>(secondaryColor),
+                //     ),
+                //     onPressed: () => Get.bottomSheet(
+                //         backgroundColor: whiteColor,
+                //         isScrollControlled: true,
+                //         Container(
+                //           height: screenSize.height * 0.9,
+                //           child: PaymentPage(
+                //               controler,
+                //               controler.Ticket['numberOfTickets'],
+                //               context,
+                //               screenSize,
+                //               Walletcontroler),
+                //         )),
+                //     child: Text(
+                //       'Buy ticket',
+                //       style: TextStyle(fontWeight: FontWeight.bold),
+                //     ),
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Icon(
