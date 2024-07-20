@@ -1,10 +1,10 @@
 // import 'dart:js_interop';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/detail_controler.dart';
 import 'package:frontend/controller/ticket_controller.dart';
 import 'package:frontend/models/ticket_model.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -22,9 +22,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   static const _pageSize = 20;
-
-  final PagingController<int, TicketModel> _pagingController =
-      PagingController(firstPageKey: 0);
 
   List campaign = [
     'First',
@@ -47,7 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController tabController;
   RxInt testvalue = 0.obs;
   final ticketController = Get.find<TicketController>();
-
+  final Detailcontroler = Get.find<DetailControler>();
   @override
   void dispose() {
     tabController.removeListener(handelevent);
@@ -57,7 +54,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+
     super.initState();
+
 
     tabController = TabController(length: tabBarList.length, vsync: this);
 
@@ -65,6 +64,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       print('newindex$newindex');
     });
     tabController.addListener(handelevent);
+    super.initState();
   }
 
   void handelevent() {
@@ -75,8 +75,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
+
     //final TabController tabController =
     //TabController(length: tabBarList.length, vsync: this);
+
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -216,63 +219,77 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           SliverToBoxAdapter(
             child: Container(
-                width: double.infinity,
-                height: 500,
-                child: TabBarView(
-                  controller: tabController,
-                  children: ticketController.tabData.entries.map((entry) {
-                    int tabIndex = entry
-                        .key.hashCode; // Use hashCode to uniquely identify tabs
-                    Widget tabBarContent = Container();
+              width: double.infinity,
+              height: 500,
+              child: TabBarView(
+                controller: tabController,
+                children: ticketController.tabs.map((tab) {
+                  final pagingController =
+                      ticketController.pagingControllers[tab];
 
-                    // Access the data for the current tab
-                    List<TicketModel> data = entry.value;
-
-                    // Check if data exists for the current tab
-                    if (data.isNotEmpty) {
-                      tabBarContent = ListView.builder(
-                        itemCount:
-                            data.length, // Use the length of the data list
-                        itemBuilder: (context, index) {
-                          // Extract properties from the TicketModel for display
-                          String title = data[index].title ??
-                              'No Title'; // Provide a fallback value
-                          String sellerName =
-                              data[index].seller ?? 'Unknown Seller';
-
-                          String ticketLeft = data[index].numberOfTickets;
-                          String imageUri = data[index].image1;
-
-                          // Provide a fallback value
-                          // Add more properties as needed
-
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
-                            child: Ticket(
-                              imageUri: imageUri,
-                              numberOfBuyers: '300', // Placeholder value
-                              title: title,
-                              ticketLeft: ticketLeft, // Placeholder value
-                              totalTicket: ticketLeft, // Placeholder value
-                              successfulCampaign: '2', // Placeholder value
-                              sellerName: sellerName,
+                  // if (ticketController.pagingControllers[tab] == null) {
+                  //   ticketController.pagingControllers[tab] =
+                  //       PagingController(firstPageKey: 0);
+                  // }
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      await ticketController.refreshTickets(tab);
+                    },
+                    child: PagedListView<int, TicketModel>(
+                      pagingController: pagingController!,
+                      builderDelegate: PagedChildBuilderDelegate<TicketModel>(
+                        itemBuilder: (context, item, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Detailcontroler.Ticket.value = {
+                                "id": item.id,
+                                "seller": item.seller,
+                                "title": item.title,
+                                "description": item.description,
+                                "numberOfTickets": item.numberOfTickets,
+                                "prizeCategories": item.prizeCategories,
+                                "price_of_ticket": item.priceOfTicket,
+                                "image1": item.image1,
+                                "image2": item.image2,
+                                "image3": item.image3
+                              };
+                              Get.toNamed('detailpage');
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 15),
+                              child: Ticket(
+                                progessValue:
+                                    ticketController.normalizeNumberOfUser(
+                                        item.numberOfBuyer.toString(),
+                                        item.numberOfTickets),
+                                imageUri: item.image1,
+                                numberOfBuyers: item.numberOfBuyer
+                                    .toString(), // Placeholder value
+                                title: item.title ??
+                                    'No Title', // Provide a fallback value
+                                ticketLeft: item.ticketLeft
+                                    .toString(), // Placeholder value
+                                totalTicket:
+                                    item.numberOfTickets, // Placeholder value
+                                successfulCampaign: '2', // Placeholder value
+                                sellerName: 'item.seller ' ??
+                                    'Unknown Seller', // Provide a fallback value
+                              ),
                             ),
                           );
                         },
-                      );
-                    } else {
-                      tabBarContent = Center(
-                          child: Text(
-                              'No data available for this tab.')); // Display a message if no data
-                    }
-
-                    return GestureDetector(
-                        onTap: () {
-                          Get.toNamed('detailpage');
-                        },
-                        child: tabBarContent);
-                  }).toList(),
-                )),
+                        firstPageErrorIndicatorBuilder: (context) => Center(
+                          child: Text('Error loading first page'),
+                        ),
+                        noItemsFoundIndicatorBuilder: (context) => Center(
+                          child: Text('No items found'),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
           )
         ],
       ),

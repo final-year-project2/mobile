@@ -2,24 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:frontend/widgets/layout.dart';
-import 'package:flutter/material.dart';
-import 'package:frontend/constants.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:frontend/widgets/layout.dart';
 
-Widget Ticket({
-  String? title,
-  String? ticketLeft,
-  String? totalTicket,
-  String? numberOfBuyers,
-  String? successfulCampaign,
-  String? sellerName,
-  String? imageUri,
-}) {
+Widget Ticket(
+    {String? title,
+    String? ticketLeft,
+    String? totalTicket,
+    String? numberOfBuyers,
+    String? successfulCampaign,
+    String? sellerName,
+    String? imageUri,
+    double? progessValue}) {
   return Container(
       width: 400,
-      height: 165,
+      height: 175,
       decoration: BoxDecoration(
           color: homePageContainerBackground,
           borderRadius: BorderRadius.circular(10)),
@@ -74,7 +69,7 @@ Widget Ticket({
                   ])),
                   VerticalSpace(20),
                   LinearProgressIndicator(
-                    value: 0.3,
+                    value: progessValue,
                     minHeight: 7,
                     backgroundColor: progressBackground,
                     borderRadius: BorderRadius.circular(5),

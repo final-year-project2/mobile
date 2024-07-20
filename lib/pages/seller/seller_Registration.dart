@@ -16,6 +16,7 @@ import 'package:frontend/controller/product_image_controller.dart';
 import 'dart:io';
 
 class SellerRegistrationPage extends StatelessWidget {
+
   final sellerId = Get.find<UserController>();
   final sellerController = Get.find<SellerController>();
   //final controller = Get.find<ProductImageController>();
@@ -55,6 +56,9 @@ class SellerRegistrationPage extends StatelessWidget {
         final String fileExtension =
             imageFile.path.split('.').last.toLowerCase();
 
+  final BASE_URL = dotenv.env['BASE_URL'];
+
+
         // Determine content type based on file extension
         String contentType;
         switch (fileExtension) {
@@ -82,6 +86,7 @@ class SellerRegistrationPage extends StatelessWidget {
           contentType: MediaType('image', fileExtension),
         );
 
+
         // Add image file to formData
         formData.files.add(MapEntry('image', image));
       } catch (e) {
@@ -95,13 +100,15 @@ class SellerRegistrationPage extends StatelessWidget {
     try {
       final response = await httpServices.postRequest(
         '$BASE_URL/product/become_seller/',
+
         formData,
       );
       if (response.statusCode == 200) {
-        // Seller registration successful
+        // Seller r`egistration successful
         // Parse response JSON to get seller ID
         Map<String, dynamic> responseData = json.decode(response.toString());
         int sellerId = responseData['seller_id'];
+        print('seller-id $sellerId');
         sellerController.setSellerId(sellerId);
         // User is already a seller
         Get.snackbar('Already Seller', 'You are already a seller',
@@ -135,38 +142,42 @@ class SellerRegistrationPage extends StatelessWidget {
 
   Future<void> _showConfirmationDialog(
       BuildContext context, String userId) async {
-    print('Showing confirmation dialog');
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Register as Seller'),
-          content: Text('Are you sure you want to register as a seller?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop();
 
-                if (selectedImage.value == null) {
-                  Get.snackbar('Error', 'Profile image is required',
-                      snackPosition: SnackPosition.BOTTOM);
-                } else {
-                  await registerAsSeller(
-                      userId, selectedImage.value); // Pass the image file here
-                }
-              },
-              child: Text('Confirm'),
-            ),
-          ],
-        );
-      },
-    );
+  Future<bool> checkIfUserIsSeller(int userId) async {
+    final formData = {'user_id': userId.toString()};
+    try {
+      final response = await HttpServices().postRequest(
+        '$BASE_URL/product/check_seller/',
+        formData,
+      );
+
+      if (response.statusCode == 200) {
+        // Decode the response body to extract data
+        Map<String, dynamic> responseData = json.decode(response.toString());
+
+        // Check if the seller_id exists in the response data
+        if (responseData.containsKey('seller_id')) {
+          int sellerId = responseData['seller_id'];
+          sellerController.setSellerId(sellerId);
+          print('Seller ID: $sellerId');
+          return true; // User is already a seller
+        } else {
+          // seller_id not found, user is not a seller
+          return false;
+        }
+      } else if (response.statusCode == 404) {
+        // User is not a seller
+        return false;
+      } else {
+        // Error occurred
+        print('Error: ${response}');
+        return false;
+      }
+    } catch (e) {
+      // Handle DioException or other exceptions
+      print('Error: $e');
+      return false;
+    }
   }
 
 //

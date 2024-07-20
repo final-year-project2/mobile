@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:get/get.dart';
 
-Widget DefaultButton(String text, RxBool isLoading) {
-  
+Widget DefaultButton(String text, RxBool isLoading,
+    {Color colors = primaryColor}) {
   return Container(
     height: 49,
     width: 342,
-    decoration: BoxDecoration(
-        color: primaryColor, borderRadius: BorderRadius.circular(5)),
+    decoration:
+        BoxDecoration(color: colors, borderRadius: BorderRadius.circular(5)),
     child: isLoading.value
         ? Center(
             child: SizedBox(

@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/constants.dart';
 import 'package:frontend/pages/authentication/login.dart';
+
+import 'package:frontend/pages/seller/dashboard.dart';
+import 'package:frontend/pages/seller/product_description.dart';
+
 import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/mainscreens/wallet/add_money_to_wallet.dart';
 import 'package:frontend/pages/mainscreens/wallet/success.dart';
@@ -20,9 +25,18 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
   final checker = Get.find<UserController>();
   final sellerId = Get.find<UserController>();
   List<Widget> pages = [const HomePage(), Container(), Wallet()];
+
+  List<Widget> pages = [
+    HomePage(),
+    SellerRegistrationPage(),
+    Wallet(),
+    Dashboard(),
+  ];
+
 
   int currentPage = 0;
 
@@ -31,6 +45,8 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: primaryColor, // Set the selected item color
+        unselectedItemColor: Colors.grey,
         currentIndex: currentPage,
         onTap: (value) async {
           if (value == 1) {
@@ -59,10 +75,15 @@ class _MainPageState extends State<MainPage> {
             });
           }
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.add), label: "Post"),
           BottomNavigationBarItem(icon: Icon(Icons.wallet), label: "Wallet"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.dashboard,
+              ),
+              label: "Dashboard"),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/binders/binders.dart';
+import 'package:frontend/controller/error_controller.dart';
 import 'package:frontend/controller/language_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/languages.dart';
@@ -11,6 +12,7 @@ import 'package:frontend/pages/authentication/password_reset/newpassword.dart';
 import 'package:frontend/pages/authentication/password_reset/verify_otp_password_reset.dart';
 import 'package:frontend/pages/authentication/signup.dart';
 import 'package:frontend/pages/landing_page.dart';
+import 'package:frontend/pages/mainscreens/PurchaseSuccessPage.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/mainscreens/detail.dart';
 import 'package:frontend/pages/mainscreens/main_page.dart';
@@ -19,6 +21,7 @@ import 'package:frontend/pages/mainscreens/wallet/success.dart';
 import 'package:frontend/pages/mainscreens/wallet/wallet.dart';
 import 'package:frontend/pages/onboarding/onboarding_page.dart';
 import 'package:frontend/pages/onboarding/page1.dart';
+import 'package:frontend/pages/seller/live_ticket.dart';
 import 'package:frontend/pages/seller/product_description.dart';
 import 'package:frontend/pages/seller/product_detail.dart';
 import 'package:frontend/pages/seller/seller_Registration.dart';
@@ -31,13 +34,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  Get.put(ErrorHandlerService());
   final themeController = Get.put(ThemeControllers());
   await GetStorage.init();
   await dotenv.load(fileName: ".env");
   await themeController.loadThemePreference();
 
-  Chapa.configure(privateKey: "CHASECK_TEST-wTO8aSlO9lY9o68ctP0q1WSvI7ftXyzR");
+  Chapa.configure(privateKey: "CHASECK_TEST-NMHnfnAw81g9EWXYoSm6FrobP7rePyRd");
 
   runApp(MyApp());
 }
@@ -58,6 +61,7 @@ class MyApp extends StatelessWidget {
           fallbackLocale: Locale('en', 'Us'),
           debugShowCheckedModeBanner: false,
           theme: themeController.lightTheme,
+          // initialRoute: "/detailpage",
           initialRoute: "/landingpage",
           getPages: [
             // GetPage(
@@ -71,14 +75,20 @@ class MyApp extends StatelessWidget {
 
             // GetPage(name: '/profile', page: () => Profile()),
             GetPage(name: '/seller', page: () => SellerRegistrationPage()),
+            // GetPage(name: '/detailpage', page: () => DetailPage(),
+            //     binding: Binders()),
             GetPage(
                 name: '/landingpage',
                 page: () => LandingPage(),
                 binding: Binders()),
+            // GetPage(
+            //   name: '/landingpage',
+            //   page: () => LandingPage()),
 
             GetPage(name: '/signin', page: () => Login()),
             GetPage(name: '/signup', page: () => SignUp()),
             GetPage(name: '/category', page: () => Category()),
+            GetPage(name: '/liveticket', page: () => LiveTicket()),
 
             GetPage(
               name: '/productdesciption',
@@ -88,7 +98,6 @@ class MyApp extends StatelessWidget {
               name: '/productdetail',
               page: () => ProductDetail(),
             ),
-
             GetPage(name: '/homepage', page: () => HomePage()),
 
             GetPage(name: '/detailpage', page: () => DetailPage()),
@@ -112,6 +121,8 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/reciveotp', page: () => ReciveOTP()),
 
             GetPage(name: '/newpassword', page: () => NewPassword()),
+            // PurchaseSuccessPage
+            GetPage(name: '/PurchaseSuccess', page: () => PurchaseSuccess()),
           ],
         ));
   }

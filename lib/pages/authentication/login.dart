@@ -14,6 +14,7 @@ import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:frontend/controller/UserController.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class Login extends StatelessWidget {
   RxBool isErroccured = false.obs;
@@ -127,8 +128,12 @@ class Login extends StatelessWidget {
                       try {
                         print('login start');
                         loginController.isLoading.value = true;
+
+
                         final loginResponse = await loginController
                             .loginRequest(Phone_no, password);
+
+
                         print('login middle');
 
                         if (loginResponse.statusCode == 200) {
@@ -143,12 +148,24 @@ class Login extends StatelessWidget {
                           tokenBox.write('accessToken', accessToken);
                           tokenBox.write('refreshToken', refreshToken);
                           tokenBox.write('walletId', wallet_id);
+
                           tokenBox.write('userID', userID);
                           String userId = tokenBox.read('userID').toString();
                           print('userId:$userId');
                           print('fromTokenBox:walletId${wallet_id}');
                           print('fromTokenBox:AcessToken  ${accessToken}');
-                          print('fromTokenBox:refreshToken${refreshToken}');
+
+                          tokenBox.write('userId', userId);
+                          int userIdFromStorage = tokenBox.read('userId');
+
+                          print('fromTokenBox:walletId${wallet_id}');
+                          Map<String, dynamic> decodedToken =
+                              JwtDecoder.decode(accessToken);
+                          print("Decodded ${decodedToken}");
+
+                          print('fromTokenBox:AcessToken: ${accessToken}');
+            print('fromTokenBox:refreshToken${refreshToken}');
+
                           print('wallet-id :$wallet_id');
                           loginController.isLoading.value = false;
                           userController.setUserId(
