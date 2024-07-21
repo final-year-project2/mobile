@@ -13,7 +13,6 @@ class CustomForm extends StatelessWidget {
   final String? hintText;
   final bool? isPassword;
   final bool? readonly;
-
   Function(String)? onchanged;
   Function()? ontap;
   TextEditingController? editingController;
@@ -69,7 +68,11 @@ class CustomForm extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.black, width: 1.0)),
 
                   hintText: hintText ?? '',
-                  hintStyle: TextStyle(color: fotterTextColor, fontSize: 14),
+                  hintStyle: TextStyle(
+                    //color: Colors.blue, // Example color for highlighted hint text
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
 
                   //if the form is password add the visiblit icons if not add empty Text()
                   suffixIcon: IconButton(
