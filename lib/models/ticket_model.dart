@@ -106,24 +106,26 @@ class TicketModel {
   final String? image3;
   final int numberOfBuyer;
   final int ticketLeft;
+  final bool winner_drawn;
 
-  TicketModel({
-    required this.id,
-    required this.seller,
-    required this.title,
-    required this.description,
-    required this.numberOfTickets,
-    required this.prizeCategories,
-    required this.priceOfTicket,
-    required this.image1,
-    this.image2,
-    this.image3,
-    required this.numberOfBuyer,
-    required this.ticketLeft,
-  });
+  TicketModel(
+      {required this.id,
+      required this.seller,
+      required this.title,
+      required this.description,
+      required this.numberOfTickets,
+      required this.prizeCategories,
+      required this.priceOfTicket,
+      required this.image1,
+      this.image2,
+      this.image3,
+      required this.numberOfBuyer,
+      required this.ticketLeft,
+      required this.winner_drawn});
 
   factory TicketModel.fromJson(Map<String, dynamic> json) {
     return TicketModel(
+      winner_drawn: json['winner_drawn'],
       id: json['id'] ?? 0,
       seller: json['seller'] ?? 0,
       title: json['title'] ?? '',

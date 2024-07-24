@@ -20,6 +20,8 @@ class SignUp extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   TextEditingController phoneNumberController = TextEditingController();
 
   final controller = Get.find<SignUpController>();
@@ -51,6 +53,7 @@ class SignUp extends StatelessWidget {
               //   isPassword: false,
               //   hintText: 'Email',
               // ),
+
               VerticalSpace(20),
               CustomForm(
                 isPassword: true,
@@ -58,12 +61,15 @@ class SignUp extends StatelessWidget {
                 hintText: 'password',
               ),
               VerticalSpace(20),
+              // +251 90 142 8094
 
+// +251 90 924 8172
               CustomForm(
                 isPassword: true,
-                editingController: passwordController,
+                editingController: confirmPasswordController,
                 hintText: 'confirm password ',
               ),
+
               VerticalSpace(20),
               CustomForm(
                 isPassword: false,

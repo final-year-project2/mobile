@@ -6,7 +6,7 @@ class CategoryController extends GetxController {
 
   void toggleCategory(String category) {
     if (selectedCategory.value == category) {
-      selectedCategory.value = ''; // Deselect if already selected
+      selectedCategory.value = ''; // Deselect if already selectedP
     } else {
       selectedCategory.value = category; // Select the new category
     }

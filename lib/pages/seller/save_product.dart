@@ -13,6 +13,7 @@ class ProductService extends GetxController {
   Future<dio.FormData> prepareFormData() async {
     final productController = Get.find<ProductController>();
     final seller = Get.find<SellerController>();
+
     // Prepare FormData
     final formData = dio.FormData();
 
@@ -101,7 +102,7 @@ class ProductService extends GetxController {
           await httpServices.postRequest('/product/save-ticket/', formData);
       // Use the endpoint path
       if (response.statusCode == 201) {
-        // Handle success
+        // Handle success Tes
         print('Product data sent successfully');
       } else {
         // Handle error

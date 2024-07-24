@@ -17,11 +17,11 @@ class Category extends StatelessWidget {
   final productSelector = Get.find<ProductController>();
 
   final List<String> categories = [
-    'Electronics',
+    'electronics',
     'House',
-    'Holiday',
-    'Holiday',
-    'Electronics',
+    // 'Holiday',
+    // 'Holiday',
+    'electronics',
     'House',
     'Holiday',
     'Additional',
@@ -46,8 +46,12 @@ class Category extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 15, 0, 35),
-                child: Logo(),
+                padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),
+                child: Image(
+                  image: AssetImage('assets/cropedlogo.png'),
+                  width: 150,
+                  height: 150,
+                ),
               ),
               Text(
                 maxLines: 2,
@@ -62,7 +66,7 @@ class Category extends StatelessWidget {
                 child: Text(
                   // maxLines: 2,
                   // overflow: TextOverflow.ellipsis,
-                  'What kind of prize are you interseted in the most?',
+                  'What kind of prize is your product?',
                   style: TextStyle(fontSize: 17),
                 ),
               ),

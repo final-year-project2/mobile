@@ -68,7 +68,11 @@ class CustomForm extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.black, width: 1.0)),
 
                   hintText: hintText ?? '',
-                  hintStyle: TextStyle(color: fotterTextColor, fontSize: 14),
+                  hintStyle: TextStyle(
+                    color: fotterTextColor,
+                    fontSize: 14,
+                    // fontWeight: FontWeight.bold
+                  ),
 
                   //if the form is password add the visiblit icons if not add empty Text()
                   suffixIcon: IconButton(

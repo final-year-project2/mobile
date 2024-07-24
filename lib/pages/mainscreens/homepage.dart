@@ -4,7 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/UserController.dart';
+import 'package:frontend/controller/active_ticket_controller.dart';
 import 'package:frontend/controller/detail_controler.dart';
+import 'package:frontend/controller/sellerController.dart';
 import 'package:frontend/controller/ticket_controller.dart';
 import 'package:frontend/models/ticket_model.dart';
 import 'package:frontend/widgets/layout.dart';
@@ -22,6 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   static const _pageSize = 20;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List campaign = [
     'First',
@@ -54,9 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-
     super.initState();
-
 
     tabController = TabController(length: tabBarList.length, vsync: this);
 
@@ -75,17 +77,106 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
+    final size = MediaQuery.of(context).size;
 
     //final TabController tabController =
     //TabController(length: tabBarList.length, vsync: this);
 
-
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            DrawerHeader(
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.zero,
+                child: Container(
+                    height: size.height * 0.3,
+                    width: size.width,
+                    color: colorForContrast,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('assets/natnael.jpg'),
+                          radius: 53,
+                        ),
+                        HorizontalSpace(size.width * 0.08),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Natnael Sisay',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'seller',
+                                  style: TextStyle(
+                                      color: grayTextColor,
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 15),
+                                ),
+                                HorizontalSpace(7),
+                                Icon(
+                                  size: 15,
+                                  Icons.radio_button_checked_sharp,
+                                  color: Colors.green,
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ))),
+            GestureDetector(
+              onTap: () {
+                final activeTicket = Get.find<ActiveTicketController>();
+                final usercontroller = Get.find<SellerController>();
+
+                final serllerid = usercontroller.sellerId;
+                print('seller_id_pressed ${serllerid}');
+
+                // print('printed');
+                // activeTicket.getActiveTickets(serllerid.toString());
+              },
+              child: ListTile(
+                onTap: () {
+                  final activeTicket = Get.find<ActiveTicketController>();
+                  final usercontroller = Get.find<SellerController>();
+                  final serllerid = usercontroller.sellerId;
+                  print('seller_id_pressed ${serllerid}');
+                  activeTicket.getActiveTickets(serllerid.toString());
+                  Get.toNamed('/activetickets');
+                },
+                leading: Icon(Icons.live_tv_outlined),
+                title: Text('LiveTicket'),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                Get.toNamed('/dashboard');
+              },
+              leading: Icon(Icons.dashboard_outlined),
+              title: Text('Dashboard'),
+            )
+          ],
+        ),
+      ),
+      key: _scaffoldKey,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
-            title: Icon(Icons.menu),
+            title: GestureDetector(
+                onTap: () {
+                  _scaffoldKey.currentState?.openDrawer();
+                  print('drawer');
+                },
+                child: Icon(Icons.menu)),
             actions: [
               Container(
                 width: 225,
@@ -253,6 +344,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 "image2": item.image2,
                                 "image3": item.image3
                               };
+                              Detailcontroler.SellectedTicketNo.value = [];
+                              Detailcontroler.purchasedTicketList.value = [];
+
                               Get.toNamed('detailpage');
                             },
                             child: Padding(

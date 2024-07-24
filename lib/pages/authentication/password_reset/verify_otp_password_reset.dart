@@ -77,6 +77,7 @@ class ReciveOTP extends StatelessWidget {
                         controller.passwordOtp = editingController.text.obs;
                         Get.toNamed('newpassword');
                         String otp = editingController.text;
+                        print('OTP_PASSWORD_RESET ${otp}');
                         controller.passwordResetOtpVerification(
                             otp, phoneNumber);
                         //here the phone number indicates the otp to make it similar to backendfiled

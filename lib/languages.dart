@@ -39,7 +39,7 @@ class Languages extends Translations {
           'PRICE_OF_TICKET': 'Enter Price of ticket',
           'Profile_photo': 'Add Profile Photo here',
           'TITLEs_PHOTO': 'Add cover photo',
-          'NEARLY_FINISHED': 'early finished Add Images for your product',
+          'NEARLY_FINISHED': 'Nearly finished Add Images for your product',
           'COVER_IMAGE':
               'Add cover image that will be displayed as Title photo',
           'TITLE_PHOTO': 'Add title photo',
@@ -49,9 +49,11 @@ class Languages extends Translations {
           'SUPPORTED_FORMATS': 'Supported formats are .*jpg and .*png ',
           'VERIFY': 'Verify',
           'ENTER_OTP':
-              'Please enter the 4 digit code sent to you at +251 91337****'
+              'Please enter the 4 digit code sent to you at +251 91337****',
+          // 'DASHBOARD':'Dashbard'
         },
         'am_Et': {
+          // 'DASHBOARD':''
           'hello': 'ሰላም',
           'create_acount': 'መለያ ይፍጠሩ።',
           'skip': 'ዝለል',
@@ -64,6 +66,7 @@ class Languages extends Translations {
               'በእኛ መተግበሪያ እድለኛ ለመሆን ይዘጋጁ። እርስዎን በሚጠብቁት  ህይወት ሊቀይሩ የሚችሉ እድሎች ይደሰቱ ። ለሚኖሩዎት ጥያቄዎች ወይም ስጋቶች እርስዎን ለመርዳት ዝግጁ ነው',
           'BROWSEPRIZE': 'ሽልማቶችን ይመልከቱ',
           'SIGNIN': 'ይጝቡ',
+          // 'DASHOBARD':''
           'AD': ' የፍጎቶን ሽልማት ያሸንፉ ፥ ሁሉም አለ!',
           'OR': 'ወይም',
           'NOACCOUNT': 'አካውንት የሎትም?',

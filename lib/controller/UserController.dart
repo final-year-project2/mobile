@@ -10,11 +10,15 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class UserController extends GetxController {
   var userId = ''.obs;
+  RxBool isSeller = false.obs;
+
   void setUserId(String id) {
     userId.value = id;
+    print(userId);
   }
 
   final BASE_URL = dotenv.env['BASE_URL'];
+
   Future<bool> checkIfUserIsSeller(String userId) async {
     final sellerController = Get.find<SellerController>();
     final formData = {'user_id': userId.toString()};
@@ -25,13 +29,23 @@ class UserController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        // Decode the response body to extract data
+        print('the user is seller');
+        isSeller.value = true;
+
+        print('seller=${isSeller}'); // Decode the response body to extract data
         Map<String, dynamic> responseData = json.decode(response.toString());
 
         // Check if the seller_id exists in the response data
         if (responseData.containsKey('seller_id')) {
           int sellerId = responseData['seller_id'];
-          sellerController.setSellerId(sellerId);
+          // isSeller.value = true;
+
+          // sellerController.setSellerId(sellerId);
+          sellerController.sellerId = sellerId;
+          print('seller_id_from_controller:${sellerController.sellerId}');
+          sellerController.sellerId = sellerId;
+          // sellerController.setSellerId(sellerId);
+
           print('Seller ID: $sellerId');
           return true; // User is already a seller
         } else {
@@ -40,6 +54,8 @@ class UserController extends GetxController {
         }
       } else if (response.statusCode == 404) {
         // User is not a seller
+        isSeller.value = false;
+
         return false;
       } else {
         // Error occurred

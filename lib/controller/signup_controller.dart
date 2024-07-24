@@ -33,7 +33,9 @@ class SignUpController extends GetxController {
       if (response == null) {
         return throw Exception('response is null');
       }
-
+      Future.delayed(Duration(seconds: 10), () {
+        isLoading.value = false;
+      });
       return response;
     } on dio.DioException catch (e) {
       print('error in signup$e');

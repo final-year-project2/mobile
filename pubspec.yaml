@@ -46,6 +46,7 @@ dependencies:
   dio: ^5.4.2
   get_storage:
   chapa_unofficial: ^0.0.5
+  slide_countdown: ^1.6.1
 
   syncfusion_flutter_gauges: ^26.1.40
   web_socket_channel: ^3.0.0

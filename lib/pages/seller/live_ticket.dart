@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/active_ticket_controller.dart';
+import 'package:frontend/controller/drawing_controller.dart';
 import 'package:frontend/controller/live_ticket_controller.dart';
 import 'package:frontend/controller/ticket_controller.dart';
 import 'package:frontend/widgets/buttons.dart';
@@ -7,13 +9,37 @@ import 'package:frontend/widgets/layout.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class LiveTicket extends StatelessWidget {
   final controler = Get.find<LiveTicketController>();
+  var buyers = 0000.0.obs;
+
+  final activeTicketController = Get.find<ActiveTicketController>();
+
+  double calculatePointer() {
+    // int total_ticket = int.parse(activeTicketController
+    //     .tickets[activeTicketController.index ?? 0].numberOfTickets);
+    int number_of_buyer = controler.numberOfBuyer.value;
+
+    int total_ticket = controler.total_ticket.value;
+    print('Total_ticket ${total_ticket}');
+
+    if (total_ticket == 0) {
+      return 0.0; // Avoid division by zero
+    }
+
+    buyers.value = ((number_of_buyer / total_ticket) * 100);
+
+    print('Buyer_percent:${buyers.value}');
+
+    return buyers.value;
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    // int? index = activeTicketController.index;
 
     return Scaffold(
       appBar: AppBar(
@@ -22,63 +48,6 @@ class LiveTicket extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Stack(
-            //   clipBehavior: Clip.none,
-            //   children: [
-            //     Container(
-            //       height: 180,
-            //       width: size.width,
-            //       decoration: BoxDecoration(
-            //           gradient: SweepGradient(
-            //             colors: <Color>[Colors.lightGreen, Colors.blue],
-            //             stops: <double>[1.0, 0.0],
-            //           ),
-            //           borderRadius: BorderRadius.only(
-            //               bottomLeft: Radius.circular(50),
-            //               bottomRight: Radius.circular(50))),
-            //     ),
-            //     Positioned(
-            //       left: 39,
-            //       bottom: -60,
-            //       child: Stack(clipBehavior: Clip.none, children: [
-            //         Container(
-            //           height: size.width * 0.37,
-            //           width: size.width * 0.8,
-            //           decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.circular(15),
-            //               color: Colors.lightGreen,
-            //               gradient: SweepGradient(
-            //                 colors: <Color>[Colors.lightGreen, Colors.blue],
-            //                 stops: <double>[0.0, 1.0],
-            //               )),
-            //         ),
-            //         Positioned(
-            //             top: 10,
-            //             left: 0,
-            //             child: Container(
-            //               width: size.width * 0.8,
-            //               child: Column(
-            //                 children: [
-            //                   Text(
-            //                     'Ticket Left',
-            //                     style:
-            //                         TextStyle(color: whiteColor, fontSize: 22),
-            //                   ),
-            //                   VerticalSpace(15),
-            //                   Row(
-            //                     mainAxisAlignment: MainAxisAlignment.center,
-            //                     children: [
-            //                       HorizontalSpace(5),
-            //                       Image.asset(width: 35, 'assets/birr2.png')
-            //                     ],
-            //                   )
-            //                 ],
-            //               ),
-            //             ))
-            //       ]),
-            //     )
-            //   ],
-            // ),
             Container(
               height: size.height * 0.11,
               width: size.width,
@@ -91,7 +60,11 @@ class LiveTicket extends StatelessWidget {
                 children: [
                   Obx(() {
                     return Text(
-                      '${controler.ticketLeft}',
+                      controler.isLoading.isTrue
+                          ? activeTicketController
+                              .tickets[activeTicketController.index ?? 0]
+                              .numberOfTickets
+                          : '${controler.ticketLeft}',
                       style: TextStyle(fontSize: 50, color: blackBackground),
                     );
                   }),
@@ -110,57 +83,111 @@ class LiveTicket extends StatelessWidget {
               decoration: BoxDecoration(
                   // color: Color.fromRGBO(125, 90, 160, 1),
                   ),
-              child: SfRadialGauge(
-                axes: <RadialAxis>[
-                  RadialAxis(
-                    minimum: 0,
-                    maximum: 100,
-                    ranges: <GaugeRange>[
-                      GaugeRange(
-                        // startWidth:1
-                        startValue: 0,
-                        endValue: 100,
-                        color: Colors.lightGreen,
-                        gradient: SweepGradient(
-                          colors: <Color>[Colors.lightGreen, Colors.blue],
-                          stops: <double>[0.0, 1.0],
-                        ),
-                        startWidth: 15,
-                        endWidth: 15,
-                      ),
-                    ],
-                    pointers: <GaugePointer>[
-                      NeedlePointer(
-                        value: 45,
-                      ),
-                    ],
-                    annotations: <GaugeAnnotation>[
-                      GaugeAnnotation(
-                        widget: Container(
-                          child: Text(
-                            'Buyers reached',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+              child: Obx(() {
+                return SfRadialGauge(
+                  axes: <RadialAxis>[
+                    RadialAxis(
+                      minimum: 0,
+                      maximum: 100,
+                      ranges: <GaugeRange>[
+                        GaugeRange(
+                          // startWidth:1
+                          startValue: 0,
+                          endValue: 100,
+                          color: Colors.lightGreen,
+                          gradient: SweepGradient(
+                            colors: <Color>[Colors.lightGreen, Colors.blue],
+                            stops: <double>[0.0, 1.0],
                           ),
-                          padding: EdgeInsets.only(top: 100),
+                          startWidth: 15,
+                          endWidth: 15,
                         ),
-                        positionFactor: 0.5,
-                        angle: 90,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      ],
+                      pointers: <GaugePointer>[
+                        NeedlePointer(value: calculatePointer()),
+                      ],
+                      annotations: <GaugeAnnotation>[
+                        GaugeAnnotation(
+                          widget: Container(
+                            child: Text(
+                              'Buyers reached',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            padding: EdgeInsets.only(top: 100),
+                          ),
+                          positionFactor: 0.5,
+                          angle: 90,
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              }),
             ),
-
             Container(height: size.height * 0.320),
-            DefaultButton("Draw the ticket", false.obs, colors: Colors.blue)
+            GestureDetector(
+                onTap: () {
+                  _showConfirmationDialog(context);
+                  final controller = Get.find<Drawing>();
+                  controller.getWinner();
+                  calculatePointer();
+
+                  // controler.channel.ch
+                  // controler.channel.sink.close();
+                  // Disconnect the WebSocket
+                  // WebSocketChannel channel;
+
+                  // channel = WebSocketChannel.connect(Uri.parse(
+                  //     'ws://10.0.2.2:8000/live_tickets/2')); // Reconnect the WebSocket
+                },
+                child: DefaultButton("Draw the ticket", false.obs,
+                    colors: Colors.blue))
           ],
           //rgb(125, 90, 160)
         ),
       ),
+    );
+  }
+
+  Future<void> _showConfirmationDialog(BuildContext context) async {
+    print('Showing confirmation dialog');
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(' Draw Ticket'),
+          content: Text('Are you sure you want to draw the ticket?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Get.toNamed('/draw');
+              },
+              child: Container(
+                  width: 70,
+                  height: 40,
+                  // decoration: BoxDecoration(
+                  //     color: primaryColor,
+                  //     borderRadius: BorderRadius.circular(12)),
+                  child: Center(
+                    child: Text(
+                      'Confirm',
+                      // style: TextStyle(
+                      //     color: blackColor, fontWeight: FontWeight.bold),
+                    ),
+                  )),
+            ),
+          ],
+        );
+      },
     );
   }
 }

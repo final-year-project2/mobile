@@ -28,6 +28,59 @@ class ProductDetail extends StatelessWidget {
   // TextEditingController numberController = TextEditingController();
   // final productDetailController = Get.find<MegaProductController>()
 
+  final RxDouble sellerRevenue = 0.0.obs;
+  final List<Map<String, dynamic>> commissionTiers = [
+    {'threshold': 5000.0, 'rate': 0.05}, // 5% for revenue up to 1000
+    {
+      'threshold': 10000.0,
+      'rate': 0.07
+    }, // 7% for revenue between 1001 and 5000
+    {'threshold': double.infinity, 'rate': 0.10}, // 10% for revenue above 5000
+  ];
+
+// Define delivery fee tiers
+  final List<Map<String, dynamic>> deliveryFeeTiers = [
+    {'threshold': 5000.0, 'rate': 0.01}, // 1% for revenue up to 1000
+    {
+      'threshold': 10000.0,
+      'rate': 0.02
+    }, // 2% for revenue between 1001 and 5000
+    {'threshold': double.infinity, 'rate': 0.03}, // 3% for revenue above 5000
+  ];
+
+  void _startDelayedCalculation(String value) {
+    Future.delayed(Duration(seconds: 2), _calculateRevenue);
+  }
+
+  void _calculateRevenue() {
+    int numberOfTickets = int.tryParse(numberController.text) ?? 0;
+    double ticketPrice = double.tryParse(priceController.text) ?? 0.0;
+    double totalRevenue = numberOfTickets * ticketPrice;
+    double commission = _calculateCommission(totalRevenue);
+    double deliveryFee = _calculateDeliveryFee(totalRevenue);
+    sellerRevenue.value = totalRevenue - commission - deliveryFee;
+  }
+
+  double _calculateCommission(double totalRevenue) {
+    for (var tier in commissionTiers) {
+      if (totalRevenue <= tier['threshold']) {
+        return totalRevenue * tier['rate'];
+      }
+    }
+    // In case no tier matches, default to the highest rate (though logically unreachable)
+    return totalRevenue * commissionTiers.last['rate'];
+  }
+
+  double _calculateDeliveryFee(double totalRevenue) {
+    for (var tier in deliveryFeeTiers) {
+      if (totalRevenue <= tier['threshold']) {
+        return totalRevenue * tier['rate'];
+      }
+    }
+    // In case no tier matches, default to the highest rate (though logically unreachable)
+    return totalRevenue * deliveryFeeTiers.last['rate'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,11 +112,12 @@ class ProductDetail extends StatelessWidget {
                     fontWeight: FontWeight.w500),
               ),
               CustomForm(
-                editingController: numberController,
-                isPassword: false,
-                // editingController: numberController,
-                hintText: 'e.g 100',
-              ),
+                  editingController: numberController,
+                  isPassword: false,
+
+                  // editingController: numberController,
+                  hintText: 'e.g 100',
+                  onchanged: _startDelayedCalculation),
               VerticalSpace(30),
               Text(
                 'CATEGORY'.tr,
@@ -72,15 +126,16 @@ class ProductDetail extends StatelessWidget {
                     fontSize: 15,
                     fontWeight: FontWeight.w500),
               ),
-              CustomForm(
-                ontap: () {
-                  Get.toNamed('/category');
-                  // Get.toNamed('/producimages'); this was git main
-                },
-                isPassword: false,
-                readonly: true,
-                hintText: 'CLICK_HERE'.tr,
-              ),
+              Obx(() => CustomForm(
+                    ontap: () {
+                      Get.toNamed('/category');
+                    },
+                    isPassword: false,
+                    readonly: true,
+                    hintText: selectedvalue.selectedCategory.value.isEmpty
+                        ? 'CLICK_HERE'.tr
+                        : selectedvalue.selectedCategory.value,
+                  )),
               VerticalSpace(30),
               Text(
                 'PRICE_OF_TICKET'.tr,
@@ -94,6 +149,7 @@ class ProductDetail extends StatelessWidget {
                 isPassword: false,
                 // editingController: numberController,
                 hintText: 'e.g 100',
+                onchanged: _startDelayedCalculation,
               ),
 
               // CustomForm(
@@ -102,7 +158,14 @@ class ProductDetail extends StatelessWidget {
               //   isPassword: false,
               //   hintText: 'Click here',
               // ),
+              VerticalSpace(100),
+
+              Obx(() => Text(
+                    'Your Total revenue after Deduction: ${sellerRevenue.value.toStringAsFixed(2)}',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  )),
               VerticalSpace(360),
+
               GestureDetector(
                 onTap: () {
                   if (numberController.text.isEmpty) {
@@ -198,11 +261,18 @@ class ProductDetail extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20.0),
                   child: DefaultButton('CONTINUE'.tr, false.obs),
                 ),
-              )
+              ),
+
+              VerticalSpace(19),
             ],
           ),
         ),
       ),
     );
   }
+
+  ///UPDATED ON CALCLULATING
+  ///final RxDouble sellerRevenue = 0.0.obs;
+
+// Define commission tiers
 }

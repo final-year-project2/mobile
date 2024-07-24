@@ -58,8 +58,8 @@ class Wallet extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: primaryColor,
                       borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(50),
-                          bottomRight: Radius.circular(50))),
+                          bottomLeft: Radius.circular(25),
+                          bottomRight: Radius.circular(25))),
                 ),
                 Positioned(
                   left: 39,

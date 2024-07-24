@@ -13,11 +13,10 @@ class PurchaseSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body:Container(
+      body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
             // GestureDetector(
             //   onTap: (){
             //     Get.back();
@@ -29,26 +28,29 @@ class PurchaseSuccess extends StatelessWidget {
             //   ),
             // )
             SizedBox(
-              height:  screenSize.height*0.4,
+              height: screenSize.height * 0.4,
               width: screenSize.width,
-              child:  Lottie.asset('assets/Success.json',
-              animate: true,
-              backgroundLoading: true,
+              child: Lottie.asset(
+                'assets/success2.json',
+                animate: true,
+                backgroundLoading: true,
               ),
             ),
-            Text('Success',style: TextStyle(
-              color: thirdColor,
-              fontSize: 20,
-              fontWeight: FontWeight.bold
-            ),),
-            SizedBox(height: 20,),
+            Text(
+              'Success',
+              style: TextStyle(
+                  color: thirdColor, fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 50,
+            ),
             GestureDetector(
-              onTap: (){
-                Get.back();
-                Get.back();
-                Get.back();
-              },
-              child: DefaultButton('Go Back', false.obs))
+                onTap: () {
+                  Get.back();
+                  Get.back();
+                  Get.back();
+                },
+                child: DefaultButton('Go Back', false.obs))
           ],
         ),
       ),

@@ -41,15 +41,49 @@ class Login extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 100.0),
+            padding: const EdgeInsets.only(top: 5.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Obx(() => isErroccured.value
+                    ? Padding(
+                        padding: const EdgeInsets.fromLTRB(38.0, 0, 40, 18),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 255, 208, 205),
+                              border: Border.all(color: Colors.red),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.warning,
+                                    color: Colors.red,
+                                  ),
+                                  HorizontalSpace(10),
+                                  Expanded(
+                                    child: Text(
+                                      style: TextStyle(
+                                          letterSpacing: 2,
+                                          wordSpacing: 2,
+                                          color: Colors.red),
+                                      'Incorrect phonenumber or password,please try again ',
+                                      softWrap: true,
+                                      maxLines: 2,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )),
+                      )
+                    : Text('')),
+
                 Obx(
                   () => sigunUpController.isSucessfulSignup.value
                       ? Padding(
-                          padding: const EdgeInsets.fromLTRB(15.0, 0, 20, 10),
+                          padding: const EdgeInsets.fromLTRB(15.0, 0, 20, 0),
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(
@@ -77,12 +111,21 @@ class Login extends StatelessWidget {
                       : Text(''),
                 ),
 
-                Center(
-                  child: Logo(),
+                // Center(
+                //   child: Logo(),
+
+                // ),
+                Image(
+                  image: AssetImage('assets/cropedlogo.png'),
+                  width: 150,
+                  height: 150,
                 ),
-                VerticalSpace(30),
+                VerticalSpace(20),
                 CustomForm(
                   editingController: phoneNumberControler,
+                  onchanged: (value) {
+                    print('Phone number ${value}');
+                  },
                   hintText: ' Phone number',
                   isPassword: false,
                 ),
@@ -129,34 +172,50 @@ class Login extends StatelessWidget {
                         print('login start');
                         loginController.isLoading.value = true;
 
-
                         final loginResponse = await loginController
                             .loginRequest(Phone_no, password);
-
 
                         print('login middle');
 
                         if (loginResponse.statusCode == 200) {
+                          loginController.isLoading.value = false;
+
+                          Get.toNamed('/mainpage');
+
                           print('ok response');
 
                           String accessToken = loginResponse.data['access'];
                           String refreshToken = loginResponse.data['refresh'];
                           print('response:$loginResponse');
                           int user_Id = loginResponse.data['user_id'];
+                          userController
+                              .checkIfUserIsSeller(user_Id.toString());
+
+                          print(
+                              'USERIDTYPE${loginResponse.data['user_id'].runtimeType}');
                           String userID = user_Id.toString();
                           int wallet_id = loginResponse.data['wallet_id'];
+
+                          print(
+                              'walletIdType${loginResponse.data['wallet_id'].runtimeType}');
+
                           tokenBox.write('accessToken', accessToken);
                           tokenBox.write('refreshToken', refreshToken);
                           tokenBox.write('walletId', wallet_id);
 
                           tokenBox.write('userID', userID);
                           String userId = tokenBox.read('userID').toString();
-                          print('userId:$userId');
+                          print('This is userId:$userId');
+                          userController.setUserId(user_Id.toString());
+                          // userController.userId.value = user_Id.toString();
+                          print(
+                              'useridfrom controller:${userController.userId}');
+
                           print('fromTokenBox:walletId${wallet_id}');
                           print('fromTokenBox:AcessToken  ${accessToken}');
 
                           tokenBox.write('userId', userId);
-                          int userIdFromStorage = tokenBox.read('userId');
+                          // int userIdFromStorage = tokenBox.read('userId');
 
                           print('fromTokenBox:walletId${wallet_id}');
                           Map<String, dynamic> decodedToken =
@@ -164,68 +223,36 @@ class Login extends StatelessWidget {
                           print("Decodded ${decodedToken}");
 
                           print('fromTokenBox:AcessToken: ${accessToken}');
-            print('fromTokenBox:refreshToken${refreshToken}');
+                          print('fromTokenBox:refreshToken${refreshToken}');
 
                           print('wallet-id :$wallet_id');
-                          loginController.isLoading.value = false;
-                          userController.setUserId(
-                              userId); // Set user ID in UserController
-                          Get.toNamed('/mainpage');
+
+                          // Set user ID in UserController
                         } else {
                           //popup,show incorrect combination
                           // loginController.isLoading = false.obs;
                           loginController.isLoading.value = false;
-                          isErroccured.value = !isErroccured.value;
+                          isErroccured.value = true;
                           Future.delayed(Duration(seconds: 10), () {
                             isErroccured.value = false;
                           });
                           print('loginStatuscode:${loginResponse.statusCode}');
                         }
                       } catch (e) {
+                        print(' Login exception ${e}');
                         loginController.isLoading.value = false;
-                        isErroccured.value = !isErroccured.value;
+                        isErroccured.value = true;
                         Future.delayed(Duration(seconds: 10), () {
                           isErroccured.value = false;
                         });
+                        // Future.delayed(Duration(seconds: 10), () {
+                        //   isErroccured.value = false;
+                        // });
                       }
                     },
                     child: Obx(() =>
                         DefaultButton('SIGNIN'.tr, loginController.isLoading))),
                 VerticalSpace(30),
-
-                Obx(() => isErroccured.value
-                    ? Padding(
-                        padding: const EdgeInsets.fromLTRB(38.0, 0, 40, 18),
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 255, 208, 205),
-                              border: Border.all(color: Colors.red),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.warning,
-                                    color: Colors.red,
-                                  ),
-                                  HorizontalSpace(10),
-                                  Expanded(
-                                    child: Text(
-                                      style: TextStyle(
-                                          letterSpacing: 2,
-                                          wordSpacing: 2,
-                                          color: Colors.red),
-                                      'Incorrect phonenumber or password,please try again ',
-                                      softWrap: true,
-                                      maxLines: 2,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )),
-                      )
-                    : Text('')),
 
                 Row(
                   children: [

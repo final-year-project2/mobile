@@ -13,6 +13,8 @@ class NewPassword extends StatelessWidget {
   final passwordOtpController = Get.find<VerifyOtpPasswordResetController>();
 
   TextEditingController paswordEditingController = TextEditingController();
+  TextEditingController confirmPaswordEditingController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +44,7 @@ class NewPassword extends StatelessWidget {
             ),
             VerticalSpace(10),
             CustomForm(
-              editingController: paswordEditingController,
+              editingController: confirmPaswordEditingController,
               isPassword: true,
               hintText: 'Confirm your new password here',
             ),

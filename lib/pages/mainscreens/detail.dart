@@ -125,18 +125,21 @@ class DetailPage extends StatelessWidget {
       ),
       Obx(
         () => GestureDetector(
-            onTap: () => Get.bottomSheet(
-                backgroundColor: whiteColor,
-                isScrollControlled: true,
-                Container(
-                  height: screenSize.height * 0.9,
-                  child: PaymentPage(
-                      controler,
-                      controler.Ticket['numberOfTickets'],
-                      context,
-                      screenSize,
-                      Walletcontroler),
-                )),
+            onTap: () {
+              // controler.purchasedTicketList.value = [];F
+              Get.bottomSheet(
+                  backgroundColor: whiteColor,
+                  isScrollControlled: true,
+                  Container(
+                    height: screenSize.height * 0.90,
+                    child: PaymentPage(
+                        controler,
+                        controler.Ticket['numberOfTickets'],
+                        context,
+                        screenSize,
+                        Walletcontroler),
+                  ));
+            },
             child: controler.isPending.value
                 ? CircularProgressIndicator(
                     color: primaryColor,
@@ -460,8 +463,12 @@ class DetailPage extends StatelessWidget {
                         color: homePageContainerBackground,
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Text(
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
                       controler.Ticket['description'] ?? "",
-                      style: TextStyle(color: blackColor),
+                      style: TextStyle(
+                        color: blackColor,
+                      ),
                     ),
                   ),
                   SizedBox(

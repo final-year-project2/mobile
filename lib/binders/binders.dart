@@ -1,7 +1,9 @@
 import 'package:frontend/controller/Product_controller.dart';
+import 'package:frontend/controller/active_ticket_controller.dart';
 import 'package:frontend/controller/ask_phone_number_controller.dart';
 import 'package:frontend/controller/categories_controller.dart';
 import 'package:frontend/controller/dashboard_controller.dart';
+import 'package:frontend/controller/drawing_controller.dart';
 import 'package:frontend/controller/language_controller.dart';
 import 'package:frontend/controller/live_ticket_controller.dart';
 import 'package:frontend/controller/login_controller.dart';
@@ -26,9 +28,18 @@ class Binders extends Bindings {
   @override
   void dependencies() {
     // Get.put(ThemeControllers());
-    Get.put(DashboardController());
+    Get.put(SellerController());
+    Get.put(UserController());
+    Get.put(ActiveTicketController());
+    // Get.lazyPut(() => ActiveTicketController(), fenix: true);
+
+    Get.lazyPut(() => DashboardController(), fenix: true);
+    Get.put(Drawing());
+
     Get.put(ProductController());
     Get.put(LiveTicketController());
+
+    // Get.lazyPut(() => LiveTicketController(), fenix: true);
     Get.put(ThemeControllers());
     Get.put(WalletController());
     Get.put(OTPController());
@@ -38,8 +49,7 @@ class Binders extends Bindings {
     Get.put(NewPasswordController());
     // Get.put(MegaProductController());
     Get.put(HomePage());
-    Get.put(UserController());
-    Get.put(SellerController());
+    // Get.put(UserController());
     Get.put(LoginController());
     Get.put(ProductImageController());
 

@@ -23,17 +23,23 @@ class LandingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset('assets/person1.png'),
-            VerticalSpace(50),
-            Text(
-              'LOGO',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: primaryColor,
-                  fontSize: 23),
+            VerticalSpace(30),
+            // Text(
+            //   'LOGO',
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.bold,
+            //       color: primaryColor,
+            //       fontSize: 23),
+            // ),
+
+            Image(
+              image: AssetImage('assets/cropedlogo.png'),
+              width: 150,
+              height: 150,
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
+                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
               child: Text(
                 'AD'.tr,
                 textAlign: TextAlign.center,

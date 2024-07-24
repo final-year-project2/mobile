@@ -149,6 +149,8 @@ class Success extends StatelessWidget {
               VerticalSpace(screenSize.height * 0.09),
               GestureDetector(
                   onTap: () async {
+                    Get.toNamed('/wallet');
+
                     // walletController.verificationResult?['data']['amount'];
                     final responseBalance =
                         await walletController.getWalletInformations();
@@ -159,8 +161,6 @@ class Success extends StatelessWidget {
                     ///calling transaction function to update the treansaction
                     ///
                     await walletController.getRecentTransaction();
-
-                    Get.toNamed('/wallet');
                   },
                   child: DefaultButton('Continue', false.obs))
             ],

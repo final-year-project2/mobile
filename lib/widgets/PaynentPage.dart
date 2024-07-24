@@ -7,11 +7,8 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:lottie/lottie.dart';
 
-Widget PaymentPage(
-  final controler, String NoOfTicket, final context,
-    final screenSize, final Walletcontroler
-    
-    ) {
+Widget PaymentPage(final controler, String NoOfTicket, final context,
+    final screenSize, final Walletcontroler) {
   return SingleChildScrollView(
     child: Container(
         padding: EdgeInsets.fromLTRB(15, 5, 15, 15),
@@ -57,10 +54,6 @@ Widget PaymentPage(
               SizedBox(
                 height: 5,
               ),
-
-
-
-
               Container(
                 height: 150,
                 width: screenSize.width,
@@ -91,8 +84,6 @@ Widget PaymentPage(
                         )
                       ],
                     ),
-
-
                     SizedBox(
                       height: 130,
                       child: Lottie.asset(
@@ -102,18 +93,9 @@ Widget PaymentPage(
                         backgroundLoading: true,
                       ),
                     ),
-
-
-
                   ],
                 ),
               ),
-
-
-
-
-
-
               SizedBox(
                 height: 15,
               ),
@@ -228,16 +210,18 @@ Widget PaymentPage(
                             ),
                             Row(
                               children: [
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  decoration: BoxDecoration(
-                                      color:
-                                          controler.PaymentType == "from_wallet"
-                                              ? thirdColor
-                                              : whiteColor,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: GestureDetector(
-                                    onTap: () => controler.changePaymentType(),
+                                GestureDetector(
+                                  onTap: () => controler.changePaymentType(),
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                    decoration: BoxDecoration(
+                                        color: controler.PaymentType ==
+                                                "from_wallet"
+                                            ? thirdColor
+                                            : whiteColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     child: Column(
                                       children: [
                                         Text(
@@ -293,7 +277,7 @@ Widget PaymentPage(
                               backgroundColor: whiteColor,
                               isScrollControlled: true,
                               Container(
-                                height: screenSize.height * 0.3,
+                                height: screenSize.height * 0.30,
                                 width: screenSize.width,
                                 child: Column(
                                   children: [
