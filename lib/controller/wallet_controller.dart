@@ -22,6 +22,10 @@ class WalletController extends GetxController {
     final responseBalance = await getWalletInformations();
     walletAmount.value = responseBalance.balance;
     await getRecentTransaction();
+    // final transaction = await getRecentTransaction();
+
+    // print('From transaction ${transaction}');
+    // await getRecentTransaction();
   }
 
   HttpServices? httpServices;
@@ -180,12 +184,16 @@ class WalletController extends GetxController {
 
   Future<List<TransactionModel>> getRecentTransaction() async {
     final walletId = tokenBox.read('walletId');
+    print('from_transaction:${walletId}');
 
     try {
+      print('Transaction_start');
       final response = await httpServices
-          ?.getRequest('user/retiveTransactionInfo/$walletId');
+          ?.getRequest('/user/retiveTransactionInfo/$walletId');
       if (response?.statusCode == 200) {
         isTransactionLoading.value = false;
+        transactions.value = TransactionModel.fromJsonList(response?.data);
+        print(transactions);
       }
 
       // print('bTransaction:${response?.data}');
@@ -195,7 +203,7 @@ class WalletController extends GetxController {
         return throw Exception('transaction response is null');
       }
 
-      transactions.value = TransactionModel.fromJsonList(response.data);
+      // transactions.value = TransactionModel.fromJsonList(response.data);
       print('Transaction :${transactions}');
 
       return transactions;

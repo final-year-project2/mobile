@@ -16,6 +16,7 @@ import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/controller/UserController.dart';
 import 'package:frontend/controller/sellerController.dart';
 import 'package:frontend/controller/ticket_controller.dart';
+import 'package:frontend/controller/user_ticket_controller.dart';
 import 'package:frontend/controller/verify_otp_password_reset_controller.dart';
 import 'package:frontend/pages/seller/save_product.dart';
 import 'package:frontend/controller/wallet_controller.dart';
@@ -38,7 +39,7 @@ class Binders extends Bindings {
 
     Get.put(ProductController());
     Get.put(LiveTicketController());
-
+    Get.put(UserTicketController());
     // Get.lazyPut(() => LiveTicketController(), fenix: true);
     Get.put(ThemeControllers());
     Get.put(WalletController());

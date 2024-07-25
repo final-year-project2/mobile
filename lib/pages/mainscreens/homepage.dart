@@ -1,4 +1,6 @@
 // import 'dart:js_interop';
+// import 'dart:js_interop';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +9,10 @@ import 'package:frontend/constants.dart';
 import 'package:frontend/controller/UserController.dart';
 import 'package:frontend/controller/active_ticket_controller.dart';
 import 'package:frontend/controller/detail_controler.dart';
+import 'package:frontend/controller/language_controller.dart';
 import 'package:frontend/controller/sellerController.dart';
 import 'package:frontend/controller/ticket_controller.dart';
+import 'package:frontend/controller/user_ticket_controller.dart';
 import 'package:frontend/models/ticket_model.dart';
 import 'package:frontend/widgets/layout.dart';
 import 'package:frontend/widgets/ticket.dart';
@@ -26,6 +30,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   static const _pageSize = 20;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final languacontroler = Get.find<LanguageController>();
 
   List campaign = [
     'First',
@@ -38,7 +43,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   RxInt currentIndex = 0.obs;
   Widget tabBarContent = Container();
   List tabBarList = [
-    'All',
+    'All'.tr,
     'Electronics',
     'Car',
     'Home',
@@ -153,7 +158,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Get.toNamed('/activetickets');
                 },
                 leading: Icon(Icons.live_tv_outlined),
-                title: Text('LiveTicket'),
+                title: Text('LIVETICKETS'.tr),
               ),
             ),
             ListTile(
@@ -161,7 +166,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Get.toNamed('/dashboard');
               },
               leading: Icon(Icons.dashboard_outlined),
-              title: Text('Dashboard'),
+              title: Text('Dashboard'.tr),
+            ),
+            ListTile(
+              onTap: () {
+                final userTicketController = Get.find<UserTicketController>();
+                final userController = Get.find<UserController>();
+                String userId = userController.userId.value.toString();
+                print('USER_HISTORY_ID :${userId}');
+                userTicketController.getUserTickets(userId);
+
+                Get.toNamed('/userticket');
+              },
+              leading: Icon(Icons.history),
+              title: Text('HISTORY'.tr),
             )
           ],
         ),
@@ -178,23 +196,54 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 },
                 child: Icon(Icons.menu)),
             actions: [
-              Container(
-                width: 225,
-                height: 33,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: whiteColor),
-                  child: Row(
-                    children: [
-                      HorizontalSpace(7),
-                      Icon(Icons.search),
-                      HorizontalSpace(10),
-                      Text('Search'),
-                    ],
+              Obx(
+                () => DropdownButton(
+                  value: languacontroler.dropdownValue.value,
+                  style: TextStyle(
+                      color: blackColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                    color: blackColor,
                   ),
+                  items: [
+                    DropdownMenuItem<String>(
+                        value: "language1".tr,
+                        child: Text(
+                          "language1".tr,
+                          textAlign: TextAlign.center,
+                        )),
+                    DropdownMenuItem<String>(
+                        value: "language2".tr,
+                        child: Text(
+                          "አማረኛ",
+                          textAlign: TextAlign.center,
+                        ))
+                  ],
+                  onChanged: (String? newValue) {
+                    languacontroler.dropdownValue.value = newValue!;
+                    languacontroler.toggleLanguage(newValue);
+                  },
                 ),
               ),
+              // Container(
+              //   width: 225,
+              //   height: 33,
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(8),
+              //         color: whiteColor),
+              //     child: Row(
+              //       children: [
+              //         // HorizontalSpace(7),
+              //         // Icon(Icons.search),
+              //         HorizontalSpace(10),
+              //         // Text('Search'),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               HorizontalSpace(15),
               Padding(
                 padding: const EdgeInsets.only(right: 5),
@@ -244,7 +293,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   child: Text(
                                       softWrap: true,
                                       maxLines: 7,
-                                      "Don't just win, win exactly what you want .",
+                                      'Don t just win, win exactly what you want .',
                                       style: TextStyle(
                                           letterSpacing: 2,
                                           color: whiteColor,
@@ -357,8 +406,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         item.numberOfBuyer.toString(),
                                         item.numberOfTickets),
                                 imageUri: item.image1,
-                                numberOfBuyers: item.numberOfBuyer
-                                    .toString(), // Placeholder value
+                                // numberOfBuyers: item.numberOfBuyer
+                                // .toString(), // Placeholder value
                                 title: item.title ??
                                     'No Title', // Provide a fallback value
                                 ticketLeft: item.ticketLeft
@@ -366,7 +415,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 totalTicket:
                                     item.numberOfTickets, // Placeholder value
                                 successfulCampaign: '2', // Placeholder value
-                                sellerName: 'item.seller ' ??
+                                seller_name: item.seller_name ??
                                     'Unknown Seller', // Provide a fallback value
                               ),
                             ),

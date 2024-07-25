@@ -4,6 +4,7 @@ import 'package:frontend/controller/error_controller.dart';
 import 'package:frontend/controller/language_controller.dart';
 import 'package:frontend/controller/theme_controller.dart';
 import 'package:frontend/languages.dart';
+import 'package:frontend/models/user_ticket_model.dart';
 import 'package:frontend/pages/authentication/categories.dart';
 import 'package:frontend/pages/authentication/login.dart';
 import 'package:frontend/pages/authentication/otp.dart';
@@ -16,6 +17,7 @@ import 'package:frontend/pages/mainscreens/PurchaseSuccessPage.dart';
 import 'package:frontend/pages/mainscreens/homepage.dart';
 import 'package:frontend/pages/mainscreens/detail.dart';
 import 'package:frontend/pages/mainscreens/main_page.dart';
+import 'package:frontend/pages/mainscreens/previous_ticket.dart';
 import 'package:frontend/pages/mainscreens/wallet/add_money_to_wallet.dart';
 import 'package:frontend/pages/mainscreens/wallet/success.dart';
 import 'package:frontend/pages/mainscreens/wallet/wallet.dart';
@@ -65,15 +67,15 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: themeController.lightTheme,
           // initialRoute: "/detailpage",
-          initialRoute: "/landingpage",
+          initialRoute: "/onboarding_page",
           getPages: [
             // GetPage(
 
             //   page: () => MainPage()),
 
             GetPage(name: '/profile', page: () => Wallet()),
-            // GetPage(name: '/page1', page: () => page1()),
-            // GetPage(name: '/onboarding_page', page: () => onboarding_page()),
+            GetPage(name: '/page1', page: () => page1()),
+            GetPage(name: '/onboarding_page', page: () => onboarding_page()),
 
             GetPage(name: '/mainpage', page: () => MainPage()),
             GetPage(name: '/draw', page: () => DrawTicket()),
@@ -95,6 +97,7 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/signup', page: () => SignUp()),
             GetPage(name: '/category', page: () => Category()),
             GetPage(name: '/liveticket', page: () => LiveTicket()),
+            GetPage(name: '/userticket', page: () => UserTickets()),
 
             GetPage(
               name: '/productdesciption',

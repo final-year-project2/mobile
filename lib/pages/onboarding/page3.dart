@@ -17,7 +17,7 @@ class page3 extends StatelessWidget {
         ),
         SizedBox(
           height: 420,
-          child: Lottie.asset('assets/page3.json',
+          child: Lottie.asset('assets/boarding3.json',
               animate: true, backgroundLoading: true),
         ),
         Padding(

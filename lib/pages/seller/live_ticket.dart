@@ -16,25 +16,11 @@ class LiveTicket extends StatelessWidget {
   var buyers = 0000.0.obs;
 
   final activeTicketController = Get.find<ActiveTicketController>();
+  // Rx? pointer = 10.0.obs;
+  // double calculatePointer() {
+  //   pointer?.value += 5;
 
-  double calculatePointer() {
-    // int total_ticket = int.parse(activeTicketController
-    //     .tickets[activeTicketController.index ?? 0].numberOfTickets);
-    int number_of_buyer = controler.numberOfBuyer.value;
-
-    int total_ticket = controler.total_ticket.value;
-    print('Total_ticket ${total_ticket}');
-
-    if (total_ticket == 0) {
-      return 0.0; // Avoid division by zero
-    }
-
-    buyers.value = ((number_of_buyer / total_ticket) * 100);
-
-    print('Buyer_percent:${buyers.value}');
-
-    return buyers.value;
-  }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +90,7 @@ class LiveTicket extends StatelessWidget {
                         ),
                       ],
                       pointers: <GaugePointer>[
-                        NeedlePointer(value: calculatePointer()),
+                        NeedlePointer(value: 20),
                       ],
                       annotations: <GaugeAnnotation>[
                         GaugeAnnotation(
@@ -133,7 +119,7 @@ class LiveTicket extends StatelessWidget {
                   _showConfirmationDialog(context);
                   final controller = Get.find<Drawing>();
                   controller.getWinner();
-                  calculatePointer();
+                  // calculatePointer();
 
                   // controler.channel.ch
                   // controler.channel.sink.close();

@@ -107,10 +107,12 @@ class TicketModel {
   final int numberOfBuyer;
   final int ticketLeft;
   final bool winner_drawn;
+  final String? seller_name;
 
   TicketModel(
       {required this.id,
       required this.seller,
+      required this.seller_name,
       required this.title,
       required this.description,
       required this.numberOfTickets,
@@ -138,6 +140,7 @@ class TicketModel {
       image3: json['image_3'] ?? null,
       numberOfBuyer: json['number_of_buyer'] ?? 0,
       ticketLeft: json['ticket_left'] ?? 0,
+      seller_name: json['seller_name'] ?? 'natnael',
     );
   }
 

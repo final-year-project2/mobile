@@ -75,13 +75,13 @@ Widget PaymentPage(final controler, String NoOfTicket, final context,
                                 color: blackColor),
                           ),
                         ),
-                        Text(
-                          '10 Ticket Remain ',
-                          style: TextStyle(
-                            color: secondaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
+                        // Text(
+                        //   '10 Ticket Remain ',
+                        //   style: TextStyle(
+                        //     color: secondaryColor,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // )
                       ],
                     ),
                     SizedBox(

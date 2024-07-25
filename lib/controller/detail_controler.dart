@@ -35,7 +35,8 @@ class DetailControler extends GetxController {
   Future Comment(String comment) async {
     try {
       final response = await httpServices.postRequest(
-          'comment/', {"Ticket_id": Ticket['id'], "Comment": comment});
+          '/comment/get/', {"Ticket_id": Ticket['id'], "Comment": comment});
+
       print(response);
     } on dio.DioException catch (e) {
       print('Purchasing error:$e');
@@ -45,7 +46,8 @@ class DetailControler extends GetxController {
 
   Future<List<CommentModel>> getTicketsComment() async {
     try {
-      final response = await httpServices.getRequest('comment/${Ticket['id']}');
+      final response =
+          await httpServices.getRequest('/comment/${Ticket['id']}');
       isPending.value = false;
       return CommentModel.fromJsonList(response.data);
     } catch (e) {

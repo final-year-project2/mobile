@@ -22,7 +22,7 @@ class LandingPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset('assets/person1.png'),
+            Image.asset('assets/landing.png'),
             VerticalSpace(30),
             // Text(
             //   'LOGO',
@@ -157,9 +157,14 @@ class LandingPage extends StatelessWidget {
                   themecontroller.toggleTheme();
                 },
                 child: Container(
-                    color: Color.fromARGB(255, 129, 30, 30),
-                    child: Text(
-                      'Change theme',
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 129, 129, 129),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        'Change theme',
+                      ),
                     ))),
           ],
         ),

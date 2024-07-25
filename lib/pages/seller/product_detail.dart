@@ -158,13 +158,13 @@ class ProductDetail extends StatelessWidget {
               //   isPassword: false,
               //   hintText: 'Click here',
               // ),
-              VerticalSpace(100),
+              VerticalSpace(50),
 
               Obx(() => Text(
                     'Your Total revenue after Deduction: ${sellerRevenue.value.toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   )),
-              VerticalSpace(360),
+              VerticalSpace(250),
 
               GestureDetector(
                 onTap: () {

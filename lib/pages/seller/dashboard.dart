@@ -157,7 +157,7 @@ class _DashboardState extends State<Dashboard> {
       ),
       appBar: AppBar(
         title: Text(
-          "Dashboard",
+          "Dashboard".tr,
           style: TextStyle(fontSize: 15),
         ),
       ),
@@ -190,11 +190,11 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       Column(
                         children: [
-                          Text(
-                            "Previous Campaigns",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
+                          // Text(
+                          //   "PREVIOUSCAMPIGNS".tr,
+                          //   style: TextStyle(
+                          //       fontWeight: FontWeight.bold, fontSize: 15),
+                          // ),
                           VerticalSpace(10),
                           // SizedBox(
                           //   height: size.height * 0.38,
@@ -250,65 +250,65 @@ class _DashboardState extends State<Dashboard> {
                           //         );
                           //       }),
                           // ),
-                          SizedBox(
-                            height: size.height * 0.27,
-                            width: size.width * 2,
-                            child: SfDataGrid(
-                              // rowHeight: 10,
-                              defaultColumnWidth: 100,
-                              headerRowHeight: 40,
-                              source: EmployeeDataSource(employees),
-                              columns: [
-                                GridColumn(
-                                  columnName: 'image',
-                                  label: Container(
-                                    color: Color.fromRGBO(51, 102, 204, 1.0),
-                                    padding: EdgeInsets.all(8.0),
-                                    alignment: Alignment.center,
-                                    child: Text('Image',
-                                        style: TextStyle(color: whiteColor)),
-                                  ),
-                                ),
-                                GridColumn(
-                                  columnName: 'id',
-                                  label: Container(
-                                    color: Color.fromRGBO(51, 102, 204, 1.0),
-                                    padding: EdgeInsets.all(8.0),
-                                    alignment: Alignment.center,
-                                    child: Text('ID',
-                                        style: TextStyle(color: whiteColor)),
-                                  ),
-                                ),
-                                GridColumn(
-                                  columnName: 'category',
-                                  label: Container(
-                                    color: Color.fromRGBO(51, 102, 204, 1.0),
-                                    padding: EdgeInsets.all(8.0),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Category',
-                                      style: TextStyle(color: whiteColor),
-                                    ),
-                                  ),
-                                ),
-                                GridColumn(
-                                  columnName: 'Winner',
-                                  label: Container(
-                                    color: Color.fromRGBO(51, 102, 204, 1.0),
-                                    padding: EdgeInsets.all(8.0),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Winner',
-                                      style: TextStyle(color: whiteColor),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // SizedBox(
+                          //   height: size.height * 0.27,
+                          //   width: size.width * 2,
+                          //   child: SfDataGrid(
+                          //     // rowHeight: 10,
+                          //     defaultColumnWidth: 100,
+                          //     headerRowHeight: 40,
+                          //     source: EmployeeDataSource(employees),
+                          //     columns: [
+                          //       GridColumn(
+                          //         columnName: 'IMAGE'.tr,
+                          //         label: Container(
+                          //           color: Color.fromRGBO(51, 102, 204, 1.0),
+                          //           padding: EdgeInsets.all(8.0),
+                          //           alignment: Alignment.center,
+                          //           child: Text('IMAGE'.tr,
+                          //               style: TextStyle(color: whiteColor)),
+                          //         ),
+                          //       ),
+                          //       GridColumn(
+                          //         columnName: 'IMAGE'.tr,
+                          //         label: Container(
+                          //           color: Color.fromRGBO(51, 102, 204, 1.0),
+                          //           padding: EdgeInsets.all(8.0),
+                          //           alignment: Alignment.center,
+                          //           child: Text('ID',
+                          //               style: TextStyle(color: whiteColor)),
+                          //         ),
+                          //       ),
+                          //       GridColumn(
+                          //         columnName: 'category',
+                          //         label: Container(
+                          //           color: Color.fromRGBO(51, 102, 204, 1.0),
+                          //           padding: EdgeInsets.all(8.0),
+                          //           alignment: Alignment.center,
+                          //           child: Text(
+                          //             'Category',
+                          //             style: TextStyle(color: whiteColor),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       GridColumn(
+                          //         columnName: 'Winner',
+                          //         label: Container(
+                          //           color: Color.fromRGBO(51, 102, 204, 1.0),
+                          //           padding: EdgeInsets.all(8.0),
+                          //           alignment: Alignment.center,
+                          //           child: Text(
+                          //             'Winner',
+                          //             style: TextStyle(color: whiteColor),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
 
                           Text(
-                            'Analytics',
+                            'ANALYTICS'.tr,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -350,7 +350,7 @@ class _DashboardState extends State<Dashboard> {
                                       padding: const EdgeInsets.fromLTRB(
                                           50.0, 0, 0, 10),
                                       child: Text(
-                                        'Key',
+                                        'KEY'.tr,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -371,7 +371,7 @@ class _DashboardState extends State<Dashboard> {
                                               height: 15,
                                             ),
                                           ),
-                                          Text('Electronics')
+                                          Text('ELECTRONICS'.tr)
                                         ],
                                       ),
                                     ),
@@ -391,7 +391,7 @@ class _DashboardState extends State<Dashboard> {
                                               height: 15,
                                             ),
                                           ),
-                                          Text('Car')
+                                          Text('CAR'.tr)
                                         ],
                                       ),
                                     ),
@@ -412,7 +412,7 @@ class _DashboardState extends State<Dashboard> {
                                               height: 15,
                                             ),
                                           ),
-                                          Text('House')
+                                          Text('HOUSE'.tr)
                                         ],
                                       ),
                                     ),
@@ -502,7 +502,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       VerticalSpace(20),
                       Text(
-                        'Frequent ticket buyers',
+                        'FREQUENTTICKETBUYER'.tr,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -607,11 +607,11 @@ class _DashboardState extends State<Dashboard> {
                             )),
                           )),
                       VerticalSpace(20),
-                      Text(
-                        'Overview',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
+                      // Text(
+                      //   'OVERVIEW'.tr,
+                      //   style: TextStyle(
+                      //       fontWeight: FontWeight.bold, fontSize: 16),
+                      // ),
                       VerticalSpace(5),
                       Container(
                         height: 1,
@@ -621,88 +621,88 @@ class _DashboardState extends State<Dashboard> {
                       VerticalSpace(20),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          // crossAxisAlignment: CrossAxisAlignment.baseline,/
-                          children: [
-                            new CircularPercentIndicator(
-                              // backgroundColor: Color.fromRGBO(126, 176, 213, 1.0), // #7eb0d5
-                              // backgroundColor:
-                              // Color.fromRGBO(139, 211, 199, 1.0), // #7eb0d5
+                        // child: Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   // crossAxisAlignment: CrossAxisAlignment.baseline,/
+                        //   children: [
+                        //     new CircularPercentIndicator(
+                        //       // backgroundColor: Color.fromRGBO(126, 176, 213, 1.0), // #7eb0d5
+                        //       // backgroundColor:
+                        //       // Color.fromRGBO(139, 211, 199, 1.0), // #7eb0d5
 
-                              // progressColor: Color.fromRGBO(253, 127, 111, 1.0),
-                              // progressColor: Color.fromRGBO(189, 126, 190, 1.0),
-                              progressColor: Color.fromRGBO(228, 188, 173, 1.0),
-                              circularStrokeCap: CircularStrokeCap.square,
-                              animationDuration: 1200,
-                              animation: true,
-                              radius: 50.0,
-                              lineWidth: 8.0,
-                              percent: 0.9,
-                              center: new Text(
-                                "699 BIRR",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              footer: Text(
-                                'Total Revenue',
-                                style: TextStyle(fontSize: 12),
-                              ),
+                        //       // progressColor: Color.fromRGBO(253, 127, 111, 1.0),
+                        //       // progressColor: Color.fromRGBO(189, 126, 190, 1.0),
+                        //       progressColor: Color.fromRGBO(228, 188, 173, 1.0),
+                        //       circularStrokeCap: CircularStrokeCap.square,
+                        //       animationDuration: 1200,
+                        //       animation: true,
+                        //       radius: 50.0,
+                        //       lineWidth: 8.0,
+                        //       percent: 0.9,
+                        //       center: new Text(
+                        //         "699 BIRR",
+                        //         style: TextStyle(fontSize: 12),
+                        //       ),
+                        //       footer: Text(
+                        //         'TOTALREVENUE'.tr,
+                        //         style: TextStyle(fontSize: 12),
+                        //       ),
 
-                              // progressColor: Colors.green,
-                            ),
-                            new CircularPercentIndicator(
-                              // backgroundColor:
-                              //     Color.fromRGBO(126, 176, 213, 1.0), // #7eb0d5
-                              // backgroundColor:
-                              //     Color.fromRGBO(200, 0, 100, 1.0), // #7eb0d5
+                        //       // progressColor: Colors.green,
+                        //     ),
+                        //     new CircularPercentIndicator(
+                        //       // backgroundColor:
+                        //       //     Color.fromRGBO(126, 176, 213, 1.0), // #7eb0d5
+                        //       // backgroundColor:
+                        //       //     Color.fromRGBO(200, 0, 100, 1.0), // #7eb0d5
 
-                              // progressColor: Color.fromRGBO(253, 127, 111, 1.0),
-                              progressColor: Color.fromRGBO(223, 151, 158, 1.0),
-                              // progressColor: Color.fromRGBO(190, 185, 219, 1.0),
-                              circularStrokeCap: CircularStrokeCap.square,
-                              animationDuration: 1200,
-                              animation: true,
-                              radius: 50.0,
-                              lineWidth: 8.0,
-                              percent: 0.9,
-                              center: new Text(
-                                "9 Campaign",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              footer: Text(
-                                'Total Campaign',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              // progressColor: Colors.green,
-                            ),
-                            new CircularPercentIndicator(
-                              // backgroundColor: Color.fromRGBO(126, 176, 213, 1.0), // #7eb0d5
-                              // backgroundColor: Color.fromRGBO(189, 126, 190, 1.0),
+                        //       // progressColor: Color.fromRGBO(253, 127, 111, 1.0),
+                        //       progressColor: Color.fromRGBO(223, 151, 158, 1.0),
+                        //       // progressColor: Color.fromRGBO(190, 185, 219, 1.0),
+                        //       circularStrokeCap: CircularStrokeCap.square,
+                        //       animationDuration: 1200,
+                        //       animation: true,
+                        //       radius: 50.0,
+                        //       lineWidth: 8.0,
+                        //       percent: 0.9,
+                        //       center: new Text(
+                        //         "9 Campaign",
+                        //         style: TextStyle(fontSize: 12),
+                        //       ),
+                        //       footer: Text(
+                        //         'TOTALTICKETS'.tr,
+                        //         style: TextStyle(fontSize: 12),
+                        //       ),
+                        //       // progressColor: Colors.green,
+                        //     ),
+                        //     new CircularPercentIndicator(
+                        //       // backgroundColor: Color.fromRGBO(126, 176, 213, 1.0), // #7eb0d5
+                        //       // backgroundColor: Color.fromRGBO(189, 126, 190, 1.0),
 
-                              // backgroundColor:
-                              //     Color.fromRGBO(139, 211, 199, 1.0), // #7eb0d5
+                        //       // backgroundColor:
+                        //       //     Color.fromRGBO(139, 211, 199, 1.0), // #7eb0d5
 
-                              // progressColor: Color.fromRGBO(253, 127, 111, 1.0),
-                              // progressColor: Color.fromRGBO(189, 126, 190, 1.0),
-                              progressColor: Color.fromRGBO(223, 151, 158, 1.0),
-                              circularStrokeCap: CircularStrokeCap.square,
-                              animationDuration: 1500,
-                              animation: true,
-                              radius: 50.0,
-                              lineWidth: 8.0,
-                              percent: 0.90,
-                              center: new Text(
-                                "228 tickets",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              footer: Text(
-                                'Total Tickets',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              // progressColor: Colors.green,
-                            ),
-                          ],
-                        ),
+                        //       // progressColor: Color.fromRGBO(253, 127, 111, 1.0),
+                        //       // progressColor: Color.fromRGBO(189, 126, 190, 1.0),
+                        //       progressColor: Color.fromRGBO(223, 151, 158, 1.0),
+                        //       circularStrokeCap: CircularStrokeCap.square,
+                        //       animationDuration: 1500,
+                        //       animation: true,
+                        //       radius: 50.0,
+                        //       lineWidth: 8.0,
+                        //       percent: 0.90,
+                        //       center: new Text(
+                        //         "228 tickets",
+                        //         style: TextStyle(fontSize: 12),
+                        //       ),
+                        //       footer: Text(
+                        //         'Total Tickets',
+                        //         style: TextStyle(fontSize: 12),
+                        //       ),
+                        //       // progressColor: Colors.green,
+                        //     ),
+                        //   ],
+                        // ),
                       ),
                       VerticalSpace(10),
                       Container(
@@ -768,12 +768,13 @@ class _DashboardState extends State<Dashboard> {
                   children: [
                     Container(
                       height: 300,
+                      child: Image(image: AssetImage('assets/sellerbb.jpg')),
                     ),
                     Center(
                       child: Text(
-                        'Sell with Us. Get the Full App. ',
+                        'Sell with Us. Get the Full App.',
                         style: TextStyle(
-                            fontSize: 44, fontWeight: FontWeight.bold),
+                            fontSize: 40, fontWeight: FontWeight.bold),
                       ),
                     ),
                     VerticalSpace(40),
@@ -831,7 +832,7 @@ class _DashboardState extends State<Dashboard> {
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
                                     // decoration: TextDecoration.lineThrough,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.normal,
                                     fontSize: 15,
                                     // wordSpacing: ,
                                     letterSpacing: 1.8),

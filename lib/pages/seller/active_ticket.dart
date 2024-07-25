@@ -22,7 +22,7 @@ class ActiveTickets extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Active Ticket',
+            'YOURTICKET'.tr,
             style: TextStyle(fontSize: 16),
           ),
         ),
@@ -57,7 +57,7 @@ class ActiveTickets extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Your Tickets',
+                                'YOURTICKET'.tr,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 19),
                               ),

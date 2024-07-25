@@ -17,6 +17,24 @@ class TicketController<T> extends GetxController {
     'other': PagingController(firstPageKey: 1),
   };
 
+  RxBool? isUser;
+
+  Future<void> checkIfUser(String user_id) async {
+    try {
+      final response = await httpServices
+          .postRequest('/product/check_user/', {"user_id": user_id});
+
+      if (response.statusCode == 200) {
+        isUser?.value = true;
+      } else {
+        isUser?.value = false;
+      }
+    } catch (e) {
+      print('Error fetching tickets: $e');
+      throw Exception(e);
+    }
+  }
+
   Future<List<TicketModel>> _fetchTickets(String category, int pageKey) async {
     try {
       final response = await httpServices

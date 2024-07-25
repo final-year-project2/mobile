@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controller/UserController.dart';
 import 'package:frontend/controller/detail_controler.dart';
+import 'package:frontend/controller/ticket_controller.dart';
 import 'package:frontend/controller/wallet_controller.dart';
 import 'package:frontend/widgets/PaynentPage.dart';
 import 'package:frontend/widgets/buttons.dart';
@@ -67,14 +69,19 @@ class DetailPage extends StatelessWidget {
             margin: EdgeInsets.only(left: 10),
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-                color: grayTextColor, borderRadius: BorderRadius.circular(10)),
+                color: Color.fromRGBO(222, 216, 225, 1),
+                // color: Color.fromRGBO(216, 210, 220, 1),
+                // color: Color.fromRGBO(255, 251, 245, 1),
+                // rgb(195, 172, 208)
+
+                borderRadius: BorderRadius.circular(10)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Price ${controler.Ticket['price_of_ticket']} Birr",
                   style: TextStyle(
-                    color: darklight,
+                    color: blackColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -84,7 +91,7 @@ class DetailPage extends StatelessWidget {
                 Text(
                   "${controler.Ticket['numberOfTickets']} Tickets",
                   style: TextStyle(
-                    color: darklight,
+                    color: blackColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -94,7 +101,7 @@ class DetailPage extends StatelessWidget {
                 Text(
                   "purchase lead to winner",
                   style: TextStyle(
-                    color: darklight,
+                    color: blackColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -103,8 +110,13 @@ class DetailPage extends StatelessWidget {
           ),
           CircularPercentIndicator(
             radius: 50,
-            progressColor: thirdColor,
-            backgroundColor: blureGreen,
+            // rgb(255, 251, 245)
+            progressColor: Color.fromRGBO(195, 172, 208, 1),
+            // backgroundColor: Color.fromRGBO(255, 251, 245, 1),
+            backgroundColor: Color.fromRGBO(171, 125, 255, 1),
+            // rgb(119, 67, 219)
+            // rgb(195, 172, 208)
+// Color.fromRGBO(255, 251, 245, 1),
             animation: true,
             lineWidth: 12,
             animationDuration: 2000,
@@ -127,6 +139,7 @@ class DetailPage extends StatelessWidget {
         () => GestureDetector(
             onTap: () {
               // controler.purchasedTicketList.value = [];F
+
               Get.bottomSheet(
                   backgroundColor: whiteColor,
                   isScrollControlled: true,
@@ -398,7 +411,8 @@ class DetailPage extends StatelessWidget {
                               ),
                               Text(
                                 controler.Ticket['prizeCategories'],
-                                style: TextStyle(color: thirdColor),
+                                style: TextStyle(
+                                    color: Color.fromRGBO(100, 100, 100, 1)),
                               )
                             ],
                           ),
@@ -426,7 +440,7 @@ class DetailPage extends StatelessWidget {
                       Icon(
                         Icons.person,
                         size: 40,
-                        color: thirdColor,
+                        color: Color.fromRGBO(195, 172, 208, 1),
                       ),
                       SizedBox(
                         width: screenSize.width * 0.5,

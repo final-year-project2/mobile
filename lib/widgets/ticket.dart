@@ -9,7 +9,7 @@ Widget Ticket(
     String? totalTicket,
     String? numberOfBuyers,
     String? successfulCampaign,
-    String? sellerName,
+    String? seller_name,
     String? imageUri,
     double? progessValue}) {
   return Container(
@@ -146,7 +146,7 @@ Widget Ticket(
                       Expanded(child: Container()),
                       Icon(Icons.account_circle),
                       Text(
-                        sellerName ?? '',
+                        seller_name ?? '',
                         style: TextStyle(fontSize: 11, color: thirdColor),
                       ),
                     ],

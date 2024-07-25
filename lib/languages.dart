@@ -1,14 +1,122 @@
 // en_us.dart
 import 'package:get/get.dart';
 
+// class Languages extends Translations {
+//   @override
+//   Map<String, Map<String, String>> get keys => {
+//         'en_Us': {
+//           'language1': "English",
+//           'language2': "አማረኛ",
+//           'hello': 'hello',
+//           'finaly': 'finaly',
+//           'create_acount': 'create acount',
+//           'skip': 'skip',
+//           'page1description':
+//               'Welcome to our app designed to bring the joy of selling and buying the lottery tiket directly to your mobile device,We are committed to providing you with a seamless and user friendly experience that makes buying and selling the lottery convenient and easy',
+//           'page2description':
+//               'To get started, create your personal account within the app. It is a quick and easy process that will enable you to access a wide variety of exciting lottery tikets, track your tickets, and manage your winnings all in one place. Your account information is securely protected, so you can play with confidence',
+//           'page3description':
+//               'Get ready to immerse yourself in the world of lotteries with our App. Enjoy the convenience, excitement, and potential life-changing wins that await you. Our dedicated support team is available to assist you with any questions or concerns you may have',
+//           'BROWSEPRIZE': 'Browse Prize ',
+//           'SIGNIN': 'Sign in',
+//           'AD': 'Unlock the Unseen, Win the prize',
+//           'OR': 'or',
+//           'NOACCOUNT': "Don't have an account",
+//           'SIGNUP': 'Sign up',
+//           'PRIVACY': 'By continue you are agree with the xxxx ',
+//           'TERM': 'Term',
+//           'AND': 'and',
+//           'POLICY': 'policy notice',
+//           'AGREED': ' ',
+//           'PRODUCT': 'Describe about your product',
+//           'TITLE': 'Give your product a title',
+//           'DESCRIPTION': 'Describe  your product in detail',
+//           'CONTINUE': 'Continue',
+//           'DETAIL': 'Prize Details',
+//           'NUBER_OF_TICKETS': 'How many tickets want to be sold',
+//           'CATEGORY': 'Enter Prize category',
+//           'CLICK_HERE': 'Click here',
+//           'PRICE_OF_TICKET': 'Enter Price of ticket',
+//           'Profile_photo': 'Add Profile Photo here',
+//           'TITLEs_PHOTO': 'Add cover photo',
+//           'NEARLY_FINISHED': 'Nearly finished Add Images for your product',
+//           'COVER_IMAGE':
+//               'Add cover image that will be displayed as Title photo',
+//           'TITLE_PHOTO': 'Add title photo',
+//           'ADDITIONAL_PHOTO':
+//               'Add two photos to describe the product more(Optional)',
+//           'IMAGE_SIZE': 'Image size must not greater than 9mb',
+//           'SUPPORTED_FORMATS': 'Supported formats are .*jpg and .*png ',
+//           'VERIFY': 'Verify',
+//           'ENTER_OTP':
+//               'Please enter the 4 digit code sent to you at +251 91337****',
+//           // 'DASHBOARD':'Dashbard'
+//         },
+//         'am_Et': {
+//           // 'DASHBOARD':''
+//           'hello': 'ሰላም',
+//           'create_acount': 'መለያ ይፍጠሩ።',
+//           'skip': 'ዝለል',
+//           'finaly': 'በመጨረሻም',
+//           'page1description':
+//               'የሎተሪ ትኬቱን በቀጥታ በስልኮ መሸጥ እና የመግዛት ወደሚያስችለው መተግበሪያ እንኳን በደህና መጡ።ሎተሪ መግዛት እና መሸጥ ምቹ እና ቀላል የሚያደርግ እንከን የለሽ እና ለተጠቃሚ ምቹ የሆነ መተግበሪያ ስናቀርብልዎ በደስታ ነው',
+//           'page2description':
+//               'ለመጀመር በመተግበሪያው ውስጥ የግል መለያዎን ይፍጠሩ። ብዙ አይነት እድለኛ የሚያደርጉ የሎተሪ ቲኬቶችን ለማግኘት፣ ቲኬቶችን ለመከታተል እና ሁሉንም በአንድ ቦታ ለማስተዳደር የሚያስችል ፈጣን እና ቀላል ሂደት ነው። የመለያዎ መረጃ ደህንነቱ በተጠበቀ ሁኔታ የተጠበቀ ነው፣ ስለዚህ በራስ መተማመን መጫወት ይችላሉ',
+//           'page3description':
+//               'በእኛ መተግበሪያ እድለኛ ለመሆን ይዘጋጁ። እርስዎን በሚጠብቁት  ህይወት ሊቀይሩ የሚችሉ እድሎች ይደሰቱ ። ለሚኖሩዎት ጥያቄዎች ወይም ስጋቶች እርስዎን ለመርዳት ዝግጁ ነው',
+//           'BROWSEPRIZE': 'ሽልማቶችን ይመልከቱ',
+//           'SIGNIN': 'ይጝቡ',
+//           // 'DASHOBARD':''
+//           'AD': ' የፍጎቶን ሽልማት ያሸንፉ ፥ ሁሉም አለ!',
+//           'OR': 'ወይም',
+//           'NOACCOUNT': 'አካውንት የሎትም?',
+//           'SIGNUP': 'አዲስ አካውንት ይክፈቱ',
+//           'PRIVACY': 'መተግበሪያውን በመጠቀሞ ከድርጅቱ ',
+//           'TERM': 'ደንብ  ',
+//           'AND': 'እና  ',
+//           'POLICY': 'መመሪያ ',
+//           'AGREED': ' ጋር ተስማምተዋል ',
+//           'PRODUCT': 'ስለ እጣው መረጃ ያስገቡ',
+//           'TITLE': 'ለ እጣው ርዕስ ይስጡ',
+//           'DESCRIPTION': 'ለ እጣው ማብራሪያ ያስገቡ',
+//           'CONTINUE': 'ይቀጥሉ',
+//           'DETAIL': 'የ እጣ መረጃ',
+//           'NUBER_OF_TICKETS': 'ስንት ትኬት እንዲሸጥሎ ይፈልጋሉ?',
+//           'CATEGORY': 'የእጣውን መደብ ያስገቡ',
+//           'CLICK_HERE': 'ይሄን ይጫኑ',
+//           'PRICE_OF_TICKET': 'የ እጣ ዋጋ ያሰግቡ',
+//           'Profile_photo': '',
+//           'NEARLY_FINISHED': 'ጨርሰዋል...የእጣውን ፎቶዎች ብቻ ያስገቡ',
+//           'COVER_IMAGE': 'የእጣው የፊት ገፅ ላይ የሚታይ ፎቶ ያስገቡ',
+//           'TITLE_PHOTO': 'የፊት ገፅ ፎቶ ያስገቡ',
+//           'ADDITIONAL_PHOTO': 'ተጨማሪ ሁለት ፎቶዎችን ያስገቡ(እንደ አማራጭ)',
+//           'IMAGE_SIZE': 'አንድ ፎቶ ከ 9mb መብለጥ የለበትም',
+//           'SUPPORTED_FORMATS ': 'በ.*Jpg .*png የሚያበቁ ፎቶዎችን መለጠፍ ይችላሉ  ',
+//           'VERIFY': 'ያረጋግጡ',
+//           'ENTER_OTP': 'ወደ +251 91337**** የላክንሎትን ኮድ ያስገቡ'
+//         }
+//       };
+// }
+
+// en_us.dart
+
+import 'package:get/get.dart';
+
 class Languages extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_Us': {
+          'HISTORY': 'Prior ticket ',
           'language1': "English",
           'language2': "አማረኛ",
           'hello': 'hello',
           'finaly': 'finaly',
+          'LOGO': 'LOGO',
+          'REGISTERASSELLER': 'Register As seller',
+          'CONFIRMATION': 'Are you sure you want to register as a seller?',
+          'CANCEL': 'Cancel',
+          'CONFIRM': 'Confirm',
+          'CHANGETHEME': 'Change Theme',
           'create_acount': 'create acount',
           'skip': 'skip',
           'page1description':
@@ -19,6 +127,44 @@ class Languages extends Translations {
               'Get ready to immerse yourself in the world of lotteries with our App. Enjoy the convenience, excitement, and potential life-changing wins that await you. Our dedicated support team is available to assist you with any questions or concerns you may have',
           'BROWSEPRIZE': 'Browse Prize ',
           'SIGNIN': 'Sign in',
+          'SELLERREGISTRATION': 'Seller Registration',
+          'DASHBOARD': 'Dashboard',
+          'PREVIOUSCAMPIGNS': 'previous Campigns',
+          'IMAGE': 'Image',
+          'ID': 'Id',
+          //'CATEGORY':'Category',
+          'WINNER': 'Winner',
+          'ANALYTICS': 'Analytics',
+          'KEY': 'Key',
+          'PURCHASING': 'purchase lead to winner',
+          'BUYTICKET': 'Buy Ticket',
+          'NOCOMMENT': 'No Comment',
+          'COMMENT': 'Comment ',
+          '699BIRR': '699 Birr',
+          'ELECTRONICS': 'Electronics',
+          'CAR': 'Car',
+          'FREQUENTTICKETBUYER': 'Frequent Ticket Buyer',
+          'OVERVIEW': 'OverView',
+          'HOUSE': 'House',
+          'REVENUEPERCAMPIGN': 'Revenue Per Campign',
+          'TOTALREVENUE': 'Total Revenue',
+          '9CAMPIGN': '9 Campign',
+          'TOTALCAMPIGN': 'Total Campign',
+          '228TICKETS': '228 Tickets',
+          'TOTALTICKETS': 'Total Tickets',
+          'LIVETICKETS': 'Live Tickets',
+          'TICKETLEFT': 'Ticket Left',
+          'DRAWERTICKET': 'Draw Ticket',
+          'BUYERSREACHED': 'Buyers Reached',
+          '10TICKETLEFT': '10 Ticket Left',
+          'SELCETION': 'Select Ticket Number',
+          'SOLD': 'Sold',
+          'BIRRTOTAL': 'Birr Total',
+          'PAYMENTMETHOD': 'Payment Method',
+          'WALLET': 'Wallet',
+          'CHAPA': 'Chapa',
+          'INSUFFICENT': 'Insufficent Amount',
+          'PAY': 'Pay',
           'AD': 'Unlock the Unseen, Win the prize',
           'OR': 'or',
           'NOACCOUNT': "Don't have an account",
@@ -39,7 +185,7 @@ class Languages extends Translations {
           'PRICE_OF_TICKET': 'Enter Price of ticket',
           'Profile_photo': 'Add Profile Photo here',
           'TITLEs_PHOTO': 'Add cover photo',
-          'NEARLY_FINISHED': 'Nearly finished Add Images for your product',
+          'NEARLY_FINISHED': 'early finished Add Images for your product',
           'COVER_IMAGE':
               'Add cover image that will be displayed as Title photo',
           'TITLE_PHOTO': 'Add title photo',
@@ -49,11 +195,9 @@ class Languages extends Translations {
           'SUPPORTED_FORMATS': 'Supported formats are .*jpg and .*png ',
           'VERIFY': 'Verify',
           'ENTER_OTP':
-              'Please enter the 4 digit code sent to you at +251 91337****',
-          // 'DASHBOARD':'Dashbard'
+              'Please enter the 4 digit code sent to you at +251 91337****'
         },
         'am_Et': {
-          // 'DASHBOARD':''
           'hello': 'ሰላም',
           'create_acount': 'መለያ ይፍጠሩ።',
           'skip': 'ዝለል',
@@ -66,13 +210,14 @@ class Languages extends Translations {
               'በእኛ መተግበሪያ እድለኛ ለመሆን ይዘጋጁ። እርስዎን በሚጠብቁት  ህይወት ሊቀይሩ የሚችሉ እድሎች ይደሰቱ ። ለሚኖሩዎት ጥያቄዎች ወይም ስጋቶች እርስዎን ለመርዳት ዝግጁ ነው',
           'BROWSEPRIZE': 'ሽልማቶችን ይመልከቱ',
           'SIGNIN': 'ይጝቡ',
-          // 'DASHOBARD':''
           'AD': ' የፍጎቶን ሽልማት ያሸንፉ ፥ ሁሉም አለ!',
           'OR': 'ወይም',
           'NOACCOUNT': 'አካውንት የሎትም?',
           'SIGNUP': 'አዲስ አካውንት ይክፈቱ',
           'PRIVACY': 'መተግበሪያውን በመጠቀሞ ከድርጅቱ ',
           'TERM': 'ደንብ  ',
+          'LOGO': 'ሎጎ',
+          'CHANGETHEME': 'ቲም ቀይር',
           'AND': 'እና  ',
           'POLICY': 'መመሪያ ',
           'AGREED': ' ጋር ተስማምተዋል ',
@@ -82,10 +227,50 @@ class Languages extends Translations {
           'CONTINUE': 'ይቀጥሉ',
           'DETAIL': 'የ እጣ መረጃ',
           'NUBER_OF_TICKETS': 'ስንት ትኬት እንዲሸጥሎ ይፈልጋሉ?',
-          'CATEGORY': 'የእጣውን መደብ ያስገቡ',
+          'CATEGORY': 'የዕጣው መደብ',
           'CLICK_HERE': 'ይሄን ይጫኑ',
+          'Dashboard': 'የሽያጩ ባለቤት ገፅ',
+          'PREVIOUSCAMPIGNS': 'ከዚህ በፊት የወጡ ዕጣዋቺ',
+          'IMAGE': 'ምስል',
+          'ID': 'መለያ',
+          'WINNER': 'የኣጣው አሸናፊ',
+          'ANALYTICS': 'የሽያጩ መረጃወች',
+          'KEY': 'መፍቻ',
+          '699BIRR': '699 ብር',
+          'ELECTRONICS': 'ኤሌክትሮኒክስ',
+          'CAR': 'መኪና',
+          'FREQUENTTICKETBUYER': 'በተደጋጋሚ ዕጣ  የሚገዙ ስወቺ',
+          'OVERVIEW': 'አጠቃላይ መረጃ',
+          'HOUSE': 'ቤት',
+          'REVENUEPERCAMPIGN': 'ሻጩ ከ ዕጣው የሚያገጘው ገቢ',
+          'TOTALREVENUE': 'የሻጩ አጠቃላይ ገቢ',
+          '228TICKETS': '228 ዕጣ',
+          'REGISTERASSELLER': 'ሻጭ ለመሆን ይመዝገቡ',
+          'CONFIRMATION': 'ሻጭ መሆን ይፈልጋሉ?',
+          'CANCEL': 'ይቅር',
+          'CONFIRM': 'ይቀጥል',
+          'PURCHASING': 'ዕጣ ይግዙ ያሸንፉ',
+          'BUYTICKET': 'ዕጣ ይግዙ',
+          'NOCOMMENT': 'አስተያየት የለም',
+          'COMMENT': 'አስተያየት መስጫ ',
+          'TOTALTICKETS': 'አጠቃላይ የ ዕጣ ብዛት',
+          'LIVETICKETS': 'አሁናዊ ዕጣዋች',
+          'SELLERREGISTRATION': 'የሻጩ መመዝገቢያ ገፅ',
+          'TICKETLEFT': 'ያልተሸጡ ዕጣዋቺ',
+          'DRAWERTICKET': 'ኣጣውን አውጣ',
+          'BUYERSREACHED': 'ዕጣው ተሽጦ አልቋል',
+          '10TICKETLEFT': 'ያልተሸጡ 10 ዕጣ ቀርተዋል',
+          'SELCETION': 'የፈለጉትን ዕጣ ቁትር ይምረጡ',
+          'SOLD': 'የተሸጠ ዕጣ',
+          'BIRRTOTAL': 'ጠቅላላ ዋጋ',
+          'PAYMENTMETHOD': 'የክፍያ አማራጭ',
+          'WALLET': 'ዋሌት',
+          'CHAPA': 'ቻፓ',
+          'HISTORY': 'የተቆረጡ ዕጣዎች',
+          'INSUFFICENT': 'በቂ ሂሳብ የለዋትም',
+          'PAY': 'ክፈል',
           'PRICE_OF_TICKET': 'የ እጣ ዋጋ ያሰግቡ',
-          'Profile_photo': '',
+          'Profile_photo': 'እርስዋን የሚገልፅ ፎቶ ያስገቡ',
           'NEARLY_FINISHED': 'ጨርሰዋል...የእጣውን ፎቶዎች ብቻ ያስገቡ',
           'COVER_IMAGE': 'የእጣው የፊት ገፅ ላይ የሚታይ ፎቶ ያስገቡ',
           'TITLE_PHOTO': 'የፊት ገፅ ፎቶ ያስገቡ',
@@ -93,7 +278,7 @@ class Languages extends Translations {
           'IMAGE_SIZE': 'አንድ ፎቶ ከ 9mb መብለጥ የለበትም',
           'SUPPORTED_FORMATS ': 'በ.*Jpg .*png የሚያበቁ ፎቶዎችን መለጠፍ ይችላሉ  ',
           'VERIFY': 'ያረጋግጡ',
-          'ENTER_OTP': 'ወደ +251 91337**** የላክንሎትን ኮድ ያስገቡ'
+          'ENTER_OTP': 'ወደ +251**** የላክንሎትን ኮድ ያስገቡ'
         }
       };
 }
