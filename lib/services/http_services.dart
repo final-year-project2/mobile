@@ -5,12 +5,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final tokenBox = GetStorage();
 
-String accessToken = tokenBox.read('accessToken');
-String refreshToken = tokenBox.read('refreshToken');
+var refreshToken = tokenBox.read('refreshToken');
+var accessToken = tokenBox.read('accessToken');
 
 class HttpServices {
   final BASE_URL = dotenv.env['BASE_URL'];
   Dio dio = Dio();
+
   Future<Response> postRequest(String url, var data) async {
     try {
       final response = await dio.post(

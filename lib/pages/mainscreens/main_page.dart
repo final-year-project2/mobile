@@ -126,6 +126,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/pages/authentication/login.dart';
+import 'package:frontend/pages/merchant_registration/merchant_legal_info.dart';
 
 import 'package:frontend/pages/seller/dashboard.dart';
 import 'package:frontend/pages/seller/product_description.dart';
@@ -183,8 +184,7 @@ class _MainPageState extends State<MainPage> {
               } else {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => SellerRegistrationPage()),
+                  MaterialPageRoute(builder: (context) => MerchantLegalInfo()),
                 );
               }
             } catch (e) {

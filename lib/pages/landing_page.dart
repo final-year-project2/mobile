@@ -162,9 +162,7 @@ class LandingPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child: Text(
-                        'Change theme',
-                      ),
+                      child: Text('Change Theme'),
                     ))),
           ],
         ),

@@ -247,8 +247,7 @@ class Wallet extends StatelessWidget {
                                         Color.fromARGB(218, 237, 236, 236),
                                     title: Text(walletController
                                         .transactions[index].amount),
-                                    trailing: Text(walletController
-                                        .transactions[index].transactionType),
+                                    trailing: Text("Deposite"),
                                   ),
                                 ),
                               )),

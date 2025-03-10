@@ -174,7 +174,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Image.asset('assets/nodata.png'),
               ),
               Text(
-                'No seller data yet.',
+                'No seller data yet.....',
                 style: TextStyle(fontWeight: FontWeight.bold),
               )
             ],

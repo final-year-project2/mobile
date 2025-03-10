@@ -69,8 +69,7 @@ class LiveTicket extends StatelessWidget {
               decoration: BoxDecoration(
                   // color: Color.fromRGBO(125, 90, 160, 1),
                   ),
-              child: Obx(() {
-                return SfRadialGauge(
+              child: SfRadialGauge(
                   axes: <RadialAxis>[
                     RadialAxis(
                       minimum: 0,
@@ -110,8 +109,8 @@ class LiveTicket extends StatelessWidget {
                       ],
                     ),
                   ],
-                );
-              }),
+                )
+              
             ),
             Container(height: size.height * 0.320),
             GestureDetector(

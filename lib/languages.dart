@@ -169,10 +169,10 @@ class Languages extends Translations {
           'OR': 'or',
           'NOACCOUNT': "Don't have an account",
           'SIGNUP': 'Sign up',
-          'PRIVACY': 'By continue you are agree with the xxxx ',
-          'TERM': 'Term',
-          'AND': 'and',
-          'POLICY': 'policy notice',
+          'PRIVACY': 'By continue you are agree with the Edelgna ',
+          'TERM': 'Term ',
+          'AND': ' and ',
+          'POLICY': ' policy notice',
           'AGREED': ' ',
           'PRODUCT': 'Describe about your product',
           'TITLE': 'Give your product a title',
@@ -195,9 +195,11 @@ class Languages extends Translations {
           'SUPPORTED_FORMATS': 'Supported formats are .*jpg and .*png ',
           'VERIFY': 'Verify',
           'ENTER_OTP':
-              'Please enter the 4 digit code sent to you at +251 91337****'
+              'Please enter the 4 digit code sent to you at +251 91337****',
+          'LegalInfo': "Legal Business Informations"
         },
         'am_Et': {
+          "LegalInfo": "ህጋዊ የድርጅት መረጃዎች",
           'hello': 'ሰላም',
           'create_acount': 'መለያ ይፍጠሩ።',
           'skip': 'ዝለል',
